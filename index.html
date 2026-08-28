@@ -6,12 +6,6 @@
     <title>🌸 Raksha Bandhan Surprise 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
             --pink-light: #ffd6e7;
             --pink-pastel: #f8c8ff;
@@ -21,16 +15,21 @@
             --lavender-deep: #d9c2ff;
             --pink-glow: rgba(255, 105, 180, 0.6);
             --lavender-glow: rgba(180, 130, 255, 0.5);
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            --glass-highlight: rgba(255, 255, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffd6e7 0%, #f8c8ff 25%, #e8d9ff 50%, #ffc2dc 75%, #d9c2ff 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: #0a0a0f;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -42,74 +41,87 @@
             padding: 20px;
         }
 
+        /* Layer 1: Animated Gradient Background */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                #2d1b3d 0%, 
+                #3d2440 15%, 
+                #4a2b45 30%, 
+                #3d2440 45%, 
+                #2d1b3d 60%, 
+                #4a2b45 75%, 
+                #2d1b3d 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            z-index: 0;
+        }
+
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .background-blobs {
+        /* Layer 2: Glass Light Blobs */
+        .blob-layer {
             position: fixed;
             inset: 0;
+            z-index: 1;
             pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
         }
 
         .blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-            animation: blobFloat 20s infinite ease-in-out;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: blobFloat 30s infinite ease-in-out;
         }
 
         @keyframes blobFloat {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 30px) scale(0.9); }
+            25% { transform: translate(50px, -30px) scale(1.1); }
+            50% { transform: translate(-30px, 40px) scale(0.9); }
+            75% { transform: translate(20px, 20px) scale(1.05); }
         }
 
-        .blob-1 { width: 400px; height: 400px; background: #ffd6e7; top: -100px; left: -100px; }
-        .blob-2 { width: 350px; height: 350px; background: #f8c8ff; bottom: -50px; right: -50px; animation-delay: -5s; }
-        .blob-3 { width: 300px; height: 300px; background: #e8d9ff; top: 50%; left: 50%; animation-delay: -10s; }
+        .blob-1 { width: 500px; height: 500px; background: #ff69b4; top: -150px; left: -100px; }
+        .blob-2 { width: 450px; height: 450px; background: #9370db; bottom: -100px; right: -80px; animation-delay: -10s; }
+        .blob-3 { width: 400px; height: 400px; background: #ffb6c1; top: 40%; left: 40%; animation-delay: -20s; }
+        .blob-4 { width: 350px; height: 350px; background: #dda0dd; top: -50px; right: 20%; animation-delay: -15s; }
 
-        #particles-container {
+        /* Layer 3: Canvas Particles */
+        #particleCanvas {
             position: fixed;
             inset: 0;
+            z-index: 2;
             pointer-events: none;
-            z-index: 1;
         }
 
-        .particle {
-            position: absolute;
+        /* Layer 4: Glass Reflections */
+        .glass-reflection {
+            position: fixed;
+            inset: 0;
+            z-index: 3;
             pointer-events: none;
-            animation: floatUp linear infinite;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.03) 0%, 
+                transparent 30%, 
+                transparent 70%, 
+                rgba(255, 255, 255, 0.02) 100%);
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
-        }
-
-        .heart-particle {
-            animation: heartFloat linear infinite;
-        }
-
-        @keyframes heartFloat {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg) scale(1); opacity: 0; }
-        }
-
-        .star-particle {
-            animation: twinkleStar 2s ease-in-out infinite;
-        }
-
-        @keyframes twinkleStar {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.5); }
+        /* Layer 5: Vignette */
+        .vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, 
+                transparent 50%, 
+                rgba(0, 0, 0, 0.3) 100%);
         }
 
         #app {
@@ -127,14 +139,14 @@
 
         .page.active {
             display: block;
-            animation: pageIn 0.8s ease forwards;
+            animation: pageIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes pageIn {
             from {
                 opacity: 0;
-                transform: scale(1.04);
-                filter: blur(10px);
+                transform: scale(1.05);
+                filter: blur(15px);
             }
             to {
                 opacity: 1;
@@ -151,19 +163,22 @@
             }
             to {
                 opacity: 0;
-                transform: scale(0.96);
-                filter: blur(10px);
+                transform: scale(0.95);
+                filter: blur(15px);
             }
         }
 
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 30px 24px;
-            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border-radius: 28px;
+            padding: 35px 28px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 var(--glass-highlight),
+                0 0 40px rgba(255, 105, 180, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -175,8 +190,12 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
-            animation: glassShine 6s infinite;
+            background: linear-gradient(45deg, 
+                transparent 40%, 
+                rgba(255, 255, 255, 0.08) 50%, 
+                transparent 60%);
+            animation: glassShine 8s infinite;
+            pointer-events: none;
         }
 
         @keyframes glassShine {
@@ -184,36 +203,57 @@
             100% { transform: translateX(100%) rotate(0deg); }
         }
 
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                transparent 50%);
+            border-radius: 28px;
+            pointer-events: none;
+        }
+
         .glass-btn {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
             padding: 16px 32px;
             font-weight: 600;
             font-size: 1.1rem;
-            color: #4a2542;
+            color: #ffffff;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 15px rgba(255, 105, 180, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             letter-spacing: 0.5px;
             width: fit-content;
-            margin: 10px auto;
+            margin: 12px auto;
             display: block;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .glass-btn:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 
+                0 8px 25px rgba(255, 105, 180, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .glass-btn:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.4);
+            transform: scale(0.95);
+            box-shadow: 
+                0 2px 8px rgba(255, 105, 180, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .glass-btn::after {
@@ -223,8 +263,11 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%);
-            animation: btnShine 3s infinite;
+            background: linear-gradient(45deg, 
+                transparent 40%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 60%);
+            animation: btnShine 4s infinite;
         }
 
         @keyframes btnShine {
@@ -232,56 +275,103 @@
             100% { transform: translateX(100%); }
         }
 
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: rippleExpand 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleExpand {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
         .gradient-text {
             font-family: 'Pacifico', cursive;
-            background: linear-gradient(45deg, #ff69b4, #c71585, #ff1493, #db7093);
+            background: linear-gradient(45deg, #ff69b4, #c71585, #9370db, #ff1493);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.7));
-            animation: glowPulse 2s infinite alternate;
+            animation: gradientShift 4s ease infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 105, 180, 0.6));
         }
 
-        @keyframes glowPulse {
-            0% { filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.5)); }
-            100% { filter: drop-shadow(0 0 30px rgba(255, 105, 180, 1)); }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-text {
+            opacity: 0;
+            animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
         }
 
         input {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
             padding: 16px 24px;
             font-size: 1.2rem;
             width: 80%;
             text-align: center;
-            color: #4a2542;
+            color: #ffffff;
             outline: none;
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+            box-shadow: 
+                0 0 20px rgba(255, 105, 180, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             margin: 20px auto;
             display: block;
             transition: all 0.3s ease;
         }
 
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
         input:focus {
             border-color: #ff69b4;
-            box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
-            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 0 30px rgba(255, 105, 180, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .game-container {
             position: relative;
             width: 100%;
             height: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: var(--glass-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             margin: 15px 0;
             touch-action: manipulation;
         }
@@ -306,24 +396,27 @@
 
         .memory-card {
             aspect-ratio: 1/1;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             transform-style: preserve-3d;
+            color: #ffffff;
         }
 
         .memory-card.flipped {
             transform: rotateY(180deg);
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .magic-heart-btn {
@@ -331,24 +424,28 @@
             cursor: pointer;
             filter: drop-shadow(0 0 30px #ff69b4);
             animation: pulseGlow 1s infinite alternate;
-            transition: all 0.15s ease;
+            transition: all 0.3s ease;
             user-select: none;
+            position: absolute;
         }
 
         @keyframes pulseGlow {
-            0% { filter: drop-shadow(0 0 10px #ff69b4); }
-            100% { filter: drop-shadow(0 0 35px #ff1493); }
+            0% { filter: drop-shadow(0 0 15px #ff69b4); }
+            100% { filter: drop-shadow(0 0 40px #ff1493); }
         }
 
         .game-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px;
             padding: 20px;
             margin: 15px 0;
             transition: all 0.3s ease;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .game-card.locked {
@@ -367,111 +464,133 @@
             100% { box-shadow: 0 0 0 rgba(255, 105, 180, 0); }
         }
 
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 100;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .tree-container {
-            position: relative;
-            width: 300px;
-            height: 400px;
-            margin: 0 auto;
-        }
-
-        .tree-trunk {
-            width: 40px;
-            height: 150px;
-            background: linear-gradient(45deg, #8B4513, #A0522D);
-            margin: 0 auto;
-            border-radius: 10px;
-            position: relative;
-            animation: treeBreath 3s ease-in-out infinite;
-        }
-
-        .tree-branches {
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 150px;
-        }
-
-        @keyframes treeBreath {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .envelope-animation {
-            animation: envelopeOpen 2s ease;
-        }
-
-        @keyframes envelopeOpen {
-            0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
-            50% { transform: scale(1.1) rotate(5deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-
-        .shayari-line {
-            opacity: 0;
-            animation: lineReveal 1s ease forwards;
-        }
-
-        @keyframes lineReveal {
-            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
         #musicToggle {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             width: 50px;
             height: 50px;
             cursor: pointer;
             font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        #musicToggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+        }
+
+        /* SVG Tree Animation */
+        .tree-svg-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .tree-svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Ganpati SVG */
+        .ganpati-svg-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .ganpati-svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Rakhi SVG */
+        .rakhi-svg-container {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .rakhi-svg {
+            width: 100%;
+            height: 100%;
+            animation: rakhiFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes rakhiFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
+
+        /* Mithai Box */
+        .mithai-box {
+            width: 150px;
+            height: 120px;
+            margin: 20px auto;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mithai-box-lid {
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(135deg, #ff69b4, #9370db);
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.5s ease;
+        }
+
+        .mithai-box-body {
+            width: 100%;
+            height: 90px;
+            background: linear-gradient(135deg, #ffb6c1, #dda0dd);
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mithai-box.open .mithai-box-lid {
+            transform: translateY(-40px) rotate(-10deg);
         }
     </style>
 </head>
 <body>
-    <div class="background-blobs">
+    <!-- Layer 1: Gradient Background -->
+    <div class="bg-gradient"></div>
+
+    <!-- Layer 2: Glass Light Blobs -->
+    <div class="blob-layer">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
     </div>
 
-    <div id="particles-container"></div>
+    <!-- Layer 3: Canvas Particles -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Layer 4: Glass Reflections -->
+    <div class="glass-reflection"></div>
+
+    <!-- Layer 5: Vignette -->
+    <div class="vignette"></div>
 
     <button id="musicToggle">🎵</button>
 
@@ -479,73 +598,73 @@
         <!-- PAGE 1: WELCOME -->
         <div class="page active" id="page1">
             <div class="glass-card">
-                <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Heyyy, Sis! 💗</h1>
-                <p style="font-size: 1.3rem; margin-bottom: 10px;">I made something special for you...</p>
-                <p style="font-size: 1.3rem; margin-bottom: 30px;">Ready?</p>
-                <input type="text" id="nameInput" placeholder="Enter your name ✨" autocomplete="off">
-                <button class="glass-btn" id="confirmNameBtn">Confirm ✨</button>
+                <h1 class="animated-text" style="font-size: 2.5rem; margin-bottom: 20px; color: #ffffff; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Heyyy, Sis! 💗</h1>
+                <p class="animated-text" style="font-size: 1.3rem; margin-bottom: 10px; color: #e0d0ff; animation-delay: 0.3s;">I made something special for you...</p>
+                <p class="animated-text" style="font-size: 1.3rem; margin-bottom: 30px; color: #e0d0ff; animation-delay: 0.6s;">Ready?</p>
+                <input type="text" id="nameInput" placeholder="Enter your name ✨" autocomplete="off" class="animated-text" style="animation-delay: 0.9s;">
+                <button class="glass-btn animated-text" id="confirmNameBtn" style="animation-delay: 1.2s;">Confirm ✨</button>
             </div>
         </div>
 
         <!-- PAGE 2: RAKSHA BANDHAN -->
         <div class="page" id="page2">
             <div class="glass-card">
-                <div style="font-size: 2rem; margin-bottom: 15px;">🌸✨💗🪢🌙</div>
-                <h1 style="font-size: 2rem; margin-bottom: 10px;">Happy Raksha Bandhan</h1>
-                <h2 class="gradient-text" id="greetingName" style="font-size: 3rem; margin: 20px 0;"></h2>
-                <p style="font-size: 1.2rem; margin-bottom: 30px;">To the most annoying, funniest and most special sister ever. 😂💗</p>
-                <button class="glass-btn" id="continueToGamesBtn">Okay... show me what you made 👀</button>
+                <div style="font-size: 2rem; margin-bottom: 15px; color: #ffffff;">🌸✨💗🪢🌙</div>
+                <h1 class="animated-text" style="font-size: 2rem; margin-bottom: 10px; color: #ffffff;">Happy Raksha Bandhan</h1>
+                <h2 class="gradient-text" id="greetingName" style="font-size: 3rem; margin: 20px 0; animation-delay: 0.5s;"></h2>
+                <p class="animated-text" style="font-size: 1.2rem; margin-bottom: 30px; color: #e0d0ff; animation-delay: 1s;">To the most annoying, funniest and most special sister ever. 😂💗</p>
+                <button class="glass-btn animated-text" id="continueToGamesBtn" style="animation-delay: 1.5s;">Okay... show me what you made 👀</button>
             </div>
         </div>
 
         <!-- PAGE 3: LET'S PLAY -->
         <div class="page" id="page3">
             <div class="glass-card">
-                <h2 style="font-size: 2rem; margin-bottom: 15px;">Let's Play Some Games! 🎮💗</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 20px;">But first... are you ready for some surprises?</p>
+                <h2 class="animated-text" style="font-size: 2rem; margin-bottom: 15px; color: #ffffff;">Let's Play Some Games! 🎮💗</h2>
+                <p class="animated-text" style="font-size: 1.2rem; margin-bottom: 20px; color: #e0d0ff; animation-delay: 0.3s;">But first... are you ready for some surprises?</p>
                 <div id="yesNoArea" style="display: flex; flex-direction: column; align-items: center; gap: 15px; position: relative; min-height: 200px;">
-                    <button class="glass-btn" id="yesBtn" style="font-size: 1.5rem; z-index: 10;">YES 💖</button>
-                    <button class="glass-btn" id="noBtn" style="font-size: 1.2rem; position: relative; z-index: 5;">NO 😏</button>
+                    <button class="glass-btn animated-text" id="yesBtn" style="font-size: 1.5rem; z-index: 10; animation-delay: 0.6s;">YES 💖</button>
+                    <button class="glass-btn animated-text" id="noBtn" style="font-size: 1.2rem; position: relative; z-index: 5; animation-delay: 0.8s;">NO 😏</button>
                 </div>
-                <p id="funnyMsg" style="font-style: italic; margin-top: 15px; min-height: 30px;"></p>
+                <p id="funnyMsg" style="font-style: italic; margin-top: 15px; min-height: 30px; color: #ffb6c1;"></p>
             </div>
         </div>
 
         <!-- PAGE 4: LOADING -->
         <div class="page" id="loadingPage">
             <div class="glass-card">
-                <h2>Preparing your surprises... ✨</h2>
-                <div style="font-size: 3rem; margin: 20px;">⏳</div>
+                <h2 class="animated-text" style="color: #ffffff;">Preparing your surprises... ✨</h2>
+                <div style="font-size: 3rem; margin: 20px; animation: pulseGlow 1s infinite;">⏳</div>
             </div>
         </div>
 
         <!-- PAGE 5: GAME HUB -->
         <div class="page" id="gameHubPage">
             <div class="glass-card">
-                <h2 style="font-size: 2rem; margin-bottom: 10px;">🎮 SIS ARCADE</h2>
-                <p style="margin-bottom: 20px;">Three games. Three secrets. One final surprise.</p>
+                <h2 class="animated-text" style="font-size: 2rem; margin-bottom: 10px; color: #ffffff;">🎮 SIS ARCADE</h2>
+                <p class="animated-text" style="margin-bottom: 20px; color: #e0d0ff; animation-delay: 0.3s;">Three games. Three secrets. One final surprise.</p>
                 
                 <div class="game-card" id="game1Card">
-                    <div style="font-size: 3rem;">💗</div>
-                    <h3>Catch The Love 💗</h3>
-                    <p>Catch hearts and score big!</p>
-                    <p style="font-size: 0.9rem;">Best Score: <span id="bestScore1">0</span></p>
+                    <div style="font-size: 3rem; color: #ff69b4;">💗</div>
+                    <h3 style="color: #ffffff;">Catch The Love 💗</h3>
+                    <p style="color: #e0d0ff;">Catch hearts and score big!</p>
+                    <p style="font-size: 0.9rem; color: #e0d0ff;">Best Score: <span id="bestScore1">0</span></p>
                     <button class="glass-btn game-start-btn" data-game="1">PLAY</button>
                 </div>
 
                 <div class="game-card locked" id="game2Card">
-                    <div style="font-size: 3rem;">🧠</div>
-                    <h3>Memory Magic 🧠</h3>
-                    <p>Match the pairs to win!</p>
-                    <p style="font-size: 0.9rem;">Best Score: <span id="bestScore2">0</span></p>
+                    <div style="font-size: 3rem; color: #9370db;">🧠</div>
+                    <h3 style="color: #ffffff;">Memory Magic 🧠</h3>
+                    <p style="color: #e0d0ff;">Match the pairs to win!</p>
+                    <p style="font-size: 0.9rem; color: #e0d0ff;">Best Score: <span id="bestScore2">0</span></p>
                     <button class="glass-btn game-start-btn" data-game="2">🔒 LOCKED</button>
                 </div>
 
                 <div class="game-card locked" id="game3Card">
-                    <div style="font-size: 3rem;">✨</div>
-                    <h3>Magic Reaction ✨</h3>
-                    <p>Tap the magic heart!</p>
-                    <p style="font-size: 0.9rem;">Best Score: <span id="bestScore3">0</span></p>
+                    <div style="font-size: 3rem; color: #ffb6c1;">✨</div>
+                    <h3 style="color: #ffffff;">Magic Reaction ✨</h3>
+                    <p style="color: #e0d0ff;">Tap the magic heart!</p>
+                    <p style="font-size: 0.9rem; color: #e0d0ff;">Best Score: <span id="bestScore3">0</span></p>
                     <button class="glass-btn game-start-btn" data-game="3">🔒 LOCKED</button>
                 </div>
 
@@ -556,8 +675,8 @@
         <!-- PAGE 6: GAME 1 -->
         <div class="page" id="game1Page">
             <div class="glass-card">
-                <h2>Catch The Love 💗</h2>
-                <p>Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
+                <h2 class="animated-text" style="color: #ffffff;">Catch The Love 💗</h2>
+                <p style="color: #e0d0ff;">Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
                 <div class="game-container" id="game1Area"></div>
             </div>
         </div>
@@ -565,72 +684,185 @@
         <!-- PAGE 7: SURPRISE 1 -->
         <div class="page" id="surprise1Page">
             <div class="glass-card">
-                <div class="envelope-animation" style="font-size: 4rem;">💌</div>
+                <div class="animated-text" style="font-size: 4rem;">💌</div>
                 <h2 class="gradient-text" style="font-size: 2rem;">SECRET #1 💗</h2>
-                <p id="surprise1Message" style="font-size: 1.2rem; margin: 15px 0;"></p>
-                <p style="font-style: italic;">"One secret unlocked... two more to go 👀"</p>
+                <p id="surprise1Message" style="font-size: 1.2rem; margin: 15px 0; color: #ffffff;"></p>
+                <p class="animated-text" style="font-style: italic; color: #e0d0ff; animation-delay: 1s;">"One secret unlocked... two more to go 👀"</p>
                 <button class="glass-btn" id="surprise1ContinueBtn">BACK TO ARCADE 🎮</button>
             </div>
         </div>
 
-        <!-- PAGE 8: GAME 2 -->
+        <!-- PAGE 8: GAME 1 DELAY MESSAGE -->
+        <div class="page" id="game1DelayPage">
+            <div class="glass-card">
+                <h2 class="animated-text" style="color: #ffffff;">Umm... 😭</h2>
+                <p class="animated-text" style="color: #e0d0ff; animation-delay: 1s;">Thoda late ho gaya gift...</p>
+                <p class="animated-text" style="color: #e0d0ff; animation-delay: 2.5s;">Delivery wale ko laga tha ye normal gift hai,<br>usko kya pata tha ki main poori website pack karke bhej raha hoon. 😂💗</p>
+                <p class="animated-text" style="color: #e0d0ff; animation-delay: 4.5s;">Bas aa hi gaya... 👀</p>
+                <button class="glass-btn" id="delayContinueBtn" style="display: none;">CONTINUE ✨</button>
+            </div>
+        </div>
+
+        <!-- PAGE 9: GAME 2 -->
         <div class="page" id="game2Page">
             <div class="glass-card">
-                <h2>Memory Magic 🧠</h2>
-                <p>Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span> | Time: <span id="time2">0</span>s</p>
+                <h2 class="animated-text" style="color: #ffffff;">Memory Magic 🧠</h2>
+                <p style="color: #e0d0ff;">Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span> | Time: <span id="time2">0</span>s</p>
                 <div class="memory-grid" id="memoryGrid"></div>
             </div>
         </div>
 
-        <!-- PAGE 9: SURPRISE 2 -->
+        <!-- PAGE 10: SURPRISE 2 -->
         <div class="page" id="surprise2Page">
             <div class="glass-card">
-                <div style="font-size: 4rem; animation: giftShake 2s infinite;">🎁</div>
+                <div class="animated-text" style="font-size: 4rem;">🎁</div>
                 <h2 class="gradient-text" style="font-size: 2rem;">SECRET #2 🎁</h2>
-                <p style="font-size: 1.2rem; margin: 15px 0;">"Some people get gifts...<br>You get an entire website made just for you. 😂💗"</p>
-                <p style="font-style: italic;">"Still not finished..."</p>
+                <p class="animated-text" style="font-size: 1.2rem; margin: 15px 0; color: #ffffff; animation-delay: 0.5s;">"Some people get gifts...<br>You get an entire website made just for you. 😂💗"</p>
+                <p class="animated-text" style="font-style: italic; color: #e0d0ff; animation-delay: 1.5s;">"Still not finished..."</p>
                 <button class="glass-btn" id="surprise2ContinueBtn">BACK TO ARCADE 🎮</button>
             </div>
         </div>
 
-        <!-- PAGE 10: GAME 3 -->
+        <!-- PAGE 11: GAME 3 -->
         <div class="page" id="game3Page">
             <div class="glass-card">
-                <h2>Magic Reaction ✨</h2>
-                <p>Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
-                <div class="game-container" id="game3Area" style="display: flex; align-items: center; justify-content: center;">
+                <h2 class="animated-text" style="color: #ffffff;">Magic Reaction ✨</h2>
+                <p style="color: #e0d0ff;">Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
+                <div class="game-container" id="game3Area" style="display: flex; align-items: center; justify-content: center; position: relative;">
                     <div id="magicHeart" class="magic-heart-btn">💖</div>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 11: SURPRISE 3 -->
+        <!-- PAGE 12: SURPRISE 3 -->
         <div class="page" id="surprise3Page">
             <div class="glass-card">
-                <div style="font-size: 4rem;">🌟</div>
-                <h2 style="font-size: 2rem;">FINAL SECRET UNLOCKED</h2>
-                <div style="font-size: 3rem; margin: 15px;">🎁</div>
-                <p style="font-size: 1.2rem;">"There's something much bigger waiting..."</p>
+                <div class="animated-text" style="font-size: 4rem;">🌟</div>
+                <h2 class="animated-text" style="font-size: 2rem; color: #ffffff; animation-delay: 0.3s;">FINAL SECRET UNLOCKED</h2>
+                <div class="animated-text" style="font-size: 3rem; margin: 15px; animation-delay: 0.6s;">🎁</div>
+                <p class="animated-text" style="font-size: 1.2rem; color: #e0d0ff; animation-delay: 0.9s;">"There's something much bigger waiting..."</p>
                 <button class="glass-btn" id="surprise3ContinueBtn">ENTER THE FINAL SURPRISE 💗</button>
             </div>
         </div>
 
-        <!-- PAGE 12: FINAL WORLD -->
+        <!-- PAGE 13: FINAL WORLD -->
         <div class="page" id="finalPage">
             <div class="glass-card">
-                <div id="magicalTreeArea" style="margin: 20px 0;">
-                    <div style="font-size: 4rem;">🌸🌳🌸</div>
+                <!-- Animated Tree SVG -->
+                <div class="tree-svg-container" id="treeContainer">
+                    <svg class="tree-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Roots -->
+                        <g id="treeRoots">
+                            <path d="M200 450 Q150 470 120 480" stroke="#8B4513" stroke-width="6" fill="none" opacity="0"/>
+                            <path d="M200 450 Q250 470 280 480" stroke="#8B4513" stroke-width="6" fill="none" opacity="0"/>
+                        </g>
+                        <!-- Trunk -->
+                        <rect id="treeTrunk" x="185" y="250" width="30" height="200" rx="10" fill="#8B4513" opacity="0"/>
+                        <!-- Branches -->
+                        <g id="treeBranches">
+                            <path d="M200 300 Q150 250 120 200" stroke="#A0522D" stroke-width="8" fill="none" opacity="0"/>
+                            <path d="M200 280 Q250 230 280 180" stroke="#A0522D" stroke-width="8" fill="none" opacity="0"/>
+                            <path d="M200 320 Q160 280 140 240" stroke="#A0522D" stroke-width="6" fill="none" opacity="0"/>
+                            <path d="M200 310 Q240 270 260 230" stroke="#A0522D" stroke-width="6" fill="none" opacity="0"/>
+                        </g>
+                        <!-- Leaves (will be animated) -->
+                        <g id="treeLeaves">
+                            <circle cx="200" cy="200" r="60" fill="#ff69b4" opacity="0" filter="url(#glow)"/>
+                            <circle cx="150" cy="220" r="40" fill="#ffb6c1" opacity="0"/>
+                            <circle cx="250" cy="220" r="40" fill="#ffb6c1" opacity="0"/>
+                            <circle cx="180" cy="170" r="35" fill="#ffc2dc" opacity="0"/>
+                            <circle cx="220" cy="170" r="35" fill="#ffc2dc" opacity="0"/>
+                            <circle cx="160" cy="250" r="30" fill="#f8c8ff" opacity="0"/>
+                            <circle cx="240" cy="250" r="30" fill="#f8c8ff" opacity="0"/>
+                            <circle cx="200" cy="230" r="25" fill="#ffd6e7" opacity="0"/>
+                        </g>
+                        <!-- Flowers -->
+                        <g id="treeFlowers">
+                            <circle cx="200" cy="180" r="8" fill="#ffffff" opacity="0"/>
+                            <circle cx="170" cy="200" r="6" fill="#ffffff" opacity="0"/>
+                            <circle cx="230" cy="200" r="6" fill="#ffffff" opacity="0"/>
+                            <circle cx="185" cy="160" r="5" fill="#ffffff" opacity="0"/>
+                            <circle cx="215" cy="160" r="5" fill="#ffffff" opacity="0"/>
+                        </g>
+                        <!-- Defs -->
+                        <defs>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <radialGradient id="treeGlow">
+                                <stop offset="0%" stop-color="#ff69b4" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="#ff69b4" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                        <circle cx="200" cy="200" r="80" fill="url(#treeGlow)" opacity="0" id="treeGlowCircle"/>
+                    </svg>
                 </div>
+
+                <!-- Animated Ganpati SVG -->
+                <div class="ganpati-svg-container" id="ganpatiContainer">
+                    <svg class="ganpati-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Halo -->
+                        <circle cx="150" cy="120" r="70" fill="none" stroke="#ffd700" stroke-width="2" opacity="0" id="ganpatiHalo">
+                            <animate attributeName="r" values="70;75;70" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <!-- Body -->
+                        <ellipse cx="150" cy="180" rx="60" ry="80" fill="#ff8c69" opacity="0" id="ganpatiBody"/>
+                        <!-- Head -->
+                        <circle cx="150" cy="100" r="35" fill="#ffa07a" opacity="0" id="ganpatiHead"/>
+                        <!-- Ears -->
+                        <ellipse cx="110" cy="100" rx="20" ry="30" fill="#ff8c69" opacity="0" id="ganpatiEar1"/>
+                        <ellipse cx="190" cy="100" rx="20" ry="30" fill="#ff8c69" opacity="0" id="ganpatiEar2"/>
+                        <!-- Crown -->
+                        <path d="M130 70 L140 50 L150 70 L160 50 L170 70" fill="#ffd700" opacity="0" id="ganpatiCrown"/>
+                        <!-- Trunk -->
+                        <path d="M150 130 Q140 160 130 150 Q135 140 145 140" fill="#ff8c69" opacity="0" id="ganpatiTrunk"/>
+                        <!-- Diya -->
+                        <ellipse cx="100" cy="250" rx="15" ry="10" fill="#8B4513" opacity="0" id="diya"/>
+                        <ellipse cx="200" cy="250" rx="15" ry="10" fill="#8B4513" opacity="0" id="diya2"/>
+                        <circle cx="100" cy="245" r="5" fill="#ffd700" opacity="0" id="flame1">
+                            <animate attributeName="opacity" values="0;1;0.5;1;0" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="200" cy="245" r="5" fill="#ffd700" opacity="0" id="flame2">
+                            <animate attributeName="opacity" values="0;1;0.5;1;0" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+
+                <!-- Animated Rakhi SVG -->
+                <div class="rakhi-svg-container" id="rakhiContainer">
+                    <svg class="rakhi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="30" fill="#ff69b4" stroke="#ffd700" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="20" fill="#ff1493"/>
+                        <circle cx="50" cy="50" r="10" fill="#ffd700"/>
+                        <circle cx="50" cy="50" r="5" fill="#ffffff"/>
+                        <!-- Beads -->
+                        <circle cx="20" cy="50" r="4" fill="#ffd700"/>
+                        <circle cx="80" cy="50" r="4" fill="#ffd700"/>
+                        <circle cx="50" cy="20" r="4" fill="#ffd700"/>
+                        <circle cx="50" cy="80" r="4" fill="#ffd700"/>
+                        <!-- Threads -->
+                        <path d="M20 50 Q10 50 0 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                        <path d="M80 50 Q90 50 100 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+
                 <h2 class="gradient-text" id="finalGreeting" style="font-size: 2.5rem;"></h2>
-                <div id="shayariContainer" style="margin: 20px 0; line-height: 1.8;"></div>
-                <div id="festiveElements" style="margin: 20px 0;">
-                    <div style="font-size: 3rem;">🪔🌸🍬🪢</div>
+                <div id="shayariContainer" style="margin: 20px 0; line-height: 1.8; color: #ffffff;"></div>
+                <div id="festiveElements" style="margin: 20px 0; color: #ffffff;">
+                    <div class="mithai-box" id="mithaiBox">
+                        <div class="mithai-box-lid"></div>
+                        <div class="mithai-box-body"></div>
+                    </div>
                     <p>Thodi si mithaas meri taraf se... 🍬💗</p>
                     <p>Ganpati Bappa Morya 🙏✨</p>
                 </div>
-                <div id="finalMessageCard" style="margin: 20px 0;"></div>
+                <div id="finalMessageCard" style="margin: 20px 0; color: #ffffff;"></div>
                 <button class="glass-btn" id="oneLastThingBtn">One Last Thing... 👀</button>
-                <div id="finalReveal" style="font-size: 2rem; margin: 20px;"></div>
+                <div id="finalReveal" style="font-size: 2rem; margin: 20px; color: #ffffff;"></div>
             </div>
         </div>
     </div>
@@ -660,24 +892,116 @@
                 localStorage.setItem('bestScores', JSON.stringify(state.bestScores));
             }
 
-            // PARTICLES
-            const particlesContainer = document.getElementById('particles-container');
-            
-            function createParticles() {
-                const symbols = ['💗', '🌸', '✨', '⭐', '🌙', '💖', '🌸'];
-                for (let i = 0; i < 30; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                    particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-                    particle.style.animationDelay = Math.random() * 10 + 's';
-                    particle.style.opacity = Math.random() * 0.7 + 0.3;
-                    particlesContainer.appendChild(particle);
+            // PARTICLE ENGINE (Canvas)
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const particleCount = 50;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = Math.random() * 0.5 + 0.1;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                    this.color = ['#ff69b4', '#ffb6c1', '#9370db', '#ffffff', '#ffc2dc'][Math.floor(Math.random() * 5)];
+                    this.type = Math.random() > 0.7 ? 'star' : 'circle';
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y -= this.speedY;
+                    if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+                        this.reset();
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fillStyle = this.color;
+                    
+                    if (this.type === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.beginPath();
+                        for (let i = 0; i < 5; i++) {
+                            const angle = (i * 4 * Math.PI / 5) - Math.PI / 2;
+                            const x = this.x + Math.cos(angle) * this.size * 2;
+                            const y = this.y + Math.sin(angle) * this.size * 2;
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+                    ctx.restore();
                 }
             }
-            createParticles();
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // BUTTON RIPPLE EFFECT
+            function addRipple(e, button) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                button.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+                
+                // Particle burst at click position
+                for (let i = 0; i < 10; i++) {
+                    const particle = new Particle();
+                    particle.x = x;
+                    particle.y = y;
+                    particle.speedX = (Math.random() - 0.5) * 3;
+                    particle.speedY = (Math.random() - 0.5) * 3;
+                    particle.opacity = 1;
+                    particle.size = Math.random() * 3 + 2;
+                    particles.push(particle);
+                    setTimeout(() => particles.pop(), 1000);
+                }
+            }
+
+            // Add ripple to all glass buttons
+            document.querySelectorAll('.glass-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    addRipple(e, btn);
+                });
+            });
 
             // MUSIC TOGGLE
             const musicToggle = document.getElementById('musicToggle');
@@ -689,7 +1013,6 @@
                     if (!audioContext) {
                         audioContext = new (window.AudioContext || window.webkitAudioContext)();
                     }
-                    // Create a soft ambient tone
                     const oscillator = audioContext.createOscillator();
                     const gainNode = audioContext.createGain();
                     oscillator.type = 'sine';
@@ -712,7 +1035,7 @@
             function showPage(pageId) {
                 const currentPage = document.querySelector('.page.active');
                 if (currentPage) {
-                    currentPage.style.animation = 'pageOut 0.6s ease forwards';
+                    currentPage.style.animation = 'pageOut 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards';
                     setTimeout(() => {
                         currentPage.classList.remove('active');
                         currentPage.style.animation = '';
@@ -723,53 +1046,17 @@
                         setTimeout(() => {
                             window.scrollTo({top: 0, behavior: 'smooth'});
                         }, 100);
-                    }, 600);
+                    }, 700);
                 } else {
                     const newPage = document.getElementById(pageId);
                     newPage.classList.add('active');
                 }
             }
 
-            // PARTICLE BURST
-            function particleBurst(x, y) {
-                for (let i = 0; i < 20; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.textContent = ['💗', '✨', '🌸', '⭐'][Math.floor(Math.random() * 4)];
-                    particle.style.left = x + '%';
-                    particle.style.top = y + '%';
-                    particle.style.position = 'fixed';
-                    particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                    particle.style.pointerEvents = 'none';
-                    particle.style.zIndex = '9999';
-                    particle.style.animation = 'floatUp 1s ease forwards';
-                    document.body.appendChild(particle);
-                    setTimeout(() => particle.remove(), 1000);
-                }
-            }
-
-            // CONFETTI BURST
-            function confettiBurst() {
-                for (let i = 0; i < 50; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.style.position = 'fixed';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.top = Math.random() * 100 + '%';
-                    confetti.style.width = '10px';
-                    confetti.style.height = '10px';
-                    confetti.style.background = ['#ffd6e7', '#f8c8ff', '#e8d9ff', '#ffc2dc', '#d9c2ff'][Math.floor(Math.random() * 5)];
-                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                    confetti.style.pointerEvents = 'none';
-                    confetti.style.zIndex = '9999';
-                    confetti.style.animation = 'floatUp 1.5s ease forwards';
-                    document.body.appendChild(confetti);
-                    setTimeout(() => confetti.remove(), 1500);
-                }
-            }
-
             // PAGE 1: WELCOME
             const nameInput = document.getElementById('nameInput');
-            document.getElementById('confirmNameBtn').addEventListener('click', () => {
+            document.getElementById('confirmNameBtn').addEventListener('click', (e) => {
+                addRipple(e, e.target);
                 const name = nameInput.value.trim();
                 if (!name) {
                     nameInput.style.animation = 'shake 0.5s ease';
@@ -778,7 +1065,6 @@
                 }
                 state.sisterName = name;
                 saveState();
-                confettiBurst();
                 document.getElementById('greetingName').textContent = name;
                 showPage('page2');
             });
@@ -796,7 +1082,6 @@
 
             // PAGE 2: CONTINUE
             document.getElementById('continueToGamesBtn').addEventListener('click', () => {
-                confettiBurst();
                 showPage('page3');
             });
 
@@ -818,7 +1103,6 @@
                 e.preventDefault();
                 noClickCount++;
                 
-                // Move NO button to random position within viewport
                 const maxX = window.innerWidth - noBtn.offsetWidth - 20;
                 const maxY = window.innerHeight - noBtn.offsetHeight - 20;
                 const randomX = Math.max(20, Math.random() * maxX);
@@ -829,23 +1113,16 @@
                 noBtn.style.top = randomY + 'px';
                 noBtn.style.zIndex = '100';
                 
-                // Playful bounce animation
                 noBtn.style.animation = 'none';
                 setTimeout(() => {
                     noBtn.style.animation = 'shake 0.5s ease';
                 }, 10);
                 
-                // Increase YES button size
                 yesBtn.style.transform = `scale(${1 + noClickCount * 0.2})`;
-                
-                // Update funny message
                 funnyMsg.textContent = funnyMessages[Math.min(noClickCount - 1, funnyMessages.length - 1)];
-                
-                particleBurst(randomX / window.innerWidth * 100, randomY / window.innerHeight * 100);
             });
 
             yesBtn.addEventListener('click', () => {
-                confettiBurst();
                 showPage('loadingPage');
                 setTimeout(() => {
                     updateGameHub();
@@ -882,6 +1159,7 @@
             // GAME START BUTTONS
             document.querySelectorAll('.game-start-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
+                    addRipple(e, btn);
                     const game = e.target.dataset.game;
                     if (game === '1') {
                         startGame1();
@@ -932,6 +1210,7 @@
                     heart.style.left = Math.random() * 80 + 5 + '%';
                     heart.style.top = Math.random() * 80 + 5 + '%';
                     heart.style.animation = 'floatUp 3s ease forwards';
+                    heart.style.color = '#ffffff';
                     
                     const heartType = Math.random();
                     if (heartType < 0.1) {
@@ -960,7 +1239,7 @@
                         document.getElementById('score1').textContent = score;
                         document.getElementById('combo1').textContent = combo + 'x';
                         
-                        particleBurst(parseFloat(heart.style.left), parseFloat(heart.style.top));
+                        addRipple(e, heart);
                         heart.remove();
                     });
                     
@@ -985,11 +1264,20 @@
                 saveState();
                 
                 setTimeout(() => {
-                    showPage('surprise1Page');
+                    showPage('game1DelayPage');
                     document.getElementById('surprise1Message').innerHTML = 
                         `${state.sisterName}, you just unlocked your first little surprise! 💗<br>Score: ${score} points!`;
+                    
+                    // Show continue button after delay
+                    setTimeout(() => {
+                        document.getElementById('delayContinueBtn').style.display = 'block';
+                    }, 5000);
                 }, 500);
             }
+            
+            document.getElementById('delayContinueBtn').addEventListener('click', () => {
+                showPage('surprise1Page');
+            });
             
             document.getElementById('surprise1ContinueBtn').addEventListener('click', () => {
                 updateGameHub();
@@ -1026,9 +1314,10 @@
                     card.dataset.symbol = symbol;
                     card.textContent = '❓';
                     
-                    card.addEventListener('click', () => {
+                    card.addEventListener('click', (e) => {
                         if (lock || card.classList.contains('flipped')) return;
                         
+                        addRipple(e, card);
                         card.classList.add('flipped');
                         card.textContent = symbol;
                         
@@ -1079,7 +1368,7 @@
                 showPage('gameHubPage');
             });
 
-            // GAME 3: MAGIC REACTION
+            // GAME 3: MAGIC REACTION (with fixed movement)
             function startGame3() {
                 showPage('game3Page');
                 const area = document.getElementById('game3Area');
@@ -1087,6 +1376,7 @@
                 
                 let score = 0;
                 let timeLeft = 20;
+                let moveTimeout;
                 
                 document.getElementById('score3').textContent = '0';
                 document.getElementById('time3').textContent = '20';
@@ -1096,6 +1386,7 @@
                     document.getElementById('time3').textContent = timeLeft;
                     if (timeLeft <= 0) {
                         clearInterval(timer);
+                        clearTimeout(moveTimeout);
                         endGame3(score);
                     }
                 }, 1000);
@@ -1105,24 +1396,28 @@
                     const maxY = area.clientHeight - 70;
                     const x = Math.random() * maxX;
                     const y = Math.random() * maxY;
-                    magicHeart.style.position = 'absolute';
+                    
+                    magicHeart.style.transition = 'all 0.5s ease';
                     magicHeart.style.left = x + 'px';
                     magicHeart.style.top = y + 'px';
+                    
+                    // Schedule next move after 1-1.5 seconds
+                    moveTimeout = setTimeout(moveHeart, Math.random() * 500 + 1000);
                 }
                 
-                magicHeart.addEventListener('click', () => {
+                magicHeart.addEventListener('click', (e) => {
                     score++;
                     document.getElementById('score3').textContent = score;
                     
-                    const rect = magicHeart.getBoundingClientRect();
-                    particleBurst(
-                        (rect.left / window.innerWidth) * 100,
-                        (rect.top / window.innerHeight) * 100
-                    );
+                    addRipple(e, magicHeart);
                     
+                    // Move to new position
+                    clearTimeout(moveTimeout);
                     moveHeart();
                 });
                 
+                // Initial position
+                magicHeart.style.position = 'absolute';
                 moveHeart();
             }
             
@@ -1144,11 +1439,81 @@
                 buildFinalPage();
             });
 
-            // FINAL PAGE
+            // FINAL PAGE WITH CINEMATIC SEQUENCE
             function buildFinalPage() {
                 document.getElementById('finalGreeting').textContent = 
                     `Happy Raksha Bandhan, ${state.sisterName}! 💗`;
                 
+                // Animate tree growth
+                const treeElements = {
+                    roots: document.getElementById('treeRoots'),
+                    trunk: document.getElementById('treeTrunk'),
+                    branches: document.getElementById('treeBranches'),
+                    leaves: document.getElementById('treeLeaves'),
+                    flowers: document.getElementById('treeFlowers'),
+                    glow: document.getElementById('treeGlowCircle')
+                };
+                
+                // Staged tree animation
+                setTimeout(() => {
+                    treeElements.roots.querySelectorAll('path').forEach(p => p.style.opacity = '1');
+                }, 2000);
+                
+                setTimeout(() => {
+                    treeElements.trunk.style.opacity = '1';
+                }, 4000);
+                
+                setTimeout(() => {
+                    treeElements.branches.querySelectorAll('path').forEach(p => p.style.opacity = '1');
+                }, 6000);
+                
+                setTimeout(() => {
+                    treeElements.leaves.querySelectorAll('circle').forEach(c => c.style.opacity = '0.6');
+                }, 9000);
+                
+                setTimeout(() => {
+                    treeElements.flowers.querySelectorAll('circle').forEach(c => c.style.opacity = '1');
+                }, 12000);
+                
+                setTimeout(() => {
+                    treeElements.glow.style.opacity = '1';
+                }, 15000);
+                
+                // Animate Ganpati
+                const ganpatiElements = {
+                    body: document.getElementById('ganpatiBody'),
+                    head: document.getElementById('ganpatiHead'),
+                    ears: [document.getElementById('ganpatiEar1'), document.getElementById('ganpatiEar2')],
+                    crown: document.getElementById('ganpatiCrown'),
+                    trunk: document.getElementById('ganpatiTrunk'),
+                    halo: document.getElementById('ganpatiHalo'),
+                    diyas: [document.getElementById('diya'), document.getElementById('diya2')],
+                    flames: [document.getElementById('flame1'), document.getElementById('flame2')]
+                };
+                
+                setTimeout(() => {
+                    ganpatiElements.body.style.opacity = '1';
+                    ganpatiElements.head.style.opacity = '1';
+                    ganpatiElements.ears.forEach(e => e.style.opacity = '1');
+                }, 17000);
+                
+                setTimeout(() => {
+                    ganpatiElements.crown.style.opacity = '1';
+                    ganpatiElements.trunk.style.opacity = '1';
+                    ganpatiElements.halo.style.opacity = '1';
+                }, 18000);
+                
+                setTimeout(() => {
+                    ganpatiElements.diyas.forEach(d => d.style.opacity = '1');
+                    ganpatiElements.flames.forEach(f => f.style.opacity = '1');
+                }, 19000);
+                
+                // Animate Rakhi
+                setTimeout(() => {
+                    document.getElementById('rakhiContainer').style.opacity = '1';
+                }, 21000);
+                
+                // Shayari animation
                 const shayariLines = [
                     'Rishta humara thoda crazy hai,',
                     'Kabhi hasi, kabhi nok-jhok bhi hoti hai...',
@@ -1163,7 +1528,7 @@
                 shayariLines.forEach((line, index) => {
                     const p = document.createElement('p');
                     p.className = 'shayari-line';
-                    p.style.animationDelay = (index * 1) + 's';
+                    p.style.animationDelay = (23 + index) + 's';
                     p.textContent = line;
                     shayariContainer.appendChild(p);
                 });
@@ -1171,13 +1536,26 @@
                 setTimeout(() => {
                     const finalMsg = document.createElement('p');
                     finalMsg.className = 'shayari-line';
-                    finalMsg.style.animationDelay = '5s';
+                    finalMsg.style.animationDelay = '28s';
                     finalMsg.textContent = 'Happy Raksha Bandhan, meri pyaari behen. 🫶';
                     finalMsg.style.fontWeight = 'bold';
                     finalMsg.style.fontSize = '1.3rem';
                     shayariContainer.appendChild(finalMsg);
-                }, 5000);
+                }, 28000);
                 
+                // Mithai box animation
+                const mithaiBox = document.getElementById('mithaiBox');
+                mithaiBox.style.opacity = '0';
+                setTimeout(() => {
+                    mithaiBox.style.opacity = '1';
+                    mithaiBox.style.transition = 'opacity 1s ease';
+                }, 30000);
+                
+                setTimeout(() => {
+                    mithaiBox.classList.add('open');
+                }, 32000);
+                
+                // Final message
                 document.getElementById('finalMessageCard').innerHTML = `
                     <p style="font-size: 1.2rem; margin-bottom: 15px;">${state.sisterName}...</p>
                     <p style="margin-bottom: 10px;">Chahe kitni bhi fights ho,<br>
@@ -1190,8 +1568,8 @@
                 `;
             }
             
-            document.getElementById('oneLastThingBtn').addEventListener('click', () => {
-                confettiBurst();
+            document.getElementById('oneLastThingBtn').addEventListener('click', (e) => {
+                addRipple(e, e.target);
                 
                 setTimeout(() => {
                     document.getElementById('finalReveal').innerHTML = `
@@ -1200,21 +1578,17 @@
                         <p style="font-size: 1.5rem;">Happy Raksha Bandhan! 🪢</p>
                     `;
                     
-                    // Full screen heart explosion
+                    // Canvas particle explosion
                     for (let i = 0; i < 100; i++) {
-                        setTimeout(() => {
-                            const heart = document.createElement('div');
-                            heart.style.position = 'fixed';
-                            heart.style.left = Math.random() * 100 + '%';
-                            heart.style.top = Math.random() * 100 + '%';
-                            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
-                            heart.style.pointerEvents = 'none';
-                            heart.style.zIndex = '9999';
-                            heart.style.animation = 'floatUp 2s ease forwards';
-                            heart.textContent = ['💗', '🌸', '✨', '⭐', '💖'][Math.floor(Math.random() * 5)];
-                            document.body.appendChild(heart);
-                            setTimeout(() => heart.remove(), 2000);
-                        }, i * 30);
+                        const particle = new Particle();
+                        particle.x = Math.random() * canvas.width;
+                        particle.y = Math.random() * canvas.height;
+                        particle.speedX = (Math.random() - 0.5) * 5;
+                        particle.speedY = (Math.random() - 0.5) * 5;
+                        particle.opacity = 1;
+                        particle.size = Math.random() * 5 + 2;
+                        particles.push(particle);
+                        setTimeout(() => particles.pop(), 2000);
                     }
                 }, 300);
             });
@@ -1224,12 +1598,7 @@
                 document.getElementById('greetingName').textContent = state.sisterName;
                 showPage('page2');
             }
-
-            // Auto-save best scores on load
-            document.getElementById('bestScore1').textContent = state.bestScores.game1;
-            document.getElementById('bestScore2').textContent = state.bestScores.game2;
-            document.getElementById('bestScore3').textContent = state.bestScores.game3;
         })();
     </script>
 </body>
-  </html>
+    </html>
