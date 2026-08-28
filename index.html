@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🌸 Raksha Bandhan Surprise 🌸</title>
+    <title>🌸 Sis Arcade - Raksha Bandhan 💗</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,12 +13,12 @@
             --white: #ffffff;
             --pink-medium: #ffc2dc;
             --lavender-deep: #d9c2ff;
-            --pink-glow: rgba(255, 105, 180, 0.6);
-            --lavender-glow: rgba(180, 130, 255, 0.5);
-            --glass-bg: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            --glass-highlight: rgba(255, 255, 255, 0.4);
+            --glass-highlight: rgba(255, 255, 255, 0.3);
+            --text-primary: #2d1b3d;
+            --text-secondary: #5a3d6e;
         }
 
         * {
@@ -29,7 +29,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #0a0a0f;
+            background: #f5e6f0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -38,24 +38,21 @@
             position: relative;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
-            padding: 20px;
+            padding: 0;
         }
 
-        /* Layer 1: Animated Gradient Background */
-        .bg-gradient {
+        /* Layered Background */
+        .bg-layer {
             position: fixed;
             inset: 0;
-            background: linear-gradient(135deg, 
-                #2d1b3d 0%, 
-                #3d2440 15%, 
-                #4a2b45 30%, 
-                #3d2440 45%, 
-                #2d1b3d 60%, 
-                #4a2b45 75%, 
-                #2d1b3d 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-gradient {
+            background: linear-gradient(135deg, #fce8f0 0%, #f0e6f5 25%, #e8f0f5 50%, #f5e6f0 75%, #fce8f0 100%);
             background-size: 400% 400%;
             animation: gradientShift 20s ease infinite;
-            z-index: 0;
         }
 
         @keyframes gradientShift {
@@ -64,72 +61,50 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Layer 2: Glass Light Blobs */
-        .blob-layer {
+        .bg-blobs {
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: blobFloat 25s infinite ease-in-out;
+        }
+
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -30px) scale(1.1); }
+            50% { transform: translate(-30px, 40px) scale(0.9); }
+            75% { transform: translate(20px, 20px) scale(1.05); }
+        }
+
+        .blob-1 { width: 400px; height: 400px; background: #ffd6e7; top: -100px; left: -80px; }
+        .blob-2 { width: 350px; height: 350px; background: #d9c2ff; bottom: -80px; right: -60px; animation-delay: -8s; }
+        .blob-3 { width: 300px; height: 300px; background: #ffffff; top: 40%; left: 50%; animation-delay: -15s; }
+
+        .bg-vignette {
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.08) 100%);
+        }
+
+        #particleCanvas {
             position: fixed;
             inset: 0;
             z-index: 1;
             pointer-events: none;
         }
 
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.4;
-            animation: blobFloat 30s infinite ease-in-out;
-        }
-
-        @keyframes blobFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -30px) scale(1.1); }
-            50% { transform: translate(-30px, 40px) scale(0.9); }
-            75% { transform: translate(20px, 20px) scale(1.05); }
-        }
-
-        .blob-1 { width: 500px; height: 500px; background: #ff69b4; top: -150px; left: -100px; }
-        .blob-2 { width: 450px; height: 450px; background: #9370db; bottom: -100px; right: -80px; animation-delay: -10s; }
-        .blob-3 { width: 400px; height: 400px; background: #ffb6c1; top: 40%; left: 40%; animation-delay: -20s; }
-        .blob-4 { width: 350px; height: 350px; background: #dda0dd; top: -50px; right: 20%; animation-delay: -15s; }
-
-        /* Layer 3: Canvas Particles */
-        #particleCanvas {
-            position: fixed;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Layer 4: Glass Reflections */
-        .glass-reflection {
-            position: fixed;
-            inset: 0;
-            z-index: 3;
-            pointer-events: none;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.03) 0%, 
-                transparent 30%, 
-                transparent 70%, 
-                rgba(255, 255, 255, 0.02) 100%);
-        }
-
-        /* Layer 5: Vignette */
-        .vignette {
-            position: fixed;
-            inset: 0;
-            z-index: 4;
-            pointer-events: none;
-            background: radial-gradient(ellipse at center, 
-                transparent 50%, 
-                rgba(0, 0, 0, 0.3) 100%);
-        }
-
         #app {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
+            padding: 10px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .page {
@@ -139,46 +114,27 @@
 
         .page.active {
             display: block;
-            animation: pageIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: pageIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes pageIn {
-            from {
-                opacity: 0;
-                transform: scale(1.05);
-                filter: blur(15px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0);
-            }
+            from { opacity: 0; transform: scale(1.03); filter: blur(8px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
         @keyframes pageOut {
-            from {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.95);
-                filter: blur(15px);
-            }
+            from { opacity: 1; transform: scale(1); filter: blur(0); }
+            to { opacity: 0; transform: scale(0.97); filter: blur(8px); }
         }
 
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 35px 28px;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 var(--glass-highlight),
-                0 0 40px rgba(255, 105, 180, 0.2);
+            border-radius: 24px;
+            padding: 28px 22px;
+            box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
             position: relative;
             overflow: hidden;
         }
@@ -190,10 +146,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 40%, 
-                rgba(255, 255, 255, 0.08) 50%, 
-                transparent 60%);
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
             animation: glassShine 8s infinite;
             pointer-events: none;
         }
@@ -203,104 +156,60 @@
             100% { transform: translateX(100%) rotate(0deg); }
         }
 
-        .glass-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 50%);
-            border-radius: 28px;
-            pointer-events: none;
-        }
-
         .glass-btn {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 50px;
-            padding: 16px 32px;
+            padding: 14px 28px;
             font-weight: 600;
-            font-size: 1.1rem;
-            color: #ffffff;
+            font-size: 1rem;
+            color: var(--text-primary);
             cursor: pointer;
-            box-shadow: 
-                0 4px 15px rgba(255, 105, 180, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.5);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             width: fit-content;
-            margin: 12px auto;
+            margin: 10px auto;
             display: block;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            min-width: 140px;
+            text-align: center;
         }
 
         .glass-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 
-                0 8px 25px rgba(255, 105, 180, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.4);
         }
 
         .glass-btn:active {
-            transform: scale(0.95);
-            box-shadow: 
-                0 2px 8px rgba(255, 105, 180, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .glass-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 40%, 
-                rgba(255, 255, 255, 0.2) 50%, 
-                transparent 60%);
-            animation: btnShine 4s infinite;
-        }
-
-        @keyframes btnShine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Ripple Effect */
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.6);
             transform: scale(0);
-            animation: rippleExpand 0.6s ease-out;
+            animation: rippleExpand 0.5s ease-out;
             pointer-events: none;
         }
 
         @keyframes rippleExpand {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+            to { transform: scale(4); opacity: 0; }
         }
 
         .gradient-text {
-            font-family: 'Pacifico', cursive;
-            background: linear-gradient(45deg, #ff69b4, #c71585, #9370db, #ff1493);
+            background: linear-gradient(45deg, #ff69b4, #9370db, #ff1493, #dda0dd);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: gradientShift 4s ease infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 105, 180, 0.6));
         }
 
         @keyframes gradientShift {
@@ -311,592 +220,435 @@
 
         .animated-text {
             opacity: 0;
-            animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: textReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes textReveal {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-                filter: blur(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0);
-            }
+            from { opacity: 0; transform: translateY(15px); filter: blur(6px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
         input {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.6);
             border-radius: 50px;
-            padding: 16px 24px;
-            font-size: 1.2rem;
-            width: 80%;
+            padding: 14px 22px;
+            font-size: 1.1rem;
+            width: 85%;
             text-align: center;
-            color: #ffffff;
+            color: var(--text-primary);
             outline: none;
-            box-shadow: 
-                0 0 20px rgba(255, 105, 180, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            margin: 20px auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 18px auto;
             display: block;
             transition: all 0.3s ease;
         }
 
-        input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
         input:focus {
             border-color: #ff69b4;
-            box-shadow: 
-                0 0 30px rgba(255, 105, 180, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.3);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        input::placeholder {
+            color: rgba(90, 61, 110, 0.5);
         }
 
         .game-container {
             position: relative;
             width: 100%;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.08);
+            height: 350px;
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             margin: 15px 0;
             touch-action: manipulation;
         }
 
         @media (max-width: 400px) {
-            .game-container {
-                height: 300px;
-            }
-            .glass-btn {
-                padding: 14px 24px;
-                font-size: 1rem;
-            }
+            .game-container { height: 280px; }
+            .glass-btn { padding: 12px 22px; font-size: 0.9rem; min-width: 120px; }
+            .glass-card { padding: 22px 16px; }
         }
 
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin: 20px auto;
-            max-width: 300px;
+            gap: 10px;
+            margin: 18px auto;
+            max-width: 280px;
         }
 
         .memory-card {
             aspect-ratio: 1/1;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            box-shadow: 
-                0 4px 12px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             transform-style: preserve-3d;
-            color: #ffffff;
+            color: var(--text-primary);
         }
 
         .memory-card.flipped {
             transform: rotateY(180deg);
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.6);
         }
 
-        .magic-heart-btn {
-            font-size: 4rem;
-            cursor: pointer;
-            filter: drop-shadow(0 0 30px #ff69b4);
-            animation: pulseGlow 1s infinite alternate;
-            transition: all 0.3s ease;
-            user-select: none;
+        .orb {
             position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            user-select: none;
+        }
+
+        .orb.golden {
+            background: radial-gradient(circle, #ffd700, #ffa500);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.9);
+        }
+
+        .orb.special {
+            background: radial-gradient(circle, #ff69b4, #ff1493);
+            box-shadow: 0 0 50px rgba(255, 105, 180, 1);
+            animation: pulseGlow 1s infinite alternate;
         }
 
         @keyframes pulseGlow {
-            0% { filter: drop-shadow(0 0 15px #ff69b4); }
-            100% { filter: drop-shadow(0 0 40px #ff1493); }
+            0% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.7); }
+            100% { box-shadow: 0 0 60px rgba(255, 105, 180, 1); }
         }
 
         .game-card {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 24px;
-            padding: 20px;
-            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 18px;
+            padding: 16px;
+            margin: 12px 0;
             transition: all 0.3s ease;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
         }
 
         .game-card.locked {
-            opacity: 0.5;
-            filter: blur(1px);
+            opacity: 0.6;
+            filter: blur(0.5px);
             pointer-events: none;
         }
 
+        .game-card.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: 2rem;
+        }
+
         .game-card.unlocked {
-            animation: unlockPulse 2s ease;
+            animation: unlockPulse 1.5s ease;
         }
 
         @keyframes unlockPulse {
-            0% { box-shadow: 0 0 0 rgba(255, 105, 180, 0); }
-            50% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.6); }
-            100% { box-shadow: 0 0 0 rgba(255, 105, 180, 0); }
+            0% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
+            50% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.5); }
+            100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
+        }
+
+        .made-by {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            letter-spacing: 0.3px;
+            white-space: nowrap;
         }
 
         #musicToggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             cursor: pointer;
-            font-size: 1.5rem;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            color: #ffffff;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: var(--text-primary);
             transition: all 0.3s ease;
         }
 
         #musicToggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
         }
 
-        /* SVG Tree Animation */
-        .tree-svg-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            position: relative;
+        .shayari-line {
+            opacity: 0;
+            animation: textReveal 0.8s ease forwards;
         }
 
-        .tree-svg {
-            width: 100%;
-            height: auto;
-        }
-
-        /* Ganpati SVG */
-        .ganpati-svg-container {
-            width: 100%;
-            max-width: 300px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .ganpati-svg {
-            width: 100%;
-            height: auto;
-        }
-
-        /* Rakhi SVG */
-        .rakhi-svg-container {
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .rakhi-svg {
-            width: 100%;
-            height: 100%;
-            animation: rakhiFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes rakhiFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(180deg); }
-        }
-
-        /* Mithai Box */
-        .mithai-box {
-            width: 150px;
-            height: 120px;
-            margin: 20px auto;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .mithai-box-lid {
-            width: 100%;
-            height: 30px;
-            background: linear-gradient(135deg, #ff69b4, #9370db);
-            border-radius: 10px 10px 0 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: all 0.5s ease;
-        }
-
-        .mithai-box-body {
-            width: 100%;
-            height: 90px;
-            background: linear-gradient(135deg, #ffb6c1, #dda0dd);
-            border-radius: 0 0 10px 10px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .mithai-box.open .mithai-box-lid {
-            transform: translateY(-40px) rotate(-10deg);
+        .scene-container {
+            min-height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px 10px;
         }
     </style>
 </head>
 <body>
-    <!-- Layer 1: Gradient Background -->
-    <div class="bg-gradient"></div>
-
-    <!-- Layer 2: Glass Light Blobs -->
-    <div class="blob-layer">
+    <div class="bg-layer bg-gradient"></div>
+    <div class="bg-layer bg-blobs">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
-        <div class="blob blob-4"></div>
     </div>
-
-    <!-- Layer 3: Canvas Particles -->
+    <div class="bg-layer bg-vignette"></div>
     <canvas id="particleCanvas"></canvas>
 
-    <!-- Layer 4: Glass Reflections -->
-    <div class="glass-reflection"></div>
-
-    <!-- Layer 5: Vignette -->
-    <div class="vignette"></div>
-
     <button id="musicToggle">🎵</button>
+    <div class="made-by">Made with ❤️ by Dhannu</div>
 
     <div id="app">
-        <!-- PAGE 1: WELCOME -->
-        <div class="page active" id="page1">
+        <!-- PAGE 1: NAME INPUT -->
+        <div class="page active" id="pageName">
             <div class="glass-card">
-                <h1 class="animated-text" style="font-size: 2.5rem; margin-bottom: 20px; color: #ffffff; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Heyyy, Sis! 💗</h1>
-                <p class="animated-text" style="font-size: 1.3rem; margin-bottom: 10px; color: #e0d0ff; animation-delay: 0.3s;">I made something special for you...</p>
-                <p class="animated-text" style="font-size: 1.3rem; margin-bottom: 30px; color: #e0d0ff; animation-delay: 0.6s;">Ready?</p>
-                <input type="text" id="nameInput" placeholder="Enter your name ✨" autocomplete="off" class="animated-text" style="animation-delay: 0.9s;">
-                <button class="glass-btn animated-text" id="confirmNameBtn" style="animation-delay: 1.2s;">Confirm ✨</button>
+                <h1 class="animated-text" style="font-size: 1.8rem; margin-bottom: 10px; color: var(--text-primary);">Heyyy! 💗</h1>
+                <p class="animated-text" style="font-size: 1.1rem; margin-bottom: 15px; color: var(--text-secondary); animation-delay: 0.3s;">Before we begin this little surprise...</p>
+                <p class="animated-text" style="font-size: 1rem; color: var(--text-secondary); animation-delay: 0.5s;">What's your name?</p>
+                <input type="text" id="nameInput" placeholder="Enter your name ✨" autocomplete="off" class="animated-text" style="animation-delay: 0.7s;">
+                <button class="glass-btn animated-text" id="confirmNameBtn" style="animation-delay: 0.9s;">Confirm ✨</button>
             </div>
         </div>
 
-        <!-- PAGE 2: RAKSHA BANDHAN -->
-        <div class="page" id="page2">
+        <!-- PAGE 2: WELCOME -->
+        <div class="page" id="pageWelcome">
             <div class="glass-card">
-                <div style="font-size: 2rem; margin-bottom: 15px; color: #ffffff;">🌸✨💗🪢🌙</div>
-                <h1 class="animated-text" style="font-size: 2rem; margin-bottom: 10px; color: #ffffff;">Happy Raksha Bandhan</h1>
-                <h2 class="gradient-text" id="greetingName" style="font-size: 3rem; margin: 20px 0; animation-delay: 0.5s;"></h2>
-                <p class="animated-text" style="font-size: 1.2rem; margin-bottom: 30px; color: #e0d0ff; animation-delay: 1s;">To the most annoying, funniest and most special sister ever. 😂💗</p>
-                <button class="glass-btn animated-text" id="continueToGamesBtn" style="animation-delay: 1.5s;">Okay... show me what you made 👀</button>
+                <p class="animated-text" style="font-size: 1rem; color: var(--text-secondary);">Okay...</p>
+                <h1 class="animated-text gradient-text" style="font-size: 2rem; margin: 15px 0; animation-delay: 0.5s;">Happy Raksha Bandhan</h1>
+                <h2 class="animated-text" id="welcomeName" style="font-size: 2.5rem; margin: 15px 0; color: var(--text-primary); animation-delay: 1s;"></h2>
+                <p class="animated-text" style="font-size: 1rem; margin-bottom: 25px; color: var(--text-secondary); animation-delay: 1.5s;">To the most annoying, funniest and most special sister ever. 😂</p>
+                <button class="glass-btn animated-text" id="continueToArcadeBtn" style="animation-delay: 2s;">Show me what you made 👀</button>
             </div>
         </div>
 
-        <!-- PAGE 3: LET'S PLAY -->
-        <div class="page" id="page3">
-            <div class="glass-card">
-                <h2 class="animated-text" style="font-size: 2rem; margin-bottom: 15px; color: #ffffff;">Let's Play Some Games! 🎮💗</h2>
-                <p class="animated-text" style="font-size: 1.2rem; margin-bottom: 20px; color: #e0d0ff; animation-delay: 0.3s;">But first... are you ready for some surprises?</p>
-                <div id="yesNoArea" style="display: flex; flex-direction: column; align-items: center; gap: 15px; position: relative; min-height: 200px;">
-                    <button class="glass-btn animated-text" id="yesBtn" style="font-size: 1.5rem; z-index: 10; animation-delay: 0.6s;">YES 💖</button>
-                    <button class="glass-btn animated-text" id="noBtn" style="font-size: 1.2rem; position: relative; z-index: 5; animation-delay: 0.8s;">NO 😏</button>
-                </div>
-                <p id="funnyMsg" style="font-style: italic; margin-top: 15px; min-height: 30px; color: #ffb6c1;"></p>
-            </div>
-        </div>
-
-        <!-- PAGE 4: LOADING -->
-        <div class="page" id="loadingPage">
-            <div class="glass-card">
-                <h2 class="animated-text" style="color: #ffffff;">Preparing your surprises... ✨</h2>
-                <div style="font-size: 3rem; margin: 20px; animation: pulseGlow 1s infinite;">⏳</div>
-            </div>
-        </div>
-
-        <!-- PAGE 5: GAME HUB -->
-        <div class="page" id="gameHubPage">
-            <div class="glass-card">
-                <h2 class="animated-text" style="font-size: 2rem; margin-bottom: 10px; color: #ffffff;">🎮 SIS ARCADE</h2>
-                <p class="animated-text" style="margin-bottom: 20px; color: #e0d0ff; animation-delay: 0.3s;">Three games. Three secrets. One final surprise.</p>
+        <!-- PAGE 3: ARCADE HUB -->
+        <div class="page" id="pageArcade">
+            <div class="glass-card" style="padding: 20px 16px;">
+                <h2 class="animated-text" style="font-size: 1.6rem; margin-bottom: 5px; color: var(--text-primary);">SIS ARCADE 🎮</h2>
+                <p class="animated-text" style="font-size: 0.9rem; margin-bottom: 18px; color: var(--text-secondary); animation-delay: 0.3s;">3 games. 3 little surprises. Let's see how good you are 👀</p>
                 
                 <div class="game-card" id="game1Card">
-                    <div style="font-size: 3rem; color: #ff69b4;">💗</div>
-                    <h3 style="color: #ffffff;">Catch The Love 💗</h3>
-                    <p style="color: #e0d0ff;">Catch hearts and score big!</p>
-                    <p style="font-size: 0.9rem; color: #e0d0ff;">Best Score: <span id="bestScore1">0</span></p>
-                    <button class="glass-btn game-start-btn" data-game="1">PLAY</button>
+                    <div style="font-size: 2rem; margin-bottom: 5px;">📦</div>
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem;">Special Delivery</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Catch the gifts, avoid the wrong items!</p>
+                    <button class="glass-btn game-start-btn" data-game="1" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">PLAY</button>
                 </div>
 
                 <div class="game-card locked" id="game2Card">
-                    <div style="font-size: 3rem; color: #9370db;">🧠</div>
-                    <h3 style="color: #ffffff;">Memory Magic 🧠</h3>
-                    <p style="color: #e0d0ff;">Match the pairs to win!</p>
-                    <p style="font-size: 0.9rem; color: #e0d0ff;">Best Score: <span id="bestScore2">0</span></p>
-                    <button class="glass-btn game-start-btn" data-game="2">🔒 LOCKED</button>
+                    <div style="font-size: 2rem; margin-bottom: 5px;">🧠</div>
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem;">Memory Vault</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Match the pairs to unlock the vault!</p>
+                    <button class="glass-btn game-start-btn" data-game="2" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">🔒 LOCKED</button>
                 </div>
 
                 <div class="game-card locked" id="game3Card">
-                    <div style="font-size: 3rem; color: #ffb6c1;">✨</div>
-                    <h3 style="color: #ffffff;">Magic Reaction ✨</h3>
-                    <p style="color: #e0d0ff;">Tap the magic heart!</p>
-                    <p style="font-size: 0.9rem; color: #e0d0ff;">Best Score: <span id="bestScore3">0</span></p>
-                    <button class="glass-btn game-start-btn" data-game="3">🔒 LOCKED</button>
+                    <div style="font-size: 2rem; margin-bottom: 5px;">✨</div>
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem;">Magic Reaction</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Tap the glowing orbs quickly!</p>
+                    <button class="glass-btn game-start-btn" data-game="3" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">🔒 LOCKED</button>
                 </div>
 
-                <button class="glass-btn" id="finalSurpriseBtn" style="display: none; margin-top: 20px;">OPEN FINAL SURPRISE 💗</button>
+                <button class="glass-btn" id="finalSurpriseBtn" style="display: none; margin-top: 15px;">OPEN FINAL SURPRISE 💗</button>
+                <button class="glass-btn" id="restartBtn" style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">Restart Experience</button>
             </div>
         </div>
 
-        <!-- PAGE 6: GAME 1 -->
-        <div class="page" id="game1Page">
+        <!-- PAGE 4: GAME 1 -->
+        <div class="page" id="pageGame1">
             <div class="glass-card">
-                <h2 class="animated-text" style="color: #ffffff;">Catch The Love 💗</h2>
-                <p style="color: #e0d0ff;">Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
+                <h2 class="animated-text" style="font-size: 1.3rem; color: var(--text-primary);">Special Delivery 📦</h2>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
                 <div class="game-container" id="game1Area"></div>
             </div>
         </div>
 
-        <!-- PAGE 7: SURPRISE 1 -->
-        <div class="page" id="surprise1Page">
+        <!-- PAGE 5: SURPRISE 1 DELAY -->
+        <div class="page" id="pageSurprise1Delay">
             <div class="glass-card">
-                <div class="animated-text" style="font-size: 4rem;">💌</div>
-                <h2 class="gradient-text" style="font-size: 2rem;">SECRET #1 💗</h2>
-                <p id="surprise1Message" style="font-size: 1.2rem; margin: 15px 0; color: #ffffff;"></p>
-                <p class="animated-text" style="font-style: italic; color: #e0d0ff; animation-delay: 1s;">"One secret unlocked... two more to go 👀"</p>
-                <button class="glass-btn" id="surprise1ContinueBtn">BACK TO ARCADE 🎮</button>
+                <h2 class="animated-text" style="color: var(--text-primary);">Umm... 😭</h2>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">Thoda late ho gaya gift...</p>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 3s;">Delivery wale ko laga tha ye normal gift hai,<br>usse kya pata tha ki main poori website pack karke bhej raha hoon. 😂</p>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 5s;">Anyway... finally aa gaya. ✨</p>
+                <button class="glass-btn" id="delayContinueBtn" style="display: none; margin-top: 20px;">Continue →</button>
             </div>
         </div>
 
-        <!-- PAGE 8: GAME 1 DELAY MESSAGE -->
-        <div class="page" id="game1DelayPage">
+        <!-- PAGE 6: SURPRISE 1 -->
+        <div class="page" id="pageSurprise1">
             <div class="glass-card">
-                <h2 class="animated-text" style="color: #ffffff;">Umm... 😭</h2>
-                <p class="animated-text" style="color: #e0d0ff; animation-delay: 1s;">Thoda late ho gaya gift...</p>
-                <p class="animated-text" style="color: #e0d0ff; animation-delay: 2.5s;">Delivery wale ko laga tha ye normal gift hai,<br>usko kya pata tha ki main poori website pack karke bhej raha hoon. 😂💗</p>
-                <p class="animated-text" style="color: #e0d0ff; animation-delay: 4.5s;">Bas aa hi gaya... 👀</p>
-                <button class="glass-btn" id="delayContinueBtn" style="display: none;">CONTINUE ✨</button>
+                <div class="animated-text" style="font-size: 3rem; margin-bottom: 10px;">📦</div>
+                <h2 class="gradient-text" style="font-size: 1.5rem;">SECRET #1</h2>
+                <p id="surprise1Message" style="font-size: 1.1rem; margin: 15px 0; color: var(--text-primary);"></p>
+                <button class="glass-btn" id="surprise1ContinueBtn">Continue →</button>
             </div>
         </div>
 
-        <!-- PAGE 9: GAME 2 -->
-        <div class="page" id="game2Page">
+        <!-- PAGE 7: GAME 2 -->
+        <div class="page" id="pageGame2">
             <div class="glass-card">
-                <h2 class="animated-text" style="color: #ffffff;">Memory Magic 🧠</h2>
-                <p style="color: #e0d0ff;">Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span> | Time: <span id="time2">0</span>s</p>
+                <h2 class="animated-text" style="font-size: 1.3rem; color: var(--text-primary);">Memory Vault 🧠</h2>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span></p>
                 <div class="memory-grid" id="memoryGrid"></div>
             </div>
         </div>
 
-        <!-- PAGE 10: SURPRISE 2 -->
-        <div class="page" id="surprise2Page">
+        <!-- PAGE 8: SURPRISE 2 -->
+        <div class="page" id="pageSurprise2">
             <div class="glass-card">
-                <div class="animated-text" style="font-size: 4rem;">🎁</div>
-                <h2 class="gradient-text" style="font-size: 2rem;">SECRET #2 🎁</h2>
-                <p class="animated-text" style="font-size: 1.2rem; margin: 15px 0; color: #ffffff; animation-delay: 0.5s;">"Some people get gifts...<br>You get an entire website made just for you. 😂💗"</p>
-                <p class="animated-text" style="font-style: italic; color: #e0d0ff; animation-delay: 1.5s;">"Still not finished..."</p>
-                <button class="glass-btn" id="surprise2ContinueBtn">BACK TO ARCADE 🎮</button>
+                <p class="animated-text" style="color: var(--text-secondary);">Lagta hai apni behno ko gift dete hain...</p>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">tere bhai ne toh puri web hi dedicate kar di. 😂</p>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 3s;">Still... ek aur surprise baaki hai.</p>
+                <div class="animated-text" style="font-size: 2.5rem; margin: 15px 0; animation-delay: 4.5s;">🎁</div>
+                <h2 class="gradient-text" style="font-size: 1.3rem;">SECRET #2</h2>
+                <p id="surprise2Message" style="font-size: 1rem; margin: 10px 0; color: var(--text-primary);"></p>
+                <button class="glass-btn" id="surprise2ContinueBtn">Back to Arcade</button>
             </div>
         </div>
 
-        <!-- PAGE 11: GAME 3 -->
-        <div class="page" id="game3Page">
+        <!-- PAGE 9: GAME 3 -->
+        <div class="page" id="pageGame3">
             <div class="glass-card">
-                <h2 class="animated-text" style="color: #ffffff;">Magic Reaction ✨</h2>
-                <p style="color: #e0d0ff;">Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
-                <div class="game-container" id="game3Area" style="display: flex; align-items: center; justify-content: center; position: relative;">
-                    <div id="magicHeart" class="magic-heart-btn">💖</div>
-                </div>
+                <h2 class="animated-text" style="font-size: 1.3rem; color: var(--text-primary);">Magic Reaction ✨</h2>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
+                <div class="game-container" id="game3Area" style="position: relative; display: flex; align-items: center; justify-content: center;"></div>
             </div>
         </div>
 
-        <!-- PAGE 12: SURPRISE 3 -->
-        <div class="page" id="surprise3Page">
+        <!-- PAGE 10: SURPRISE 3 -->
+        <div class="page" id="pageSurprise3">
             <div class="glass-card">
-                <div class="animated-text" style="font-size: 4rem;">🌟</div>
-                <h2 class="animated-text" style="font-size: 2rem; color: #ffffff; animation-delay: 0.3s;">FINAL SECRET UNLOCKED</h2>
-                <div class="animated-text" style="font-size: 3rem; margin: 15px; animation-delay: 0.6s;">🎁</div>
-                <p class="animated-text" style="font-size: 1.2rem; color: #e0d0ff; animation-delay: 0.9s;">"There's something much bigger waiting..."</p>
-                <button class="glass-btn" id="surprise3ContinueBtn">ENTER THE FINAL SURPRISE 💗</button>
+                <p class="animated-text" style="color: var(--text-secondary);">Okay...</p>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1s;">You actually completed all three. 👀</p>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 2s;">So...</p>
+                <p class="animated-text" style="color: var(--text-primary); font-weight: bold; animation-delay: 3s;">Ready for the final surprise?</p>
+                <button class="glass-btn" id="surprise3ContinueBtn" style="margin-top: 20px;">OPEN IT ✨</button>
             </div>
         </div>
 
-        <!-- PAGE 13: FINAL WORLD -->
-        <div class="page" id="finalPage">
-            <div class="glass-card">
-                <!-- Animated Tree SVG -->
-                <div class="tree-svg-container" id="treeContainer">
-                    <svg class="tree-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Roots -->
-                        <g id="treeRoots">
-                            <path d="M200 450 Q150 470 120 480" stroke="#8B4513" stroke-width="6" fill="none" opacity="0"/>
-                            <path d="M200 450 Q250 470 280 480" stroke="#8B4513" stroke-width="6" fill="none" opacity="0"/>
-                        </g>
-                        <!-- Trunk -->
-                        <rect id="treeTrunk" x="185" y="250" width="30" height="200" rx="10" fill="#8B4513" opacity="0"/>
-                        <!-- Branches -->
-                        <g id="treeBranches">
-                            <path d="M200 300 Q150 250 120 200" stroke="#A0522D" stroke-width="8" fill="none" opacity="0"/>
-                            <path d="M200 280 Q250 230 280 180" stroke="#A0522D" stroke-width="8" fill="none" opacity="0"/>
-                            <path d="M200 320 Q160 280 140 240" stroke="#A0522D" stroke-width="6" fill="none" opacity="0"/>
-                            <path d="M200 310 Q240 270 260 230" stroke="#A0522D" stroke-width="6" fill="none" opacity="0"/>
-                        </g>
-                        <!-- Leaves (will be animated) -->
-                        <g id="treeLeaves">
-                            <circle cx="200" cy="200" r="60" fill="#ff69b4" opacity="0" filter="url(#glow)"/>
-                            <circle cx="150" cy="220" r="40" fill="#ffb6c1" opacity="0"/>
-                            <circle cx="250" cy="220" r="40" fill="#ffb6c1" opacity="0"/>
-                            <circle cx="180" cy="170" r="35" fill="#ffc2dc" opacity="0"/>
-                            <circle cx="220" cy="170" r="35" fill="#ffc2dc" opacity="0"/>
-                            <circle cx="160" cy="250" r="30" fill="#f8c8ff" opacity="0"/>
-                            <circle cx="240" cy="250" r="30" fill="#f8c8ff" opacity="0"/>
-                            <circle cx="200" cy="230" r="25" fill="#ffd6e7" opacity="0"/>
-                        </g>
-                        <!-- Flowers -->
-                        <g id="treeFlowers">
-                            <circle cx="200" cy="180" r="8" fill="#ffffff" opacity="0"/>
-                            <circle cx="170" cy="200" r="6" fill="#ffffff" opacity="0"/>
-                            <circle cx="230" cy="200" r="6" fill="#ffffff" opacity="0"/>
-                            <circle cx="185" cy="160" r="5" fill="#ffffff" opacity="0"/>
-                            <circle cx="215" cy="160" r="5" fill="#ffffff" opacity="0"/>
-                        </g>
-                        <!-- Defs -->
-                        <defs>
-                            <filter id="glow">
-                                <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                            <radialGradient id="treeGlow">
-                                <stop offset="0%" stop-color="#ff69b4" stop-opacity="0.5"/>
-                                <stop offset="100%" stop-color="#ff69b4" stop-opacity="0"/>
-                            </radialGradient>
-                        </defs>
-                        <circle cx="200" cy="200" r="80" fill="url(#treeGlow)" opacity="0" id="treeGlowCircle"/>
-                    </svg>
-                </div>
+        <!-- FINAL SCENES -->
+        <div class="page" id="finalScene1">
+            <div class="scene-container glass-card">
+                <p class="animated-text" style="color: var(--text-secondary);">Wait...</p>
+                <p class="animated-text" style="color: var(--text-primary); font-size: 1.2rem; animation-delay: 1s;">I made something just for you.</p>
+                <button class="glass-btn" id="finalScene1Btn" style="margin-top: 20px;">Continue</button>
+            </div>
+        </div>
 
-                <!-- Animated Ganpati SVG -->
-                <div class="ganpati-svg-container" id="ganpatiContainer">
-                    <svg class="ganpati-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Halo -->
-                        <circle cx="150" cy="120" r="70" fill="none" stroke="#ffd700" stroke-width="2" opacity="0" id="ganpatiHalo">
-                            <animate attributeName="r" values="70;75;70" dur="3s" repeatCount="indefinite"/>
-                        </circle>
-                        <!-- Body -->
-                        <ellipse cx="150" cy="180" rx="60" ry="80" fill="#ff8c69" opacity="0" id="ganpatiBody"/>
-                        <!-- Head -->
-                        <circle cx="150" cy="100" r="35" fill="#ffa07a" opacity="0" id="ganpatiHead"/>
-                        <!-- Ears -->
-                        <ellipse cx="110" cy="100" rx="20" ry="30" fill="#ff8c69" opacity="0" id="ganpatiEar1"/>
-                        <ellipse cx="190" cy="100" rx="20" ry="30" fill="#ff8c69" opacity="0" id="ganpatiEar2"/>
-                        <!-- Crown -->
-                        <path d="M130 70 L140 50 L150 70 L160 50 L170 70" fill="#ffd700" opacity="0" id="ganpatiCrown"/>
-                        <!-- Trunk -->
-                        <path d="M150 130 Q140 160 130 150 Q135 140 145 140" fill="#ff8c69" opacity="0" id="ganpatiTrunk"/>
-                        <!-- Diya -->
-                        <ellipse cx="100" cy="250" rx="15" ry="10" fill="#8B4513" opacity="0" id="diya"/>
-                        <ellipse cx="200" cy="250" rx="15" ry="10" fill="#8B4513" opacity="0" id="diya2"/>
-                        <circle cx="100" cy="245" r="5" fill="#ffd700" opacity="0" id="flame1">
-                            <animate attributeName="opacity" values="0;1;0.5;1;0" dur="2s" repeatCount="indefinite"/>
-                        </circle>
-                        <circle cx="200" cy="245" r="5" fill="#ffd700" opacity="0" id="flame2">
-                            <animate attributeName="opacity" values="0;1;0.5;1;0" dur="2s" repeatCount="indefinite"/>
-                        </circle>
-                    </svg>
-                </div>
+        <div class="page" id="finalScene2">
+            <div class="scene-container glass-card">
+                <div class="animated-text" style="font-size: 3rem; margin-bottom: 15px;">💌</div>
+                <p class="animated-text" style="color: var(--text-primary); font-size: 1.2rem;">FOR <span id="scene2Name" class="gradient-text"></span> 💗</p>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">This little website was made to make you smile.</p>
+                <button class="glass-btn" id="finalScene2Btn" style="margin-top: 20px;">Next ✨</button>
+            </div>
+        </div>
 
-                <!-- Animated Rakhi SVG -->
-                <div class="rakhi-svg-container" id="rakhiContainer">
-                    <svg class="rakhi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="30" fill="#ff69b4" stroke="#ffd700" stroke-width="3"/>
-                        <circle cx="50" cy="50" r="20" fill="#ff1493"/>
-                        <circle cx="50" cy="50" r="10" fill="#ffd700"/>
-                        <circle cx="50" cy="50" r="5" fill="#ffffff"/>
-                        <!-- Beads -->
-                        <circle cx="20" cy="50" r="4" fill="#ffd700"/>
-                        <circle cx="80" cy="50" r="4" fill="#ffd700"/>
-                        <circle cx="50" cy="20" r="4" fill="#ffd700"/>
-                        <circle cx="50" cy="80" r="4" fill="#ffd700"/>
-                        <!-- Threads -->
-                        <path d="M20 50 Q10 50 0 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
-                        <path d="M80 50 Q90 50 100 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
-                    </svg>
-                </div>
+        <div class="page" id="finalScene3">
+            <div class="scene-container glass-card">
+                <div class="animated-text" style="font-size: 3rem; margin-bottom: 15px;">🪢</div>
+                <h2 class="animated-text gradient-text" style="font-size: 1.5rem;">Happy Raksha Bandhan, <span id="scene3Name"></span></h2>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">Because some bonds deserve their own little celebration.</p>
+                <button class="glass-btn" id="finalScene3Btn" style="margin-top: 20px;">There's more →</button>
+            </div>
+        </div>
 
-                <h2 class="gradient-text" id="finalGreeting" style="font-size: 2.5rem;"></h2>
-                <div id="shayariContainer" style="margin: 20px 0; line-height: 1.8; color: #ffffff;"></div>
-                <div id="festiveElements" style="margin: 20px 0; color: #ffffff;">
-                    <div class="mithai-box" id="mithaiBox">
-                        <div class="mithai-box-lid"></div>
-                        <div class="mithai-box-body"></div>
-                    </div>
-                    <p>Thodi si mithaas meri taraf se... 🍬💗</p>
-                    <p>Ganpati Bappa Morya 🙏✨</p>
-                </div>
-                <div id="finalMessageCard" style="margin: 20px 0; color: #ffffff;"></div>
-                <button class="glass-btn" id="oneLastThingBtn">One Last Thing... 👀</button>
-                <div id="finalReveal" style="font-size: 2rem; margin: 20px; color: #ffffff;"></div>
+        <div class="page" id="finalScene4">
+            <div class="scene-container glass-card">
+                <div id="shayariContainer" style="margin: 15px 0; line-height: 1.8; color: var(--text-primary); font-size: 0.95rem;"></div>
+                <button class="glass-btn" id="finalScene4Btn" style="margin-top: 20px;">One Last Thing 👀</button>
+            </div>
+        </div>
+
+        <div class="page" id="finalScene5">
+            <div class="scene-container glass-card">
+                <p class="animated-text" style="color: var(--text-secondary);">Okay... last one.</p>
+                <button class="glass-btn" id="finalScene5Btn" style="margin-top: 20px;">OPEN 💗</button>
+                <div id="finalReveal" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <div class="page" id="finalScene6">
+            <div class="scene-container glass-card">
+                <h2 class="animated-text gradient-text" style="font-size: 1.5rem;">Happy Raksha Bandhan 💗</h2>
+                <h3 class="animated-text" id="scene6Name" style="font-size: 2rem; margin: 15px 0; color: var(--text-primary); animation-delay: 0.5s;"></h3>
+                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1s;">Stay happy.<br>Keep smiling.<br>And keep annoying your brother. 😂</p>
+                <p class="animated-text" style="color: var(--text-primary); font-weight: bold; margin-top: 20px; animation-delay: 2s;">Made with ❤️ by Dhannu</p>
+                <button class="glass-btn" id="finalScene6Btn" style="margin-top: 20px; animation-delay: 2.5s;">Restart 🔄</button>
             </div>
         </div>
     </div>
 
     <script>
         (function() {
-            // STATE MANAGEMENT
-            let state = {
-                sisterName: localStorage.getItem('sisterName') || '',
-                game1Completed: JSON.parse(localStorage.getItem('game1Completed') || 'false'),
-                game2Completed: JSON.parse(localStorage.getItem('game2Completed') || 'false'),
-                game3Completed: JSON.parse(localStorage.getItem('game3Completed') || 'false'),
-                surprise1Unlocked: JSON.parse(localStorage.getItem('surprise1Unlocked') || 'false'),
-                surprise2Unlocked: JSON.parse(localStorage.getItem('surprise2Unlocked') || 'false'),
-                surprise3Unlocked: JSON.parse(localStorage.getItem('surprise3Unlocked') || 'false'),
+            // SESSION STATE (no permanent sister name)
+            let currentSisterName = '';
+            let gameState = {
+                game1Completed: false,
+                game2Completed: false,
+                game3Completed: false,
                 bestScores: JSON.parse(localStorage.getItem('bestScores') || '{"game1":0,"game2":0,"game3":0}')
             };
 
-            function saveState() {
-                localStorage.setItem('sisterName', state.sisterName);
-                localStorage.setItem('game1Completed', JSON.stringify(state.game1Completed));
-                localStorage.setItem('game2Completed', JSON.stringify(state.game2Completed));
-                localStorage.setItem('game3Completed', JSON.stringify(state.game3Completed));
-                localStorage.setItem('surprise1Unlocked', JSON.stringify(state.surprise1Unlocked));
-                localStorage.setItem('surprise2Unlocked', JSON.stringify(state.surprise2Unlocked));
-                localStorage.setItem('surprise3Unlocked', JSON.stringify(state.surprise3Unlocked));
-                localStorage.setItem('bestScores', JSON.stringify(state.bestScores));
+            function saveScores() {
+                localStorage.setItem('bestScores', JSON.stringify(gameState.bestScores));
             }
 
-            // PARTICLE ENGINE (Canvas)
+            // CANVAS PARTICLE SYSTEM
             const canvas = document.getElementById('particleCanvas');
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const particleCount = 50;
+            const particleCount = 30;
 
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
@@ -909,18 +661,16 @@
                 constructor() {
                     this.reset();
                 }
-
                 reset() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 3 + 1;
-                    this.speedX = (Math.random() - 0.5) * 0.5;
-                    this.speedY = Math.random() * 0.5 + 0.1;
-                    this.opacity = Math.random() * 0.5 + 0.1;
-                    this.color = ['#ff69b4', '#ffb6c1', '#9370db', '#ffffff', '#ffc2dc'][Math.floor(Math.random() * 5)];
-                    this.type = Math.random() > 0.7 ? 'star' : 'circle';
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = Math.random() * 0.3 + 0.05;
+                    this.opacity = Math.random() * 0.4 + 0.1;
+                    this.color = ['#ffd6e7', '#f8c8ff', '#e8d9ff', '#ffffff', '#ffc2dc'][Math.floor(Math.random() * 5)];
+                    this.shape = Math.random() > 0.7 ? 'star' : 'circle';
                 }
-
                 update() {
                     this.x += this.speedX;
                     this.y -= this.speedY;
@@ -928,13 +678,11 @@
                         this.reset();
                     }
                 }
-
                 draw() {
                     ctx.save();
                     ctx.globalAlpha = this.opacity;
                     ctx.fillStyle = this.color;
-                    
-                    if (this.type === 'circle') {
+                    if (this.shape === 'circle') {
                         ctx.beginPath();
                         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                         ctx.fill();
@@ -942,10 +690,10 @@
                         ctx.beginPath();
                         for (let i = 0; i < 5; i++) {
                             const angle = (i * 4 * Math.PI / 5) - Math.PI / 2;
-                            const x = this.x + Math.cos(angle) * this.size * 2;
-                            const y = this.y + Math.sin(angle) * this.size * 2;
-                            if (i === 0) ctx.moveTo(x, y);
-                            else ctx.lineTo(x, y);
+                            const px = this.x + Math.cos(angle) * this.size * 2;
+                            const py = this.y + Math.sin(angle) * this.size * 2;
+                            if (i === 0) ctx.moveTo(px, py);
+                            else ctx.lineTo(px, py);
                         }
                         ctx.closePath();
                         ctx.fill();
@@ -960,69 +708,64 @@
 
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(particle => {
-                    particle.update();
-                    particle.draw();
-                });
+                particles.forEach(p => { p.update(); p.draw(); });
                 requestAnimationFrame(animateParticles);
             }
             animateParticles();
 
             // BUTTON RIPPLE EFFECT
-            function addRipple(e, button) {
+            function addRipple(e, element) {
                 const ripple = document.createElement('span');
                 ripple.className = 'ripple';
-                const rect = button.getBoundingClientRect();
+                const rect = element.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 ripple.style.left = x + 'px';
                 ripple.style.top = y + 'px';
                 ripple.style.width = '20px';
                 ripple.style.height = '20px';
-                button.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 600);
-                
-                // Particle burst at click position
-                for (let i = 0; i < 10; i++) {
-                    const particle = new Particle();
-                    particle.x = x;
-                    particle.y = y;
-                    particle.speedX = (Math.random() - 0.5) * 3;
-                    particle.speedY = (Math.random() - 0.5) * 3;
-                    particle.opacity = 1;
-                    particle.size = Math.random() * 3 + 2;
-                    particles.push(particle);
-                    setTimeout(() => particles.pop(), 1000);
-                }
+                element.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 500);
             }
 
-            // Add ripple to all glass buttons
             document.querySelectorAll('.glass-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     addRipple(e, btn);
                 });
             });
 
+            // PAGE TRANSITION
+            function showPage(pageId) {
+                const currentPage = document.querySelector('.page.active');
+                if (currentPage) {
+                    currentPage.style.animation = 'pageOut 0.5s ease forwards';
+                    setTimeout(() => {
+                        currentPage.classList.remove('active');
+                        currentPage.style.animation = '';
+                        const newPage = document.getElementById(pageId);
+                        newPage.classList.add('active');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 500);
+                } else {
+                    document.getElementById(pageId).classList.add('active');
+                }
+            }
+
             // MUSIC TOGGLE
             const musicToggle = document.getElementById('musicToggle');
             let musicOn = false;
             let audioContext = null;
-
             musicToggle.addEventListener('click', () => {
                 if (!musicOn) {
-                    if (!audioContext) {
-                        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    }
-                    const oscillator = audioContext.createOscillator();
-                    const gainNode = audioContext.createGain();
-                    oscillator.type = 'sine';
-                    oscillator.frequency.value = 528;
-                    gainNode.gain.value = 0.05;
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
-                    oscillator.start();
-                    setTimeout(() => oscillator.stop(), 500);
-                    
+                    if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = 528;
+                    gain.gain.value = 0.04;
+                    osc.connect(gain).connect(audioContext.destination);
+                    osc.start();
+                    setTimeout(() => osc.stop(), 400);
                     musicToggle.textContent = '🎵🔊';
                     musicOn = true;
                 } else {
@@ -1031,42 +774,18 @@
                 }
             });
 
-            // PAGE TRANSITION
-            function showPage(pageId) {
-                const currentPage = document.querySelector('.page.active');
-                if (currentPage) {
-                    currentPage.style.animation = 'pageOut 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-                    setTimeout(() => {
-                        currentPage.classList.remove('active');
-                        currentPage.style.animation = '';
-                        
-                        const newPage = document.getElementById(pageId);
-                        newPage.classList.add('active');
-                        
-                        setTimeout(() => {
-                            window.scrollTo({top: 0, behavior: 'smooth'});
-                        }, 100);
-                    }, 700);
-                } else {
-                    const newPage = document.getElementById(pageId);
-                    newPage.classList.add('active');
-                }
-            }
-
-            // PAGE 1: WELCOME
-            const nameInput = document.getElementById('nameInput');
+            // NAME INPUT
             document.getElementById('confirmNameBtn').addEventListener('click', (e) => {
                 addRipple(e, e.target);
-                const name = nameInput.value.trim();
+                const name = document.getElementById('nameInput').value.trim();
                 if (!name) {
-                    nameInput.style.animation = 'shake 0.5s ease';
-                    setTimeout(() => nameInput.style.animation = '', 500);
+                    document.getElementById('nameInput').style.animation = 'shake 0.5s ease';
+                    setTimeout(() => document.getElementById('nameInput').style.animation = '', 500);
                     return;
                 }
-                state.sisterName = name;
-                saveState();
-                document.getElementById('greetingName').textContent = name;
-                showPage('page2');
+                currentSisterName = name;
+                document.getElementById('welcomeName').textContent = name;
+                showPage('pageWelcome');
             });
 
             // Add shake animation
@@ -1074,111 +793,86 @@
             style.textContent = `
                 @keyframes shake {
                     0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-10px); }
-                    75% { transform: translateX(10px); }
+                    25% { transform: translateX(-8px); }
+                    75% { transform: translateX(8px); }
                 }
             `;
             document.head.appendChild(style);
 
-            // PAGE 2: CONTINUE
-            document.getElementById('continueToGamesBtn').addEventListener('click', () => {
-                showPage('page3');
+            // WELCOME TO ARCADE
+            document.getElementById('continueToArcadeBtn').addEventListener('click', () => {
+                updateArcade();
+                showPage('pageArcade');
             });
 
-            // PAGE 3: YES/NO INTERACTION
-            let noClickCount = 0;
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            const funnyMsg = document.getElementById('funnyMsg');
-            const funnyMessages = [
-                'Nice try 😂',
-                'Nope!',
-                'Try again 😭',
-                "You can't escape!",
-                'JUST PRESS YES 😂',
-                'Why are you like this 😭'
-            ];
-
-            noBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                noClickCount++;
-                
-                const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-                const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-                const randomX = Math.max(20, Math.random() * maxX);
-                const randomY = Math.max(20, Math.random() * maxY);
-                
-                noBtn.style.position = 'fixed';
-                noBtn.style.left = randomX + 'px';
-                noBtn.style.top = randomY + 'px';
-                noBtn.style.zIndex = '100';
-                
-                noBtn.style.animation = 'none';
-                setTimeout(() => {
-                    noBtn.style.animation = 'shake 0.5s ease';
-                }, 10);
-                
-                yesBtn.style.transform = `scale(${1 + noClickCount * 0.2})`;
-                funnyMsg.textContent = funnyMessages[Math.min(noClickCount - 1, funnyMessages.length - 1)];
+            // RESTART
+            document.getElementById('restartBtn').addEventListener('click', () => {
+                gameState.game1Completed = false;
+                gameState.game2Completed = false;
+                gameState.game3Completed = false;
+                currentSisterName = '';
+                document.getElementById('nameInput').value = '';
+                updateArcade();
+                showPage('pageName');
             });
 
-            yesBtn.addEventListener('click', () => {
-                showPage('loadingPage');
-                setTimeout(() => {
-                    updateGameHub();
-                    showPage('gameHubPage');
-                }, 2000);
-            });
-
-            // GAME HUB
-            function updateGameHub() {
-                document.getElementById('game1Card').classList.remove('locked');
-                document.getElementById('game1Card').classList.add('unlocked');
+            // ARCADE UPDATE
+            function updateArcade() {
+                const g1 = document.getElementById('game1Card');
+                const g2 = document.getElementById('game2Card');
+                const g3 = document.getElementById('game3Card');
                 
-                if (state.game1Completed) {
-                    document.getElementById('game2Card').classList.remove('locked');
-                    document.getElementById('game2Card').classList.add('unlocked');
+                g1.classList.remove('locked');
+                g1.classList.add('unlocked');
+                
+                if (gameState.game1Completed) {
+                    g2.classList.remove('locked');
+                    g2.classList.add('unlocked');
                     document.querySelector('#game2Card .game-start-btn').textContent = 'PLAY';
+                } else {
+                    g2.classList.add('locked');
+                    g2.classList.remove('unlocked');
                 }
                 
-                if (state.game2Completed) {
-                    document.getElementById('game3Card').classList.remove('locked');
-                    document.getElementById('game3Card').classList.add('unlocked');
+                if (gameState.game2Completed) {
+                    g3.classList.remove('locked');
+                    g3.classList.add('unlocked');
                     document.querySelector('#game3Card .game-start-btn').textContent = 'PLAY';
+                } else {
+                    g3.classList.add('locked');
+                    g3.classList.remove('unlocked');
                 }
                 
-                document.getElementById('bestScore1').textContent = state.bestScores.game1;
-                document.getElementById('bestScore2').textContent = state.bestScores.game2;
-                document.getElementById('bestScore3').textContent = state.bestScores.game3;
-                
-                if (state.game1Completed && state.game2Completed && state.game3Completed) {
+                if (gameState.game1Completed && gameState.game2Completed && gameState.game3Completed) {
                     document.getElementById('finalSurpriseBtn').style.display = 'block';
+                } else {
+                    document.getElementById('finalSurpriseBtn').style.display = 'none';
                 }
             }
 
-            // GAME START BUTTONS
+            // GAME START
             document.querySelectorAll('.game-start-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     addRipple(e, btn);
                     const game = e.target.dataset.game;
-                    if (game === '1') {
-                        startGame1();
-                    } else if (game === '2' && state.game1Completed) {
-                        startGame2();
-                    } else if (game === '3' && state.game2Completed) {
-                        startGame3();
+                    if (game === '1') startGame1();
+                    else if (game === '2' && gameState.game1Completed) startGame2();
+                    else if (game === '3' && gameState.game2Completed) startGame3();
+                    else if (game === '2' || game === '3') {
+                        const card = e.target.closest('.game-card');
+                        card.style.animation = 'shake 0.5s ease';
+                        setTimeout(() => card.style.animation = '', 500);
                     }
                 });
             });
 
             document.getElementById('finalSurpriseBtn').addEventListener('click', () => {
-                showPage('finalPage');
-                buildFinalPage();
+                showPage('finalScene1');
             });
 
-            // GAME 1: CATCH THE LOVE
+            // GAME 1: SPECIAL DELIVERY
             function startGame1() {
-                showPage('game1Page');
+                showPage('pageGame1');
                 const area = document.getElementById('game1Area');
                 area.innerHTML = '';
                 
@@ -1200,115 +894,92 @@
                     }
                 }, 1000);
                 
-                function spawnHeart() {
+                const items = ['🎁', '⭐', '🌸', '✨', '🎁', '⭐', '🌸', '✨'];
+                
+                function spawnItem() {
                     if (timeLeft <= 0) return;
+                    const item = document.createElement('div');
+                    item.style.position = 'absolute';
+                    item.style.fontSize = '2rem';
+                    item.style.cursor = 'pointer';
+                    item.style.left = Math.random() * 80 + 5 + '%';
+                    item.style.top = Math.random() * 80 + 5 + '%';
+                    item.style.transition = 'all 0.3s ease';
                     
-                    const heart = document.createElement('div');
-                    heart.style.position = 'absolute';
-                    heart.style.fontSize = '2.5rem';
-                    heart.style.cursor = 'pointer';
-                    heart.style.left = Math.random() * 80 + 5 + '%';
-                    heart.style.top = Math.random() * 80 + 5 + '%';
-                    heart.style.animation = 'floatUp 3s ease forwards';
-                    heart.style.color = '#ffffff';
-                    
-                    const heartType = Math.random();
-                    if (heartType < 0.1) {
-                        heart.textContent = '💖';
-                        heart.dataset.points = '50';
-                    } else if (heartType < 0.3) {
-                        heart.textContent = '💛';
-                        heart.dataset.points = '25';
+                    const isGift = Math.random() > 0.5;
+                    if (isGift) {
+                        item.textContent = '🎁';
+                        item.dataset.points = Math.random() > 0.2 ? '10' : '25';
+                        item.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.8)';
                     } else {
-                        heart.textContent = '❤️';
-                        heart.dataset.points = '10';
+                        item.textContent = items[Math.floor(Math.random() * items.length)];
+                        item.dataset.points = '-5';
                     }
                     
-                    heart.addEventListener('click', (e) => {
+                    item.addEventListener('click', (e) => {
                         e.stopPropagation();
+                        addRipple(e, item);
                         tapCount++;
+                        if (tapCount >= 6) combo = 3;
+                        else if (tapCount >= 3) combo = 2;
                         
-                        if (tapCount >= 6) {
-                            combo = 3;
-                        } else if (tapCount >= 3) {
-                            combo = 2;
-                        }
-                        
-                        const points = parseInt(heart.dataset.points) * combo;
+                        const points = parseInt(item.dataset.points) * combo;
                         score += points;
                         document.getElementById('score1').textContent = score;
                         document.getElementById('combo1').textContent = combo + 'x';
-                        
-                        addRipple(e, heart);
-                        heart.remove();
+                        item.remove();
                     });
                     
-                    area.appendChild(heart);
-                    
-                    setTimeout(() => {
-                        if (heart.parentNode) heart.remove();
-                    }, 3000);
-                    
-                    setTimeout(spawnHeart, Math.random() * 800 + 400);
+                    area.appendChild(item);
+                    setTimeout(() => { if (item.parentNode) item.remove(); }, 2500);
+                    setTimeout(spawnItem, Math.random() * 600 + 300);
                 }
-                
-                spawnHeart();
+                spawnItem();
             }
             
             function endGame1(score) {
-                state.game1Completed = true;
-                state.surprise1Unlocked = true;
-                if (score > state.bestScores.game1) {
-                    state.bestScores.game1 = score;
+                gameState.game1Completed = true;
+                if (score > gameState.bestScores.game1) {
+                    gameState.bestScores.game1 = score;
+                    saveScores();
                 }
-                saveState();
-                
                 setTimeout(() => {
-                    showPage('game1DelayPage');
-                    document.getElementById('surprise1Message').innerHTML = 
-                        `${state.sisterName}, you just unlocked your first little surprise! 💗<br>Score: ${score} points!`;
-                    
-                    // Show continue button after delay
+                    showPage('pageSurprise1Delay');
+                    document.getElementById('surprise1Message').textContent = 
+                        `${currentSisterName}, you've unlocked your first surprise. 💗`;
                     setTimeout(() => {
                         document.getElementById('delayContinueBtn').style.display = 'block';
-                    }, 5000);
+                    }, 6000);
                 }, 500);
             }
             
             document.getElementById('delayContinueBtn').addEventListener('click', () => {
-                showPage('surprise1Page');
+                showPage('pageSurprise1');
             });
             
             document.getElementById('surprise1ContinueBtn').addEventListener('click', () => {
-                updateGameHub();
-                showPage('gameHubPage');
+                updateArcade();
+                showPage('pageArcade');
             });
 
-            // GAME 2: MEMORY MAGIC
+            // GAME 2: MEMORY VAULT
             function startGame2() {
-                showPage('game2Page');
+                showPage('pageGame2');
                 const grid = document.getElementById('memoryGrid');
                 grid.innerHTML = '';
                 
-                const symbols = ['❤️', '🌸', '⭐', '🎀'];
+                const symbols = ['⭐', '🌸', '🎀', '🎁'];
                 const cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
                 
                 let moves = 0;
                 let pairsFound = 0;
                 let firstCard = null;
                 let lock = false;
-                let timeElapsed = 0;
                 
                 document.getElementById('moves2').textContent = '0';
                 document.getElementById('pairs2').textContent = '0/4';
-                document.getElementById('time2').textContent = '0';
                 
-                const timer = setInterval(() => {
-                    timeElapsed++;
-                    document.getElementById('time2').textContent = timeElapsed;
-                }, 1000);
-                
-                cards.forEach((symbol, index) => {
+                cards.forEach((symbol) => {
                     const card = document.createElement('div');
                     card.className = 'memory-card';
                     card.dataset.symbol = symbol;
@@ -1316,7 +987,6 @@
                     
                     card.addEventListener('click', (e) => {
                         if (lock || card.classList.contains('flipped')) return;
-                        
                         addRipple(e, card);
                         card.classList.add('flipped');
                         card.textContent = symbol;
@@ -1333,17 +1003,13 @@
                                 firstCard = null;
                                 
                                 if (pairsFound === 4) {
-                                    clearInterval(timer);
-                                    state.game2Completed = true;
-                                    state.surprise2Unlocked = true;
-                                    if (timeElapsed < state.bestScores.game2 || state.bestScores.game2 === 0) {
-                                        state.bestScores.game2 = timeElapsed;
-                                    }
-                                    saveState();
-                                    
+                                    gameState.game2Completed = true;
+                                    saveScores();
                                     setTimeout(() => {
-                                        showPage('surprise2Page');
-                                    }, 1000);
+                                        showPage('pageSurprise2');
+                                        document.getElementById('surprise2Message').textContent = 
+                                            `${currentSisterName}, you're officially too good at this.`;
+                                    }, 800);
                                 }
                             } else {
                                 lock = true;
@@ -1354,25 +1020,24 @@
                                     card.textContent = '❓';
                                     firstCard = null;
                                     lock = false;
-                                }, 800);
+                                }, 700);
                             }
                         }
                     });
-                    
                     grid.appendChild(card);
                 });
             }
             
             document.getElementById('surprise2ContinueBtn').addEventListener('click', () => {
-                updateGameHub();
-                showPage('gameHubPage');
+                updateArcade();
+                showPage('pageArcade');
             });
 
-            // GAME 3: MAGIC REACTION (with fixed movement)
+            // GAME 3: MAGIC REACTION
             function startGame3() {
-                showPage('game3Page');
+                showPage('pageGame3');
                 const area = document.getElementById('game3Area');
-                const magicHeart = document.getElementById('magicHeart');
+                area.innerHTML = '';
                 
                 let score = 0;
                 let timeLeft = 20;
@@ -1391,214 +1056,161 @@
                     }
                 }, 1000);
                 
-                function moveHeart() {
-                    const maxX = area.clientWidth - 70;
-                    const maxY = area.clientHeight - 70;
+                function createOrb() {
+                    const orb = document.createElement('div');
+                    orb.className = 'orb';
+                    const type = Math.random();
+                    if (type < 0.1) {
+                        orb.classList.add('special');
+                        orb.textContent = '💎';
+                        orb.dataset.points = '10';
+                    } else if (type < 0.3) {
+                        orb.classList.add('golden');
+                        orb.textContent = '⭐';
+                        orb.dataset.points = '5';
+                    } else {
+                        orb.style.background = 'radial-gradient(circle, #ffffff, #e0d0ff)';
+                        orb.textContent = '✨';
+                        orb.dataset.points = '1';
+                    }
+                    
+                    orb.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        addRipple(e, orb);
+                        score += parseInt(orb.dataset.points);
+                        document.getElementById('score3').textContent = score;
+                        orb.remove();
+                        clearTimeout(moveTimeout);
+                        moveOrb();
+                    });
+                    
+                    return orb;
+                }
+                
+                function moveOrb() {
+                    const orb = createOrb();
+                    area.appendChild(orb);
+                    
+                    const maxX = area.clientWidth - 60;
+                    const maxY = area.clientHeight - 60;
                     const x = Math.random() * maxX;
                     const y = Math.random() * maxY;
                     
-                    magicHeart.style.transition = 'all 0.5s ease';
-                    magicHeart.style.left = x + 'px';
-                    magicHeart.style.top = y + 'px';
+                    orb.style.transition = 'all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                    orb.style.left = x + 'px';
+                    orb.style.top = y + 'px';
                     
-                    // Schedule next move after 1-1.5 seconds
-                    moveTimeout = setTimeout(moveHeart, Math.random() * 500 + 1000);
+                    // Remove old orb after 1.5 seconds if not clicked
+                    moveTimeout = setTimeout(() => {
+                        if (orb.parentNode) {
+                            orb.remove();
+                            moveOrb();
+                        }
+                    }, 1500);
                 }
                 
-                magicHeart.addEventListener('click', (e) => {
-                    score++;
-                    document.getElementById('score3').textContent = score;
-                    
-                    addRipple(e, magicHeart);
-                    
-                    // Move to new position
-                    clearTimeout(moveTimeout);
-                    moveHeart();
-                });
-                
-                // Initial position
-                magicHeart.style.position = 'absolute';
-                moveHeart();
+                moveOrb();
             }
             
             function endGame3(score) {
-                state.game3Completed = true;
-                state.surprise3Unlocked = true;
-                if (score > state.bestScores.game3) {
-                    state.bestScores.game3 = score;
+                gameState.game3Completed = true;
+                if (score > gameState.bestScores.game3) {
+                    gameState.bestScores.game3 = score;
+                    saveScores();
                 }
-                saveState();
-                
                 setTimeout(() => {
-                    showPage('surprise3Page');
+                    showPage('pageSurprise3');
                 }, 500);
             }
             
             document.getElementById('surprise3ContinueBtn').addEventListener('click', () => {
-                showPage('finalPage');
-                buildFinalPage();
+                showPage('finalScene1');
             });
 
-            // FINAL PAGE WITH CINEMATIC SEQUENCE
-            function buildFinalPage() {
-                document.getElementById('finalGreeting').textContent = 
-                    `Happy Raksha Bandhan, ${state.sisterName}! 💗`;
-                
-                // Animate tree growth
-                const treeElements = {
-                    roots: document.getElementById('treeRoots'),
-                    trunk: document.getElementById('treeTrunk'),
-                    branches: document.getElementById('treeBranches'),
-                    leaves: document.getElementById('treeLeaves'),
-                    flowers: document.getElementById('treeFlowers'),
-                    glow: document.getElementById('treeGlowCircle')
-                };
-                
-                // Staged tree animation
-                setTimeout(() => {
-                    treeElements.roots.querySelectorAll('path').forEach(p => p.style.opacity = '1');
-                }, 2000);
-                
-                setTimeout(() => {
-                    treeElements.trunk.style.opacity = '1';
-                }, 4000);
-                
-                setTimeout(() => {
-                    treeElements.branches.querySelectorAll('path').forEach(p => p.style.opacity = '1');
-                }, 6000);
-                
-                setTimeout(() => {
-                    treeElements.leaves.querySelectorAll('circle').forEach(c => c.style.opacity = '0.6');
-                }, 9000);
-                
-                setTimeout(() => {
-                    treeElements.flowers.querySelectorAll('circle').forEach(c => c.style.opacity = '1');
-                }, 12000);
-                
-                setTimeout(() => {
-                    treeElements.glow.style.opacity = '1';
-                }, 15000);
-                
-                // Animate Ganpati
-                const ganpatiElements = {
-                    body: document.getElementById('ganpatiBody'),
-                    head: document.getElementById('ganpatiHead'),
-                    ears: [document.getElementById('ganpatiEar1'), document.getElementById('ganpatiEar2')],
-                    crown: document.getElementById('ganpatiCrown'),
-                    trunk: document.getElementById('ganpatiTrunk'),
-                    halo: document.getElementById('ganpatiHalo'),
-                    diyas: [document.getElementById('diya'), document.getElementById('diya2')],
-                    flames: [document.getElementById('flame1'), document.getElementById('flame2')]
-                };
-                
-                setTimeout(() => {
-                    ganpatiElements.body.style.opacity = '1';
-                    ganpatiElements.head.style.opacity = '1';
-                    ganpatiElements.ears.forEach(e => e.style.opacity = '1');
-                }, 17000);
-                
-                setTimeout(() => {
-                    ganpatiElements.crown.style.opacity = '1';
-                    ganpatiElements.trunk.style.opacity = '1';
-                    ganpatiElements.halo.style.opacity = '1';
-                }, 18000);
-                
-                setTimeout(() => {
-                    ganpatiElements.diyas.forEach(d => d.style.opacity = '1');
-                    ganpatiElements.flames.forEach(f => f.style.opacity = '1');
-                }, 19000);
-                
-                // Animate Rakhi
-                setTimeout(() => {
-                    document.getElementById('rakhiContainer').style.opacity = '1';
-                }, 21000);
-                
-                // Shayari animation
+            // FINAL SCENES
+            document.getElementById('finalScene1Btn').addEventListener('click', () => {
+                document.getElementById('scene2Name').textContent = currentSisterName;
+                showPage('finalScene2');
+            });
+
+            document.getElementById('finalScene2Btn').addEventListener('click', () => {
+                document.getElementById('scene3Name').textContent = currentSisterName;
+                showPage('finalScene3');
+            });
+
+            document.getElementById('finalScene3Btn').addEventListener('click', () => {
                 const shayariLines = [
                     'Rishta humara thoda crazy hai,',
-                    'Kabhi hasi, kabhi nok-jhok bhi hoti hai...',
-                    'Par in sab ke beech ek baat hamesha rahegi,',
+                    'kabhi hasi, kabhi nok-jhok bhi hoti hai...',
+                    '',
+                    'Par in sab ke beech ek baat hamesha rahegi.',
+                    '',
                     'Tu meri behen hai,',
-                    'aur ye rishta mere liye hamesha special rahega. 💗'
+                    'aur ye rishta mere liye hamesha special rahega. 💗',
+                    '',
+                    'Happy Raksha Bandhan! 🪢'
                 ];
                 
-                const shayariContainer = document.getElementById('shayariContainer');
-                shayariContainer.innerHTML = '';
+                const container = document.getElementById('shayariContainer');
+                container.innerHTML = '';
                 
                 shayariLines.forEach((line, index) => {
                     const p = document.createElement('p');
                     p.className = 'shayari-line';
-                    p.style.animationDelay = (23 + index) + 's';
+                    p.style.animationDelay = index + 's';
                     p.textContent = line;
-                    shayariContainer.appendChild(p);
+                    if (line === '') p.style.marginBottom = '8px';
+                    container.appendChild(p);
                 });
                 
-                setTimeout(() => {
-                    const finalMsg = document.createElement('p');
-                    finalMsg.className = 'shayari-line';
-                    finalMsg.style.animationDelay = '28s';
-                    finalMsg.textContent = 'Happy Raksha Bandhan, meri pyaari behen. 🫶';
-                    finalMsg.style.fontWeight = 'bold';
-                    finalMsg.style.fontSize = '1.3rem';
-                    shayariContainer.appendChild(finalMsg);
-                }, 28000);
-                
-                // Mithai box animation
-                const mithaiBox = document.getElementById('mithaiBox');
-                mithaiBox.style.opacity = '0';
-                setTimeout(() => {
-                    mithaiBox.style.opacity = '1';
-                    mithaiBox.style.transition = 'opacity 1s ease';
-                }, 30000);
-                
-                setTimeout(() => {
-                    mithaiBox.classList.add('open');
-                }, 32000);
-                
-                // Final message
-                document.getElementById('finalMessageCard').innerHTML = `
-                    <p style="font-size: 1.2rem; margin-bottom: 15px;">${state.sisterName}...</p>
-                    <p style="margin-bottom: 10px;">Chahe kitni bhi fights ho,<br>
-                    kitni bhi nok-jhok ho,<br>
-                    aur chahe tum mujhe kitna bhi irritate karo 😂...</p>
-                    <p style="margin-bottom: 10px;">You're still my sister,<br>
-                    and I'll always be grateful for that.</p>
-                    <p style="font-size: 1.3rem; font-weight: bold;">Happy Raksha Bandhan ❤️</p>
-                    <p style="font-style: italic; margin-top: 15px;">Made with ❤️ by your brother</p>
-                `;
-            }
-            
-            document.getElementById('oneLastThingBtn').addEventListener('click', (e) => {
+                showPage('finalScene4');
+            });
+
+            document.getElementById('finalScene4Btn').addEventListener('click', () => {
+                showPage('finalScene5');
+            });
+
+            document.getElementById('finalScene5Btn').addEventListener('click', (e) => {
                 addRipple(e, e.target);
                 
+                // Particle explosion
+                for (let i = 0; i < 60; i++) {
+                    const p = new Particle();
+                    p.x = canvas.width / 2;
+                    p.y = canvas.height / 2;
+                    p.speedX = (Math.random() - 0.5) * 4;
+                    p.speedY = (Math.random() - 0.5) * 4;
+                    p.opacity = 1;
+                    p.size = Math.random() * 3 + 1;
+                    particles.push(p);
+                    setTimeout(() => particles.pop(), 2000);
+                }
+                
+                document.getElementById('finalReveal').innerHTML = `
+                    <h3 class="gradient-text" style="font-size: 1.8rem;">${currentSisterName} ✨</h3>
+                    <p style="color: var(--text-secondary);">You just made it to the end.</p>
+                    <p style="color: var(--text-primary); font-weight: bold;">Hope this little surprise made you smile. 💗</p>
+                `;
+                
                 setTimeout(() => {
-                    document.getElementById('finalReveal').innerHTML = `
-                        <div style="font-size: 3rem; animation: glowPulse 1s infinite;">💗</div>
-                        <p style="font-size: 2rem; font-weight: bold; margin: 20px 0;">LOVE YOU SIS 💗</p>
-                        <p style="font-size: 1.5rem;">Happy Raksha Bandhan! 🪢</p>
-                    `;
-                    
-                    // Canvas particle explosion
-                    for (let i = 0; i < 100; i++) {
-                        const particle = new Particle();
-                        particle.x = Math.random() * canvas.width;
-                        particle.y = Math.random() * canvas.height;
-                        particle.speedX = (Math.random() - 0.5) * 5;
-                        particle.speedY = (Math.random() - 0.5) * 5;
-                        particle.opacity = 1;
-                        particle.size = Math.random() * 5 + 2;
-                        particles.push(particle);
-                        setTimeout(() => particles.pop(), 2000);
-                    }
-                }, 300);
+                    document.getElementById('scene6Name').textContent = currentSisterName;
+                    showPage('finalScene6');
+                }, 2000);
+            });
+
+            document.getElementById('finalScene6Btn').addEventListener('click', () => {
+                gameState.game1Completed = false;
+                gameState.game2Completed = false;
+                gameState.game3Completed = false;
+                currentSisterName = '';
+                document.getElementById('nameInput').value = '';
+                updateArcade();
+                showPage('pageName');
             });
 
             // INITIAL LOAD
-            if (state.sisterName) {
-                document.getElementById('greetingName').textContent = state.sisterName;
-                showPage('page2');
-            }
+            updateArcade();
         })();
     </script>
 </body>
-    </html>
+            </html>
