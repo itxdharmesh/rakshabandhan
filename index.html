@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🌸 Raksha Bandhan Surprise 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink-light: #ffd6e7;
+            --pink-pastel: #f8c8ff;
+            --lavender: #e8d9ff;
+            --white: #ffffff;
+            --pink-medium: #ffc2dc;
+            --lavender-deep: #d9c2ff;
+            --pink-glow: rgba(255, 105, 180, 0.6);
+            --lavender-glow: rgba(180, 130, 255, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffd6e7 0%, #f8c8ff 25%, #e8d9ff 50%, #ffc2dc 75%, #d9c2ff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .background-blobs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: blobFloat 20s infinite ease-in-out;
+        }
+
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.9); }
+        }
+
+        .blob-1 { width: 400px; height: 400px; background: #ffd6e7; top: -100px; left: -100px; }
+        .blob-2 { width: 350px; height: 350px; background: #f8c8ff; bottom: -50px; right: -50px; animation-delay: -5s; }
+        .blob-3 { width: 300px; height: 300px; background: #e8d9ff; top: 50%; left: 50%; animation-delay: -10s; }
+
+        #particles-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        .heart-particle {
+            animation: heartFloat linear infinite;
+        }
+
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg) scale(1); opacity: 0; }
+        }
+
+        .star-particle {
+            animation: twinkleStar 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkleStar {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        #app {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .page {
+            display: none;
+            animation: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: pageIn 0.8s ease forwards;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: scale(1.04);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes pageOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.96);
+                filter: blur(10px);
+            }
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px 24px;
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+            animation: glassShine 6s infinite;
+        }
+
+        @keyframes glassShine {
+            0% { transform: translateX(-100%) rotate(0deg); }
+            100% { transform: translateX(100%) rotate(0deg); }
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            padding: 16px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #4a2542;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            width: fit-content;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .glass-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.4);
+        }
+
+        .glass-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%);
+            animation: btnShine 3s infinite;
+        }
+
+        @keyframes btnShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .gradient-text {
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(45deg, #ff69b4, #c71585, #ff1493, #db7093);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.7));
+            animation: glowPulse 2s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            0% { filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.5)); }
+            100% { filter: drop-shadow(0 0 30px rgba(255, 105, 180, 1)); }
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            padding: 16px 24px;
+            font-size: 1.2rem;
+            width: 80%;
+            text-align: center;
+            color: #4a2542;
+            outline: none;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #ff69b4;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .game-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--glass-shadow);
+            margin: 15px 0;
+            touch-action: manipulation;
+        }
+
+        @media (max-width: 400px) {
+            .game-container {
+                height: 300px;
+            }
+            .glass-btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 20px auto;
+            max-width: 300px;
+        }
+
+        .memory-card {
+            aspect-ratio: 1/1;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform-style: preserve-3d;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .magic-heart-btn {
+            font-size: 4rem;
+            cursor: pointer;
+            filter: drop-shadow(0 0 30px #ff69b4);
+            animation: pulseGlow 1s infinite alternate;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 10px #ff69b4); }
+            100% { filter: drop-shadow(0 0 35px #ff1493); }
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .game-card.locked {
+            opacity: 0.5;
+            filter: blur(1px);
+            pointer-events: none;
+        }
+
+        .game-card.unlocked {
+            animation: unlockPulse 2s ease;
+        }
+
+        @keyframes unlockPulse {
+            0% { box-shadow: 0 0 0 rgba(255, 105, 180, 0); }
+            50% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.6); }
+            100% { box-shadow: 0 0 0 rgba(255, 105, 180, 0); }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .tree-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .tree-trunk {
+            width: 40px;
+            height: 150px;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            margin: 0 auto;
+            border-radius: 10px;
+            position: relative;
+            animation: treeBreath 3s ease-in-out infinite;
+        }
+
+        .tree-branches {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 150px;
+        }
+
+        @keyframes treeBreath {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .envelope-animation {
+            animation: envelopeOpen 2s ease;
+        }
+
+        @keyframes envelopeOpen {
+            0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            50% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        .shayari-line {
+            opacity: 0;
+            animation: lineReveal 1s ease forwards;
+        }
+
+        @keyframes lineReveal {
+            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        #musicToggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div id="particles-container"></div>
+
+    <button id="musicToggle">🎵</button>
+
+    <div id="app">
+        <!-- PAGE 1: WELCOME -->
+        <div class="page active" id="page1">
+            <div class="glass-card">
+                <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Heyyy, Sis! 💗</h1>
+                <p style="font-size: 1.3rem; margin-bottom: 10px;">I made something special for you...</p>
+                <p style="font-size: 1.3rem; margin-bottom: 30px;">Ready?</p>
+                <input type="text" id="nameInput" placeholder="Enter your name ✨" autocomplete="off">
+                <button class="glass-btn" id="confirmNameBtn">Confirm ✨</button>
+            </div>
+        </div>
+
+        <!-- PAGE 2: RAKSHA BANDHAN -->
+        <div class="page" id="page2">
+            <div class="glass-card">
+                <div style="font-size: 2rem; margin-bottom: 15px;">🌸✨💗🪢🌙</div>
+                <h1 style="font-size: 2rem; margin-bottom: 10px;">Happy Raksha Bandhan</h1>
+                <h2 class="gradient-text" id="greetingName" style="font-size: 3rem; margin: 20px 0;"></h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">To the most annoying, funniest and most special sister ever. 😂💗</p>
+                <button class="glass-btn" id="continueToGamesBtn">Okay... show me what you made 👀</button>
+            </div>
+        </div>
+
+        <!-- PAGE 3: LET'S PLAY -->
+        <div class="page" id="page3">
+            <div class="glass-card">
+                <h2 style="font-size: 2rem; margin-bottom: 15px;">Let's Play Some Games! 🎮💗</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">But first... are you ready for some surprises?</p>
+                <div id="yesNoArea" style="display: flex; flex-direction: column; align-items: center; gap: 15px; position: relative; min-height: 200px;">
+                    <button class="glass-btn" id="yesBtn" style="font-size: 1.5rem; z-index: 10;">YES 💖</button>
+                    <button class="glass-btn" id="noBtn" style="font-size: 1.2rem; position: relative; z-index: 5;">NO 😏</button>
+                </div>
+                <p id="funnyMsg" style="font-style: italic; margin-top: 15px; min-height: 30px;"></p>
+            </div>
+        </div>
+
+        <!-- PAGE 4: LOADING -->
+        <div class="page" id="loadingPage">
+            <div class="glass-card">
+                <h2>Preparing your surprises... ✨</h2>
+                <div style="font-size: 3rem; margin: 20px;">⏳</div>
+            </div>
+        </div>
+
+        <!-- PAGE 5: GAME HUB -->
+        <div class="page" id="gameHubPage">
+            <div class="glass-card">
+                <h2 style="font-size: 2rem; margin-bottom: 10px;">🎮 SIS ARCADE</h2>
+                <p style="margin-bottom: 20px;">Three games. Three secrets. One final surprise.</p>
+                
+                <div class="game-card" id="game1Card">
+                    <div style="font-size: 3rem;">💗</div>
+                    <h3>Catch The Love 💗</h3>
+                    <p>Catch hearts and score big!</p>
+                    <p style="font-size: 0.9rem;">Best Score: <span id="bestScore1">0</span></p>
+                    <button class="glass-btn game-start-btn" data-game="1">PLAY</button>
+                </div>
+
+                <div class="game-card locked" id="game2Card">
+                    <div style="font-size: 3rem;">🧠</div>
+                    <h3>Memory Magic 🧠</h3>
+                    <p>Match the pairs to win!</p>
+                    <p style="font-size: 0.9rem;">Best Score: <span id="bestScore2">0</span></p>
+                    <button class="glass-btn game-start-btn" data-game="2">🔒 LOCKED</button>
+                </div>
+
+                <div class="game-card locked" id="game3Card">
+                    <div style="font-size: 3rem;">✨</div>
+                    <h3>Magic Reaction ✨</h3>
+                    <p>Tap the magic heart!</p>
+                    <p style="font-size: 0.9rem;">Best Score: <span id="bestScore3">0</span></p>
+                    <button class="glass-btn game-start-btn" data-game="3">🔒 LOCKED</button>
+                </div>
+
+                <button class="glass-btn" id="finalSurpriseBtn" style="display: none; margin-top: 20px;">OPEN FINAL SURPRISE 💗</button>
+            </div>
+        </div>
+
+        <!-- PAGE 6: GAME 1 -->
+        <div class="page" id="game1Page">
+            <div class="glass-card">
+                <h2>Catch The Love 💗</h2>
+                <p>Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
+                <div class="game-container" id="game1Area"></div>
+            </div>
+        </div>
+
+        <!-- PAGE 7: SURPRISE 1 -->
+        <div class="page" id="surprise1Page">
+            <div class="glass-card">
+                <div class="envelope-animation" style="font-size: 4rem;">💌</div>
+                <h2 class="gradient-text" style="font-size: 2rem;">SECRET #1 💗</h2>
+                <p id="surprise1Message" style="font-size: 1.2rem; margin: 15px 0;"></p>
+                <p style="font-style: italic;">"One secret unlocked... two more to go 👀"</p>
+                <button class="glass-btn" id="surprise1ContinueBtn">BACK TO ARCADE 🎮</button>
+            </div>
+        </div>
+
+        <!-- PAGE 8: GAME 2 -->
+        <div class="page" id="game2Page">
+            <div class="glass-card">
+                <h2>Memory Magic 🧠</h2>
+                <p>Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span> | Time: <span id="time2">0</span>s</p>
+                <div class="memory-grid" id="memoryGrid"></div>
+            </div>
+        </div>
+
+        <!-- PAGE 9: SURPRISE 2 -->
+        <div class="page" id="surprise2Page">
+            <div class="glass-card">
+                <div style="font-size: 4rem; animation: giftShake 2s infinite;">🎁</div>
+                <h2 class="gradient-text" style="font-size: 2rem;">SECRET #2 🎁</h2>
+                <p style="font-size: 1.2rem; margin: 15px 0;">"Some people get gifts...<br>You get an entire website made just for you. 😂💗"</p>
+                <p style="font-style: italic;">"Still not finished..."</p>
+                <button class="glass-btn" id="surprise2ContinueBtn">BACK TO ARCADE 🎮</button>
+            </div>
+        </div>
+
+        <!-- PAGE 10: GAME 3 -->
+        <div class="page" id="game3Page">
+            <div class="glass-card">
+                <h2>Magic Reaction ✨</h2>
+                <p>Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
+                <div class="game-container" id="game3Area" style="display: flex; align-items: center; justify-content: center;">
+                    <div id="magicHeart" class="magic-heart-btn">💖</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 11: SURPRISE 3 -->
+        <div class="page" id="surprise3Page">
+            <div class="glass-card">
+                <div style="font-size: 4rem;">🌟</div>
+                <h2 style="font-size: 2rem;">FINAL SECRET UNLOCKED</h2>
+                <div style="font-size: 3rem; margin: 15px;">🎁</div>
+                <p style="font-size: 1.2rem;">"There's something much bigger waiting..."</p>
+                <button class="glass-btn" id="surprise3ContinueBtn">ENTER THE FINAL SURPRISE 💗</button>
+            </div>
+        </div>
+
+        <!-- PAGE 12: FINAL WORLD -->
+        <div class="page" id="finalPage">
+            <div class="glass-card">
+                <div id="magicalTreeArea" style="margin: 20px 0;">
+                    <div style="font-size: 4rem;">🌸🌳🌸</div>
+                </div>
+                <h2 class="gradient-text" id="finalGreeting" style="font-size: 2.5rem;"></h2>
+                <div id="shayariContainer" style="margin: 20px 0; line-height: 1.8;"></div>
+                <div id="festiveElements" style="margin: 20px 0;">
+                    <div style="font-size: 3rem;">🪔🌸🍬🪢</div>
+                    <p>Thodi si mithaas meri taraf se... 🍬💗</p>
+                    <p>Ganpati Bappa Morya 🙏✨</p>
+                </div>
+                <div id="finalMessageCard" style="margin: 20px 0;"></div>
+                <button class="glass-btn" id="oneLastThingBtn">One Last Thing... 👀</button>
+                <div id="finalReveal" style="font-size: 2rem; margin: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // STATE MANAGEMENT
+            let state = {
+                sisterName: localStorage.getItem('sisterName') || '',
+                game1Completed: JSON.parse(localStorage.getItem('game1Completed') || 'false'),
+                game2Completed: JSON.parse(localStorage.getItem('game2Completed') || 'false'),
+                game3Completed: JSON.parse(localStorage.getItem('game3Completed') || 'false'),
+                surprise1Unlocked: JSON.parse(localStorage.getItem('surprise1Unlocked') || 'false'),
+                surprise2Unlocked: JSON.parse(localStorage.getItem('surprise2Unlocked') || 'false'),
+                surprise3Unlocked: JSON.parse(localStorage.getItem('surprise3Unlocked') || 'false'),
+                bestScores: JSON.parse(localStorage.getItem('bestScores') || '{"game1":0,"game2":0,"game3":0}')
+            };
+
+            function saveState() {
+                localStorage.setItem('sisterName', state.sisterName);
+                localStorage.setItem('game1Completed', JSON.stringify(state.game1Completed));
+                localStorage.setItem('game2Completed', JSON.stringify(state.game2Completed));
+                localStorage.setItem('game3Completed', JSON.stringify(state.game3Completed));
+                localStorage.setItem('surprise1Unlocked', JSON.stringify(state.surprise1Unlocked));
+                localStorage.setItem('surprise2Unlocked', JSON.stringify(state.surprise2Unlocked));
+                localStorage.setItem('surprise3Unlocked', JSON.stringify(state.surprise3Unlocked));
+                localStorage.setItem('bestScores', JSON.stringify(state.bestScores));
+            }
+
+            // PARTICLES
+            const particlesContainer = document.getElementById('particles-container');
+            
+            function createParticles() {
+                const symbols = ['💗', '🌸', '✨', '⭐', '🌙', '💖', '🌸'];
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                    particle.style.animationDelay = Math.random() * 10 + 's';
+                    particle.style.opacity = Math.random() * 0.7 + 0.3;
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+
+            // MUSIC TOGGLE
+            const musicToggle = document.getElementById('musicToggle');
+            let musicOn = false;
+            let audioContext = null;
+
+            musicToggle.addEventListener('click', () => {
+                if (!musicOn) {
+                    if (!audioContext) {
+                        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    // Create a soft ambient tone
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 528;
+                    gainNode.gain.value = 0.05;
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    oscillator.start();
+                    setTimeout(() => oscillator.stop(), 500);
+                    
+                    musicToggle.textContent = '🎵🔊';
+                    musicOn = true;
+                } else {
+                    musicToggle.textContent = '🎵';
+                    musicOn = false;
+                }
+            });
+
+            // PAGE TRANSITION
+            function showPage(pageId) {
+                const currentPage = document.querySelector('.page.active');
+                if (currentPage) {
+                    currentPage.style.animation = 'pageOut 0.6s ease forwards';
+                    setTimeout(() => {
+                        currentPage.classList.remove('active');
+                        currentPage.style.animation = '';
+                        
+                        const newPage = document.getElementById(pageId);
+                        newPage.classList.add('active');
+                        
+                        setTimeout(() => {
+                            window.scrollTo({top: 0, behavior: 'smooth'});
+                        }, 100);
+                    }, 600);
+                } else {
+                    const newPage = document.getElementById(pageId);
+                    newPage.classList.add('active');
+                }
+            }
+
+            // PARTICLE BURST
+            function particleBurst(x, y) {
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.textContent = ['💗', '✨', '🌸', '⭐'][Math.floor(Math.random() * 4)];
+                    particle.style.left = x + '%';
+                    particle.style.top = y + '%';
+                    particle.style.position = 'fixed';
+                    particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.zIndex = '9999';
+                    particle.style.animation = 'floatUp 1s ease forwards';
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 1000);
+                }
+            }
+
+            // CONFETTI BURST
+            function confettiBurst() {
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = Math.random() * 100 + '%';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.background = ['#ffd6e7', '#f8c8ff', '#e8d9ff', '#ffc2dc', '#d9c2ff'][Math.floor(Math.random() * 5)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.animation = 'floatUp 1.5s ease forwards';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 1500);
+                }
+            }
+
+            // PAGE 1: WELCOME
+            const nameInput = document.getElementById('nameInput');
+            document.getElementById('confirmNameBtn').addEventListener('click', () => {
+                const name = nameInput.value.trim();
+                if (!name) {
+                    nameInput.style.animation = 'shake 0.5s ease';
+                    setTimeout(() => nameInput.style.animation = '', 500);
+                    return;
+                }
+                state.sisterName = name;
+                saveState();
+                confettiBurst();
+                document.getElementById('greetingName').textContent = name;
+                showPage('page2');
+            });
+
+            // Add shake animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-10px); }
+                    75% { transform: translateX(10px); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // PAGE 2: CONTINUE
+            document.getElementById('continueToGamesBtn').addEventListener('click', () => {
+                confettiBurst();
+                showPage('page3');
+            });
+
+            // PAGE 3: YES/NO INTERACTION
+            let noClickCount = 0;
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const funnyMsg = document.getElementById('funnyMsg');
+            const funnyMessages = [
+                'Nice try 😂',
+                'Nope!',
+                'Try again 😭',
+                "You can't escape!",
+                'JUST PRESS YES 😂',
+                'Why are you like this 😭'
+            ];
+
+            noBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                noClickCount++;
+                
+                // Move NO button to random position within viewport
+                const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+                const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+                const randomX = Math.max(20, Math.random() * maxX);
+                const randomY = Math.max(20, Math.random() * maxY);
+                
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+                noBtn.style.zIndex = '100';
+                
+                // Playful bounce animation
+                noBtn.style.animation = 'none';
+                setTimeout(() => {
+                    noBtn.style.animation = 'shake 0.5s ease';
+                }, 10);
+                
+                // Increase YES button size
+                yesBtn.style.transform = `scale(${1 + noClickCount * 0.2})`;
+                
+                // Update funny message
+                funnyMsg.textContent = funnyMessages[Math.min(noClickCount - 1, funnyMessages.length - 1)];
+                
+                particleBurst(randomX / window.innerWidth * 100, randomY / window.innerHeight * 100);
+            });
+
+            yesBtn.addEventListener('click', () => {
+                confettiBurst();
+                showPage('loadingPage');
+                setTimeout(() => {
+                    updateGameHub();
+                    showPage('gameHubPage');
+                }, 2000);
+            });
+
+            // GAME HUB
+            function updateGameHub() {
+                document.getElementById('game1Card').classList.remove('locked');
+                document.getElementById('game1Card').classList.add('unlocked');
+                
+                if (state.game1Completed) {
+                    document.getElementById('game2Card').classList.remove('locked');
+                    document.getElementById('game2Card').classList.add('unlocked');
+                    document.querySelector('#game2Card .game-start-btn').textContent = 'PLAY';
+                }
+                
+                if (state.game2Completed) {
+                    document.getElementById('game3Card').classList.remove('locked');
+                    document.getElementById('game3Card').classList.add('unlocked');
+                    document.querySelector('#game3Card .game-start-btn').textContent = 'PLAY';
+                }
+                
+                document.getElementById('bestScore1').textContent = state.bestScores.game1;
+                document.getElementById('bestScore2').textContent = state.bestScores.game2;
+                document.getElementById('bestScore3').textContent = state.bestScores.game3;
+                
+                if (state.game1Completed && state.game2Completed && state.game3Completed) {
+                    document.getElementById('finalSurpriseBtn').style.display = 'block';
+                }
+            }
+
+            // GAME START BUTTONS
+            document.querySelectorAll('.game-start-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const game = e.target.dataset.game;
+                    if (game === '1') {
+                        startGame1();
+                    } else if (game === '2' && state.game1Completed) {
+                        startGame2();
+                    } else if (game === '3' && state.game2Completed) {
+                        startGame3();
+                    }
+                });
+            });
+
+            document.getElementById('finalSurpriseBtn').addEventListener('click', () => {
+                showPage('finalPage');
+                buildFinalPage();
+            });
+
+            // GAME 1: CATCH THE LOVE
+            function startGame1() {
+                showPage('game1Page');
+                const area = document.getElementById('game1Area');
+                area.innerHTML = '';
+                
+                let score = 0;
+                let timeLeft = 30;
+                let combo = 1;
+                let tapCount = 0;
+                
+                document.getElementById('score1').textContent = '0';
+                document.getElementById('time1').textContent = '30';
+                document.getElementById('combo1').textContent = '1x';
+                
+                const timer = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('time1').textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        endGame1(score);
+                    }
+                }, 1000);
+                
+                function spawnHeart() {
+                    if (timeLeft <= 0) return;
+                    
+                    const heart = document.createElement('div');
+                    heart.style.position = 'absolute';
+                    heart.style.fontSize = '2.5rem';
+                    heart.style.cursor = 'pointer';
+                    heart.style.left = Math.random() * 80 + 5 + '%';
+                    heart.style.top = Math.random() * 80 + 5 + '%';
+                    heart.style.animation = 'floatUp 3s ease forwards';
+                    
+                    const heartType = Math.random();
+                    if (heartType < 0.1) {
+                        heart.textContent = '💖';
+                        heart.dataset.points = '50';
+                    } else if (heartType < 0.3) {
+                        heart.textContent = '💛';
+                        heart.dataset.points = '25';
+                    } else {
+                        heart.textContent = '❤️';
+                        heart.dataset.points = '10';
+                    }
+                    
+                    heart.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        tapCount++;
+                        
+                        if (tapCount >= 6) {
+                            combo = 3;
+                        } else if (tapCount >= 3) {
+                            combo = 2;
+                        }
+                        
+                        const points = parseInt(heart.dataset.points) * combo;
+                        score += points;
+                        document.getElementById('score1').textContent = score;
+                        document.getElementById('combo1').textContent = combo + 'x';
+                        
+                        particleBurst(parseFloat(heart.style.left), parseFloat(heart.style.top));
+                        heart.remove();
+                    });
+                    
+                    area.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        if (heart.parentNode) heart.remove();
+                    }, 3000);
+                    
+                    setTimeout(spawnHeart, Math.random() * 800 + 400);
+                }
+                
+                spawnHeart();
+            }
+            
+            function endGame1(score) {
+                state.game1Completed = true;
+                state.surprise1Unlocked = true;
+                if (score > state.bestScores.game1) {
+                    state.bestScores.game1 = score;
+                }
+                saveState();
+                
+                setTimeout(() => {
+                    showPage('surprise1Page');
+                    document.getElementById('surprise1Message').innerHTML = 
+                        `${state.sisterName}, you just unlocked your first little surprise! 💗<br>Score: ${score} points!`;
+                }, 500);
+            }
+            
+            document.getElementById('surprise1ContinueBtn').addEventListener('click', () => {
+                updateGameHub();
+                showPage('gameHubPage');
+            });
+
+            // GAME 2: MEMORY MAGIC
+            function startGame2() {
+                showPage('game2Page');
+                const grid = document.getElementById('memoryGrid');
+                grid.innerHTML = '';
+                
+                const symbols = ['❤️', '🌸', '⭐', '🎀'];
+                const cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+                
+                let moves = 0;
+                let pairsFound = 0;
+                let firstCard = null;
+                let lock = false;
+                let timeElapsed = 0;
+                
+                document.getElementById('moves2').textContent = '0';
+                document.getElementById('pairs2').textContent = '0/4';
+                document.getElementById('time2').textContent = '0';
+                
+                const timer = setInterval(() => {
+                    timeElapsed++;
+                    document.getElementById('time2').textContent = timeElapsed;
+                }, 1000);
+                
+                cards.forEach((symbol, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'memory-card';
+                    card.dataset.symbol = symbol;
+                    card.textContent = '❓';
+                    
+                    card.addEventListener('click', () => {
+                        if (lock || card.classList.contains('flipped')) return;
+                        
+                        card.classList.add('flipped');
+                        card.textContent = symbol;
+                        
+                        if (!firstCard) {
+                            firstCard = card;
+                        } else {
+                            moves++;
+                            document.getElementById('moves2').textContent = moves;
+                            
+                            if (firstCard.dataset.symbol === card.dataset.symbol) {
+                                pairsFound++;
+                                document.getElementById('pairs2').textContent = pairsFound + '/4';
+                                firstCard = null;
+                                
+                                if (pairsFound === 4) {
+                                    clearInterval(timer);
+                                    state.game2Completed = true;
+                                    state.surprise2Unlocked = true;
+                                    if (timeElapsed < state.bestScores.game2 || state.bestScores.game2 === 0) {
+                                        state.bestScores.game2 = timeElapsed;
+                                    }
+                                    saveState();
+                                    
+                                    setTimeout(() => {
+                                        showPage('surprise2Page');
+                                    }, 1000);
+                                }
+                            } else {
+                                lock = true;
+                                setTimeout(() => {
+                                    firstCard.classList.remove('flipped');
+                                    firstCard.textContent = '❓';
+                                    card.classList.remove('flipped');
+                                    card.textContent = '❓';
+                                    firstCard = null;
+                                    lock = false;
+                                }, 800);
+                            }
+                        }
+                    });
+                    
+                    grid.appendChild(card);
+                });
+            }
+            
+            document.getElementById('surprise2ContinueBtn').addEventListener('click', () => {
+                updateGameHub();
+                showPage('gameHubPage');
+            });
+
+            // GAME 3: MAGIC REACTION
+            function startGame3() {
+                showPage('game3Page');
+                const area = document.getElementById('game3Area');
+                const magicHeart = document.getElementById('magicHeart');
+                
+                let score = 0;
+                let timeLeft = 20;
+                
+                document.getElementById('score3').textContent = '0';
+                document.getElementById('time3').textContent = '20';
+                
+                const timer = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('time3').textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        endGame3(score);
+                    }
+                }, 1000);
+                
+                function moveHeart() {
+                    const maxX = area.clientWidth - 70;
+                    const maxY = area.clientHeight - 70;
+                    const x = Math.random() * maxX;
+                    const y = Math.random() * maxY;
+                    magicHeart.style.position = 'absolute';
+                    magicHeart.style.left = x + 'px';
+                    magicHeart.style.top = y + 'px';
+                }
+                
+                magicHeart.addEventListener('click', () => {
+                    score++;
+                    document.getElementById('score3').textContent = score;
+                    
+                    const rect = magicHeart.getBoundingClientRect();
+                    particleBurst(
+                        (rect.left / window.innerWidth) * 100,
+                        (rect.top / window.innerHeight) * 100
+                    );
+                    
+                    moveHeart();
+                });
+                
+                moveHeart();
+            }
+            
+            function endGame3(score) {
+                state.game3Completed = true;
+                state.surprise3Unlocked = true;
+                if (score > state.bestScores.game3) {
+                    state.bestScores.game3 = score;
+                }
+                saveState();
+                
+                setTimeout(() => {
+                    showPage('surprise3Page');
+                }, 500);
+            }
+            
+            document.getElementById('surprise3ContinueBtn').addEventListener('click', () => {
+                showPage('finalPage');
+                buildFinalPage();
+            });
+
+            // FINAL PAGE
+            function buildFinalPage() {
+                document.getElementById('finalGreeting').textContent = 
+                    `Happy Raksha Bandhan, ${state.sisterName}! 💗`;
+                
+                const shayariLines = [
+                    'Rishta humara thoda crazy hai,',
+                    'Kabhi hasi, kabhi nok-jhok bhi hoti hai...',
+                    'Par in sab ke beech ek baat hamesha rahegi,',
+                    'Tu meri behen hai,',
+                    'aur ye rishta mere liye hamesha special rahega. 💗'
+                ];
+                
+                const shayariContainer = document.getElementById('shayariContainer');
+                shayariContainer.innerHTML = '';
+                
+                shayariLines.forEach((line, index) => {
+                    const p = document.createElement('p');
+                    p.className = 'shayari-line';
+                    p.style.animationDelay = (index * 1) + 's';
+                    p.textContent = line;
+                    shayariContainer.appendChild(p);
+                });
+                
+                setTimeout(() => {
+                    const finalMsg = document.createElement('p');
+                    finalMsg.className = 'shayari-line';
+                    finalMsg.style.animationDelay = '5s';
+                    finalMsg.textContent = 'Happy Raksha Bandhan, meri pyaari behen. 🫶';
+                    finalMsg.style.fontWeight = 'bold';
+                    finalMsg.style.fontSize = '1.3rem';
+                    shayariContainer.appendChild(finalMsg);
+                }, 5000);
+                
+                document.getElementById('finalMessageCard').innerHTML = `
+                    <p style="font-size: 1.2rem; margin-bottom: 15px;">${state.sisterName}...</p>
+                    <p style="margin-bottom: 10px;">Chahe kitni bhi fights ho,<br>
+                    kitni bhi nok-jhok ho,<br>
+                    aur chahe tum mujhe kitna bhi irritate karo 😂...</p>
+                    <p style="margin-bottom: 10px;">You're still my sister,<br>
+                    and I'll always be grateful for that.</p>
+                    <p style="font-size: 1.3rem; font-weight: bold;">Happy Raksha Bandhan ❤️</p>
+                    <p style="font-style: italic; margin-top: 15px;">Made with ❤️ by your brother</p>
+                `;
+            }
+            
+            document.getElementById('oneLastThingBtn').addEventListener('click', () => {
+                confettiBurst();
+                
+                setTimeout(() => {
+                    document.getElementById('finalReveal').innerHTML = `
+                        <div style="font-size: 3rem; animation: glowPulse 1s infinite;">💗</div>
+                        <p style="font-size: 2rem; font-weight: bold; margin: 20px 0;">LOVE YOU SIS 💗</p>
+                        <p style="font-size: 1.5rem;">Happy Raksha Bandhan! 🪢</p>
+                    `;
+                    
+                    // Full screen heart explosion
+                    for (let i = 0; i < 100; i++) {
+                        setTimeout(() => {
+                            const heart = document.createElement('div');
+                            heart.style.position = 'fixed';
+                            heart.style.left = Math.random() * 100 + '%';
+                            heart.style.top = Math.random() * 100 + '%';
+                            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                            heart.style.pointerEvents = 'none';
+                            heart.style.zIndex = '9999';
+                            heart.style.animation = 'floatUp 2s ease forwards';
+                            heart.textContent = ['💗', '🌸', '✨', '⭐', '💖'][Math.floor(Math.random() * 5)];
+                            document.body.appendChild(heart);
+                            setTimeout(() => heart.remove(), 2000);
+                        }, i * 30);
+                    }
+                }, 300);
+            });
+
+            // INITIAL LOAD
+            if (state.sisterName) {
+                document.getElementById('greetingName').textContent = state.sisterName;
+                showPage('page2');
+            }
+
+            // Auto-save best scores on load
+            document.getElementById('bestScore1').textContent = state.bestScores.game1;
+            document.getElementById('bestScore2').textContent = state.bestScores.game2;
+            document.getElementById('bestScore3').textContent = state.bestScores.game3;
+        })();
+    </script>
+</body>
+  </html>
