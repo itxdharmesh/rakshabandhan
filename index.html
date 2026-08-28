@@ -1,1334 +1,527 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🌸 Sis Arcade - Raksha Bandhan 💗</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --pink-light: #ffd6e7;
-            --pink-pastel: #f8c8ff;
-            --lavender: #e8d9ff;
-            --white: #ffffff;
-            --pink-medium: #ffc2dc;
-            --lavender-deep: #d9c2ff;
-            --glass-bg: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            --glass-highlight: rgba(255, 255, 255, 0.4);
-            --text-primary: #3d2440;
-            --text-secondary: #6b4d7a;
-            --font-display: 'Pacifico', cursive;
-            --font-body: 'Poppins', sans-serif;
-            --font-special: 'Dancing Script', cursive;
-            --font-clean: 'Quicksand', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Raksha Bandhan Surprise 💗</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: var(--font-body);
-            background: #f5e6f0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-            position: relative;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            padding: 0;
-        }
-
-        /* ANIMATED BACKGROUND - KEPT AND ENHANCED */
-        .bg-layer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .bg-gradient {
-            background: linear-gradient(135deg, 
-                #fce8f0 0%, 
-                #f8e6f5 15%, 
-                #f0e6f8 30%, 
-                #e8f0f5 45%, 
-                #f5e6f0 60%, 
-                #fce8f0 75%, 
-                #f8e6f5 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 25s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .bg-blobs {
-            filter: blur(90px);
-            opacity: 0.35;
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            animation: blobFloat 30s infinite ease-in-out;
-        }
-
-        @keyframes blobFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -40px) scale(1.15); }
-            50% { transform: translate(-40px, 50px) scale(0.85); }
-            75% { transform: translate(30px, 30px) scale(1.08); }
-        }
-
-        .blob-1 { width: 500px; height: 500px; background: #ffd6e7; top: -150px; left: -100px; }
-        .blob-2 { width: 450px; height: 450px; background: #d9c2ff; bottom: -100px; right: -80px; animation-delay: -10s; }
-        .blob-3 { width: 380px; height: 380px; background: #ffffff; top: 40%; left: 45%; animation-delay: -20s; }
-        .blob-4 { width: 320px; height: 320px; background: #f8c8ff; top: -50px; right: 15%; animation-delay: -15s; }
-
-        .bg-light-spots {
-            filter: blur(120px);
-            opacity: 0.25;
-        }
-
-        .light-spot {
-            position: absolute;
-            border-radius: 50%;
-            background: #ffffff;
-            animation: spotGlow 15s infinite ease-in-out;
-        }
-
-        @keyframes spotGlow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.2); }
-        }
-
-        .spot-1 { width: 200px; height: 200px; top: 10%; left: 20%; }
-        .spot-2 { width: 250px; height: 250px; bottom: 15%; right: 15%; animation-delay: -5s; }
-
-        .bg-vignette {
-            background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.06) 100%);
-        }
-
-        #particleCanvas {
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        #app {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 10px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .page {
-            display: none;
-            animation: none;
-        }
-
-        .page.active {
-            display: block;
-            animation: pageIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes pageIn {
-            from { opacity: 0; transform: scale(1.03); filter: blur(8px); }
-            to { opacity: 1; transform: scale(1); filter: blur(0); }
-        }
-
-        @keyframes pageOut {
-            from { opacity: 1; transform: scale(1); filter: blur(0); }
-            to { opacity: 0; transform: scale(0.97); filter: blur(8px); }
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 30px 24px;
-            box-shadow: 
-                var(--glass-shadow),
-                inset 0 1px 0 var(--glass-highlight),
-                0 0 40px rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 40%, 
-                rgba(255, 255, 255, 0.08) 50%, 
-                transparent 60%);
-            animation: glassShine 8s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes glassShine {
-            0% { transform: translateX(-100%) rotate(0deg); }
-            100% { transform: translateX(100%) rotate(0deg); }
-        }
-
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50px;
-            padding: 14px 28px;
-            font-family: var(--font-clean);
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text-primary);
-            cursor: pointer;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6),
-                0 0 20px rgba(255, 255, 255, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 0.3px;
-            width: fit-content;
-            margin: 10px auto;
-            display: block;
-            min-width: 140px;
-            text-align: center;
-        }
-
-        .glass-btn:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.7),
-                0 0 35px rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.45);
-        }
-
-        .glass-btn:active {
-            transform: scale(0.96);
-            box-shadow: 
-                0 2px 8px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        }
-
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.7);
-            transform: scale(0);
-            animation: rippleExpand 0.5s ease-out;
-            pointer-events: none;
-        }
-
-        @keyframes rippleExpand {
-            to { transform: scale(4); opacity: 0; }
-        }
-
-        .gradient-text {
-            font-family: var(--font-display);
-            background: linear-gradient(45deg, #ff69b4, #9370db, #ff1493, #dda0dd, #ff69b4);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientShift 5s ease infinite;
-            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.4));
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .name-display {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, #ff69b4, #ffffff, #9370db, #ff1493);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientShift 6s ease infinite;
-            filter: drop-shadow(0 0 25px rgba(255, 105, 180, 0.5));
-            margin: 10px 0;
-        }
-
-        .animated-text {
-            opacity: 0;
-            animation: textReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes textReveal {
-            from { opacity: 0; transform: translateY(15px); filter: blur(6px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        input {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            border-radius: 50px;
-            padding: 14px 22px;
-            font-family: var(--font-clean);
-            font-size: 1.1rem;
-            width: 85%;
-            text-align: center;
-            color: var(--text-primary);
-            outline: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            margin: 18px auto;
-            display: block;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            border-color: #ff69b4;
-            box-shadow: 0 0 25px rgba(255, 105, 180, 0.3);
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        input::placeholder {
-            color: rgba(107, 77, 122, 0.5);
-        }
-
-        .game-container {
-            position: relative;
-            width: 100%;
-            height: 350px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            margin: 15px 0;
-            touch-action: manipulation;
-        }
-
-        @media (max-width: 400px) {
-            .game-container { height: 280px; }
-            .glass-btn { padding: 12px 22px; font-size: 0.9rem; min-width: 120px; }
-            .glass-card { padding: 22px 16px; }
-            .name-display { font-size: 2rem; }
-        }
-
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin: 18px auto;
-            max-width: 280px;
-        }
-
-        .memory-card {
-            aspect-ratio: 1/1;
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transform-style: preserve-3d;
-            color: var(--text-primary);
-        }
-
-        .memory-card.flipped {
-            transform: rotateY(180deg);
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .orb {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            user-select: none;
-            background: radial-gradient(circle, #ffffff, #e0d0ff);
-        }
-
-        .orb.golden {
-            background: radial-gradient(circle, #ffd700, #ffa500);
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.9);
-        }
-
-        .orb.special {
-            background: radial-gradient(circle, #ff69b4, #ff1493);
-            box-shadow: 0 0 50px rgba(255, 105, 180, 1);
-            animation: pulseGlow 1s infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.7); }
-            100% { box-shadow: 0 0 60px rgba(255, 105, 180, 1); }
-        }
-
-        .game-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            border-radius: 18px;
-            padding: 16px;
-            margin: 12px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            position: relative;
-        }
-
-        .game-card.locked {
-            opacity: 0.6;
-            filter: blur(0.5px);
-            pointer-events: none;
-        }
-
-        .game-card.locked::after {
-            content: '🔒';
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            font-size: 2rem;
-        }
-
-        .game-card.unlocked {
-            animation: unlockPulse 1.5s ease;
-        }
-
-        @keyframes unlockPulse {
-            0% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
-            50% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.5); }
-            100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
-        }
-
-        .game-icon-container {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        }
-
-        .made-by {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 30px;
-            padding: 6px 16px;
-            font-family: var(--font-clean);
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-        }
-
-        #musicToggle {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            cursor: pointer;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-
-        #musicToggle:hover {
-            transform: scale(1.1);
-        }
-
-        .shayari-line {
-            opacity: 0;
-            animation: textReveal 0.8s ease forwards;
-            font-family: var(--font-clean);
-            font-size: 1rem;
-            color: var(--text-primary);
-        }
-
-        .scene-container {
-            min-height: calc(100vh - 20px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px 10px;
-        }
-
-        .rakhi-svg-container {
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .rakhi-svg {
-            width: 100%;
-            height: 100%;
-            animation: rakhiFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes rakhiFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(180deg); }
-        }
-    </style>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="bg-layer bg-gradient"></div>
-    <div class="bg-layer bg-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-        <div class="blob blob-4"></div>
-    </div>
-    <div class="bg-layer bg-light-spots">
-        <div class="light-spot spot-1"></div>
-        <div class="light-spot spot-2"></div>
-    </div>
-    <div class="bg-layer bg-vignette"></div>
-    <canvas id="particleCanvas"></canvas>
 
-    <button id="musicToggle">🎵</button>
-    <div class="made-by">Made with ❤️ by Dhannu</div>
+  <!-- REAL PARTICLE BACKGROUND -->
+  <canvas id="particleCanvas"></canvas>
 
-    <div id="app">
-        <!-- PAGE 1: NAME INPUT -->
-        <div class="page active" id="pageName">
-            <div class="glass-card">
-                <h1 class="animated-text" style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 10px; color: var(--text-primary);">Heyyy! 💗</h1>
-                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1.1rem; margin-bottom: 15px; color: var(--text-secondary); animation-delay: 0.3s;">Before we begin this little surprise...</p>
-                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1rem; color: var(--text-secondary); animation-delay: 0.5s;">What's your name?</p>
-                <input type="text" id="nameInput" placeholder="Enter your name ✨" autocomplete="off" class="animated-text" style="animation-delay: 0.7s;">
-                <button class="glass-btn animated-text" id="confirmNameBtn" style="animation-delay: 0.9s;">Confirm ✨</button>
-            </div>
+  <div class="bg-glow glow-one"></div>
+  <div class="bg-glow glow-two"></div>
+  <div class="bg-glow glow-three"></div>
+
+  <main id="app">
+
+    <!-- NAME SCREEN -->
+    <section class="screen active" id="nameScreen">
+      <div class="glass-card intro-card">
+        <div class="mini-orb">✦</div>
+
+        <p class="eyebrow">A little surprise for you</p>
+
+        <h1 class="gradient-title">
+          Heyyy! <span>💗</span>
+        </h1>
+
+        <p class="subtitle">
+          Before we begin this tiny adventure...
+        </p>
+
+        <div class="input-wrap">
+          <input id="nameInput" type="text" maxlength="25" autocomplete="off"
+            placeholder="Enter your name ✨">
         </div>
 
-        <!-- PAGE 2: WELCOME -->
-        <div class="page" id="pageWelcome">
-            <div class="glass-card">
-                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1rem; color: var(--text-secondary);">Okay...</p>
-                <h1 class="animated-text gradient-text" style="font-size: 2rem; margin: 15px 0; animation-delay: 0.5s;">Happy Raksha Bandhan</h1>
-                <h2 class="animated-text name-display" id="welcomeName" style="animation-delay: 1s;"></h2>
-                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1rem; margin-bottom: 25px; color: var(--text-secondary); animation-delay: 1.5s;">To the most annoying, funniest and most special sister ever. 😂</p>
-                <button class="glass-btn animated-text" id="continueToArcadeBtn" style="animation-delay: 2s;">Show me what you made 👀</button>
-            </div>
+        <button class="glass-btn primary-btn" id="confirmName">
+          Confirm <span>✦</span>
+        </button>
+
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- RAKSHA BANDHAN INTRO -->
+    <section class="screen" id="welcomeScreen">
+      <div class="glass-card welcome-card">
+
+        <div class="floating-rakhi-symbol">✦</div>
+
+        <p class="eyebrow">A special message</p>
+
+        <h1 class="animated-heading">
+          Happy Raksha<br>
+          <span>Bandhan</span>
+        </h1>
+
+        <h2 class="sister-name" id="welcomeName"></h2>
+
+        <p class="message">
+          To the most annoying, funniest and
+          most special sister ever. 😂💗
+        </p>
+
+        <button class="glass-btn primary-btn" id="toGameQuestion">
+          Okay... show me 👀
+        </button>
+
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- YES / NO -->
+    <section class="screen" id="questionScreen">
+      <div class="glass-card question-card">
+
+        <div class="question-icon">🎮</div>
+
+        <p class="eyebrow">One tiny question...</p>
+
+        <h1 class="gradient-title">
+          Let's Play Some Games!
+        </h1>
+
+        <p class="subtitle">
+          Are you ready for some surprises?
+        </p>
+
+        <div class="yes-no-area" id="yesNoArea">
+          <button class="glass-btn yes-btn" id="yesBtn">
+            YESSS! 💗
+          </button>
+
+          <button class="glass-btn no-btn" id="noBtn">
+            NO 😭
+          </button>
         </div>
 
-        <!-- PAGE 3: ARCADE HUB -->
-        <div class="page" id="pageArcade">
-            <div class="glass-card" style="padding: 20px 16px;">
-                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 5px; color: var(--text-primary);">SIS ARCADE 🎮</h2>
-                <p class="animated-text" style="font-family: var(--font-clean); font-size: 0.9rem; margin-bottom: 18px; color: var(--text-secondary); animation-delay: 0.3s;">3 games. 3 little surprises. Let's see how good you are 👀</p>
-                
-                <div class="game-card" id="game1Card">
-                    <div class="game-icon-container">📦</div>
-                    <h3 style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.1rem; font-weight: 700;">Special Delivery</h3>
-                    <p style="font-family: var(--font-clean); font-size: 0.8rem; color: var(--text-secondary);">Catch the gifts, avoid the wrong items!</p>
-                    <button class="glass-btn game-start-btn" data-game="1" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">PLAY</button>
-                </div>
+        <p id="noMessage" class="funny-message"></p>
 
-                <div class="game-card locked" id="game2Card">
-                    <div class="game-icon-container">🧠</div>
-                    <h3 style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.1rem; font-weight: 700;">Memory Vault</h3>
-                    <p style="font-family: var(--font-clean); font-size: 0.8rem; color: var(--text-secondary);">Match the pairs to unlock the vault!</p>
-                    <button class="glass-btn game-start-btn" data-game="2" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">🔒 LOCKED</button>
-                </div>
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
 
-                <div class="game-card locked" id="game3Card">
-                    <div class="game-icon-container">✨</div>
-                    <h3 style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.1rem; font-weight: 700;">Magic Reaction</h3>
-                    <p style="font-family: var(--font-clean); font-size: 0.8rem; color: var(--text-secondary);">Tap the glowing orbs quickly!</p>
-                    <button class="glass-btn game-start-btn" data-game="3" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">🔒 LOCKED</button>
-                </div>
 
-                <button class="glass-btn" id="finalSurpriseBtn" style="display: none; margin-top: 15px;">OPEN FINAL SURPRISE 💗</button>
-                <button class="glass-btn" id="restartBtn" style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">Restart Experience</button>
-            </div>
+    <!-- GAME HUB -->
+    <section class="screen" id="hubScreen">
+      <div class="hub-container">
+
+        <div class="hub-header">
+          <p class="eyebrow">Welcome to</p>
+          <h1 class="gradient-title">SIS ARCADE</h1>
+          <p class="subtitle">
+            3 games. 3 surprises. Let's see what you've got. 👀
+          </p>
         </div>
 
-        <!-- PAGE 4: GAME 1 -->
-        <div class="page" id="pageGame1">
-            <div class="glass-card">
-                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-primary);">Special Delivery 📦</h2>
-                <p style="font-family: var(--font-clean); font-size: 0.85rem; color: var(--text-secondary);">Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
-                <div class="game-container" id="game1Area"></div>
+        <div class="game-grid">
+
+          <article class="game-card unlocked" id="gameCard1">
+            <div class="game-icon">📦</div>
+            <div class="game-info">
+              <span class="game-number">GAME 01</span>
+              <h2>Special Delivery</h2>
+              <p>Catch the special gift!</p>
+              <div class="score-label">BEST: <span id="best1">0</span></div>
             </div>
+            <button class="small-glass-btn" data-game="1">PLAY</button>
+          </article>
+
+
+          <article class="game-card locked" id="gameCard2">
+            <div class="lock-overlay">
+              <span class="lock-icon">🔒</span>
+              <small>Complete Game 1</small>
+            </div>
+
+            <div class="game-icon">🧠</div>
+            <div class="game-info">
+              <span class="game-number">GAME 02</span>
+              <h2>Memory Vault</h2>
+              <p>Match the hidden pairs.</p>
+              <div class="score-label">BEST: <span id="best2">0</span></div>
+            </div>
+            <button class="small-glass-btn" data-game="2">LOCKED</button>
+          </article>
+
+
+          <article class="game-card locked" id="gameCard3">
+            <div class="lock-overlay">
+              <span class="lock-icon">🔒</span>
+              <small>Complete Game 2</small>
+            </div>
+
+            <div class="game-icon">✨</div>
+            <div class="game-info">
+              <span class="game-number">GAME 03</span>
+              <h2>Magic Reaction</h2>
+              <p>Catch the magic star.</p>
+              <div class="score-label">BEST: <span id="best3">0</span></div>
+            </div>
+            <button class="small-glass-btn" data-game="3">LOCKED</button>
+          </article>
+
         </div>
 
-        <!-- PAGE 5: SURPRISE 1 DELAY -->
-        <div class="page" id="pageSurprise1Delay">
-            <div class="glass-card">
-                <h2 class="animated-text" style="font-family: var(--font-display); color: var(--text-primary);">Umm... 😭</h2>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1.5s;">Thoda late ho gaya gift...</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 3s;">Delivery wale ko laga tha ye normal gift hai,<br>usse kya pata tha ki main poori website pack karke bhej raha hoon. 😂</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 5s;">Anyway... finally aa gaya. ✨</p>
-                <button class="glass-btn" id="delayContinueBtn" style="display: none; margin-top: 20px;">Continue →</button>
-            </div>
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- GAME SCREEN -->
+    <section class="screen" id="gameScreen">
+
+      <div class="game-topbar glass-panel">
+        <button class="back-btn" id="backHub">←</button>
+        <div>
+          <span id="currentGameLabel">GAME</span>
+          <strong id="currentGameTitle">Game</strong>
+        </div>
+        <div class="live-score">Score <b id="liveScore">0</b></div>
+      </div>
+
+
+      <!-- GAME 1 -->
+      <div class="actual-game hidden" id="game1">
+
+        <div class="game-instructions">
+          <h2>Catch the Special Gift 📦</h2>
+          <p>Only tap the glowing gift!</p>
+          <div class="timer">TIME <b id="timer1">30</b></div>
         </div>
 
-        <!-- PAGE 6: SURPRISE 1 -->
-        <div class="page" id="pageSurprise1">
-            <div class="glass-card">
-                <div class="animated-text" style="font-size: 3rem; margin-bottom: 10px;">📦</div>
-                <h2 class="gradient-text" style="font-size: 1.5rem;">SECRET #1</h2>
-                <p id="surprise1Message" style="font-family: var(--font-clean); font-size: 1.1rem; margin: 15px 0; color: var(--text-primary);"></p>
-                <button class="glass-btn" id="surprise1ContinueBtn">Continue →</button>
-            </div>
+        <div class="game-arena delivery-arena" id="deliveryArena"></div>
+
+      </div>
+
+
+      <!-- GAME 2 -->
+      <div class="actual-game hidden" id="game2">
+
+        <div class="game-instructions">
+          <h2>Memory Vault 🧠</h2>
+          <p>Find all matching pairs.</p>
+          <div class="memory-stats">
+            <span>Moves <b id="moves">0</b></span>
+            <span>Time <b id="timer2">60</b></span>
+          </div>
         </div>
 
-        <!-- PAGE 7: GAME 2 -->
-        <div class="page" id="pageGame2">
-            <div class="glass-card">
-                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-primary);">Memory Vault 🧠</h2>
-                <p style="font-family: var(--font-clean); font-size: 0.85rem; color: var(--text-secondary);">Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span></p>
-                <div class="memory-grid" id="memoryGrid"></div>
-            </div>
+        <div class="memory-grid" id="memoryGrid"></div>
+
+      </div>
+
+
+      <!-- GAME 3 -->
+      <div class="actual-game hidden" id="game3">
+
+        <div class="game-instructions">
+          <h2>Magic Reaction ✨</h2>
+          <p>Tap the star before it moves!</p>
+          <div class="timer">TIME <b id="timer3">20</b></div>
         </div>
 
-        <!-- PAGE 8: SURPRISE 2 -->
-        <div class="page" id="pageSurprise2">
-            <div class="glass-card">
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Log toh apni bahen ko gifts dete hain,</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); animation-delay: 1.5s;">mere bhai ne toh puri web dedicate kar di</p>
-                <p class="animated-text gradient-text" style="font-size: 1.2rem; animation-delay: 3s;">apni bahen ke liye. 💗</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 4.5s;">Ab ek aur surprise baaki hai... 👀</p>
-                <div class="animated-text" style="font-size: 2.5rem; margin: 15px 0; animation-delay: 6s;">🎁</div>
-                <h2 class="gradient-text" style="font-size: 1.3rem;">SECRET #2</h2>
-                <p id="surprise2Message" style="font-family: var(--font-clean); font-size: 1rem; margin: 10px 0; color: var(--text-primary);"></p>
-                <button class="glass-btn" id="surprise2ContinueBtn">Back to Arcade</button>
-            </div>
+        <div class="game-arena reaction-arena" id="reactionArena">
+          <button class="magic-star" id="magicStar">⭐</button>
         </div>
 
-        <!-- PAGE 9: GAME 3 -->
-        <div class="page" id="pageGame3">
-            <div class="glass-card">
-                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-primary);">Magic Reaction ✨</h2>
-                <p style="font-family: var(--font-clean); font-size: 0.85rem; color: var(--text-secondary);">Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
-                <div class="game-container" id="game3Area" style="position: relative; display: flex; align-items: center; justify-content: center;"></div>
-            </div>
+      </div>
+
+    </section>
+
+
+    <!-- GAME RESULT -->
+    <section class="screen" id="resultScreen">
+      <div class="glass-card result-card">
+
+        <div class="result-orb" id="resultOrb">✦</div>
+
+        <p class="eyebrow" id="resultEyebrow">GAME COMPLETE</p>
+
+        <h1 class="gradient-title" id="resultTitle">
+          You did it!
+        </h1>
+
+        <p class="result-score" id="resultScore"></p>
+
+        <p class="result-text" id="resultText"></p>
+
+        <button class="glass-btn primary-btn" id="resultContinue">
+          Continue ✨
+        </button>
+
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- DELAY MESSAGE -->
+    <section class="screen" id="delayScreen">
+      <div class="glass-card surprise-card">
+
+        <div class="surprise-symbol">📦</div>
+
+        <p class="eyebrow">SECRET #1</p>
+
+        <h1 class="gradient-title" id="delayText"></h1>
+
+        <p class="surprise-sub">
+          Anyway... finally aa gaya. ✨
+        </p>
+
+        <button class="glass-btn primary-btn hidden" id="openSurprise1">
+          Open Surprise ✨
+        </button>
+
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- SURPRISE 1 -->
+    <section class="screen" id="surprise1Screen">
+      <div class="glass-card secret-card">
+
+        <div class="gift-animation">
+          <div class="gift-box">
+            <div class="gift-lid"></div>
+            <div class="gift-body"></div>
+            <div class="gift-ribbon"></div>
+          </div>
         </div>
 
-        <!-- PAGE 10: SURPRISE 3 -->
-        <div class="page" id="pageSurprise3">
-            <div class="glass-card">
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Okay...</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1s;">You actually completed all three. 👀</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 2s;">So...</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); font-weight: bold; animation-delay: 3s;">Ready for the final surprise?</p>
-                <button class="glass-btn" id="surprise3ContinueBtn" style="margin-top: 20px;">OPEN IT ✨</button>
-            </div>
+        <p class="eyebrow">SECRET #1 UNLOCKED</p>
+
+        <h1 class="gradient-title">A little gift 💗</h1>
+
+        <p id="surprise1Text" class="secret-message"></p>
+
+        <button class="glass-btn primary-btn" id="surprise1Continue">
+          Back to Arcade 🎮
+        </button>
+
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- SURPRISE 2 -->
+    <section class="screen" id="surprise2Screen">
+      <div class="glass-card secret-card">
+
+        <div class="big-glass-star">✦</div>
+
+        <p class="eyebrow">SECRET #2 UNLOCKED</p>
+
+        <div class="quote-reveal" id="quoteReveal">
+          <p>Log toh apni bahen ko gifts dete hain,</p>
+          <p>mere bhai ne toh puri web dedicate kar di</p>
+          <p>apni bahen ke liye. 💗</p>
         </div>
 
-        <!-- FINAL SCENES -->
-        <div class="page" id="finalScene1">
-            <div class="scene-container glass-card">
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Wait...</p>
-                <p class="animated-text" style="font-family: var(--font-display); color: var(--text-primary); font-size: 1.2rem; animation-delay: 1s;">I made something just for you.</p>
-                <button class="glass-btn" id="finalScene1Btn" style="margin-top: 20px;">Continue</button>
-            </div>
+        <p class="surprise-sub delayed-sub">
+          Ab ek aur surprise baaki hai... 👀
+        </p>
+
+        <button class="glass-btn primary-btn" id="surprise2Continue">
+          Back to Arcade
+        </button>
+
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- FINAL UNLOCK -->
+    <section class="screen" id="finalUnlockScreen">
+      <div class="glass-card final-unlock-card">
+
+        <div class="final-glow-orb"></div>
+
+        <p class="eyebrow">ALL GAMES COMPLETE</p>
+
+        <h1 class="gradient-title">Okay...</h1>
+
+        <p class="big-line">
+          You actually completed all three. 👀
+        </p>
+
+        <p class="subtitle">
+          So... ready for the final surprise?
+        </p>
+
+        <button class="glass-btn primary-btn huge-btn" id="openFinal">
+          OPEN IT ✨
+        </button>
+
+        <p class="made-by">Made with ❤️ by Dhannu</p>
+      </div>
+    </section>
+
+
+    <!-- FINAL SCENES -->
+    <section class="screen final-scene" id="final1">
+      <div class="scene-content">
+        <div class="scene-particles"></div>
+        <p class="eyebrow">WAIT...</p>
+        <h1 class="scene-title gradient-title">
+          I made something<br>just for you.
+        </h1>
+        <button class="glass-btn primary-btn next-scene">Continue</button>
+      </div>
+    </section>
+
+
+    <section class="screen final-scene" id="final2">
+      <div class="scene-content">
+
+        <div class="css-envelope">
+          <div class="envelope-body"></div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-letter">
+            FOR <span id="finalName1"></span> 💗
+          </div>
         </div>
 
-        <div class="page" id="finalScene2">
-            <div class="scene-container glass-card">
-                <div class="animated-text" style="font-size: 3rem; margin-bottom: 15px;">💌</div>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.2rem;">FOR <span id="scene2Name" class="gradient-text"></span> 💗</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1.5s;">This little website was made to make you smile.</p>
-                <button class="glass-btn" id="finalScene2Btn" style="margin-top: 20px;">Next ✨</button>
-            </div>
+        <h1 class="scene-title gradient-title">
+          A little website<br>made to make you smile.
+        </h1>
+
+        <button class="glass-btn primary-btn next-scene">Next ✨</button>
+      </div>
+    </section>
+
+
+    <section class="screen final-scene" id="final3">
+      <div class="scene-content">
+
+        <div class="css-rakhi">
+          <div class="rakhi-center">✦</div>
+          <div class="rakhi-ring"></div>
+          <div class="rakhi-thread"></div>
         </div>
 
-        <div class="page" id="finalScene3">
-            <div class="scene-container glass-card">
-                <div class="rakhi-svg-container">
-                    <svg class="rakhi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="30" fill="#ff69b4" stroke="#ffd700" stroke-width="3"/>
-                        <circle cx="50" cy="50" r="20" fill="#ff1493"/>
-                        <circle cx="50" cy="50" r="10" fill="#ffd700"/>
-                        <circle cx="50" cy="50" r="5" fill="#ffffff"/>
-                        <circle cx="20" cy="50" r="4" fill="#ffd700"/>
-                        <circle cx="80" cy="50" r="4" fill="#ffd700"/>
-                        <circle cx="50" cy="20" r="4" fill="#ffd700"/>
-                        <circle cx="50" cy="80" r="4" fill="#ffd700"/>
-                        <path d="M20 50 Q10 50 0 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
-                        <path d="M80 50 Q90 50 100 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
-                    </svg>
-                </div>
-                <h2 class="animated-text gradient-text" style="font-size: 1.5rem;">Happy Raksha Bandhan, <span id="scene3Name"></span></h2>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1.5s;">Because some bonds deserve their own little celebration.</p>
-                <button class="glass-btn" id="finalScene3Btn" style="margin-top: 20px;">There's more →</button>
-            </div>
+        <p class="eyebrow">FOR YOU</p>
+
+        <h1 class="scene-title gradient-title">
+          Happy Raksha Bandhan
+        </h1>
+
+        <h2 class="final-name" id="finalName2"></h2>
+
+        <p class="scene-text">
+          Because some bonds deserve<br>
+          their own little celebration.
+        </p>
+
+        <button class="glass-btn primary-btn next-scene">
+          There's more →
+        </button>
+      </div>
+    </section>
+
+
+    <section class="screen final-scene" id="final4">
+      <div class="scene-content shayari-content">
+
+        <p class="eyebrow">JUST FOR YOU</p>
+
+        <div class="shayari" id="shayari">
+          <p>Rishta humara thoda crazy hai,</p>
+          <p>kabhi hasi, kabhi nok-jhok bhi hoti hai...</p>
+          <p>Par in sab ke beech ek baat hamesha rahegi.</p>
+          <p>Tu meri behen hai,</p>
+          <p>aur ye rishta mere liye hamesha special rahega. 💗</p>
         </div>
 
-        <div class="page" id="finalScene4">
-            <div class="scene-container glass-card">
-                <div id="shayariContainer" style="margin: 15px 0; line-height: 1.8; color: var(--text-primary); font-family: var(--font-clean); font-size: 0.95rem;"></div>
-                <button class="glass-btn" id="finalScene4Btn" style="margin-top: 20px;">One Last Thing 👀</button>
-            </div>
+        <h2 class="happy-final">Happy Raksha Bandhan! 🪢</h2>
+
+        <button class="glass-btn primary-btn next-scene">
+          One Last Thing 👀
+        </button>
+      </div>
+    </section>
+
+
+    <section class="screen final-scene" id="final5">
+      <div class="scene-content">
+
+        <div class="mega-particle-burst" id="megaBurst"></div>
+
+        <p class="eyebrow">ONE LAST THING</p>
+
+        <h1 class="scene-title gradient-title">
+          <span id="finalName3"></span> ✨
+        </h1>
+
+        <p class="scene-text">
+          You just made it to the end.
+        </p>
+
+        <p class="scene-text">
+          Hope this little surprise<br>
+          made you smile. 💗
+        </p>
+
+        <button class="glass-btn primary-btn next-scene">
+          Final Message
+        </button>
+      </div>
+    </section>
+
+
+    <section class="screen final-scene" id="final6">
+      <div class="scene-content">
+
+        <div class="final-glass-card">
+
+          <div class="final-rings">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <p class="eyebrow">HAPPY RAKSHA BANDHAN</p>
+
+          <h1 class="final-big-title">
+            <span>Happy</span><br>
+            <span>Raksha Bandhan</span>
+          </h1>
+
+          <h2 id="finalName4" class="final-name"></h2>
+
+          <p class="final-message">
+            Stay happy.<br>
+            Keep smiling.<br>
+            And keep annoying your brother. 😂
+          </p>
+
+          <div class="final-signature">
+            Made with <span>❤️</span> by Dhannu
+          </div>
+
         </div>
 
-        <div class="page" id="finalScene5">
-            <div class="scene-container glass-card">
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Okay... last one.</p>
-                <button class="glass-btn" id="finalScene5Btn" style="margin-top: 20px;">OPEN 💗</button>
-                <div id="finalReveal" style="margin-top: 20px;"></div>
-            </div>
-        </div>
+      </div>
+    </section>
 
-        <div class="page" id="finalScene6">
-            <div class="scene-container glass-card">
-                <h2 class="animated-text gradient-text" style="font-size: 1.5rem;">Happy Raksha Bandhan 💗</h2>
-                <h3 class="animated-text name-display" id="scene6Name" style="animation-delay: 0.5s;"></h3>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1s;">Stay happy.<br>Keep smiling.<br>And keep annoying your brother. 😂</p>
-                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); font-weight: bold; margin-top: 20px; animation-delay: 2s;">Made with ❤️ by Dhannu</p>
-                <button class="glass-btn" id="finalScene6Btn" style="margin-top: 20px; animation-delay: 2.5s;">Restart 🔄</button>
-            </div>
-        </div>
-    </div>
+  </main>
 
-    <script>
-        (function() {
-            let currentSisterName = '';
-            let gameState = {
-                game1Completed: false,
-                game2Completed: false,
-                game3Completed: false,
-                bestScores: JSON.parse(localStorage.getItem('bestScores') || '{"game1":0,"game2":0,"game3":0}')
-            };
+  <!-- GLASS CLICK RIPPLE -->
+  <div id="rippleLayer"></div>
 
-            function saveScores() {
-                localStorage.setItem('bestScores', JSON.stringify(gameState.bestScores));
-            }
-
-            // CANVAS PARTICLE SYSTEM
-            const canvas = document.getElementById('particleCanvas');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            const particleCount = 35;
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            class Particle {
-                constructor() {
-                    this.reset();
-                }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2.5 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.3;
-                    this.speedY = Math.random() * 0.3 + 0.05;
-                    this.opacity = Math.random() * 0.4 + 0.1;
-                    this.color = ['#ffd6e7', '#f8c8ff', '#e8d9ff', '#ffffff', '#ffc2dc'][Math.floor(Math.random() * 5)];
-                    this.shape = Math.random() > 0.7 ? 'star' : 'circle';
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y -= this.speedY;
-                    if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
-                        this.reset();
-                    }
-                }
-                draw() {
-                    ctx.save();
-                    ctx.globalAlpha = this.opacity;
-                    ctx.fillStyle = this.color;
-                    if (this.shape === 'circle') {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                        ctx.fill();
-                    } else {
-                        ctx.beginPath();
-                        for (let i = 0; i < 5; i++) {
-                            const angle = (i * 4 * Math.PI / 5) - Math.PI / 2;
-                            const px = this.x + Math.cos(angle) * this.size * 2;
-                            const py = this.y + Math.sin(angle) * this.size * 2;
-                            if (i === 0) ctx.moveTo(px, py);
-                            else ctx.lineTo(px, py);
-                        }
-                        ctx.closePath();
-                        ctx.fill();
-                    }
-                    ctx.restore();
-                }
-            }
-
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
-
-            // BUTTON RIPPLE EFFECT
-            function addRipple(e, element) {
-                const ripple = document.createElement('span');
-                ripple.className = 'ripple';
-                const rect = element.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.style.width = '20px';
-                ripple.style.height = '20px';
-                element.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 500);
-            }
-
-            document.querySelectorAll('.glass-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    addRipple(e, btn);
-                });
-            });
-
-            // PAGE TRANSITION
-            function showPage(pageId) {
-                const currentPage = document.querySelector('.page.active');
-                if (currentPage) {
-                    currentPage.style.animation = 'pageOut 0.5s ease forwards';
-                    setTimeout(() => {
-                        currentPage.classList.remove('active');
-                        currentPage.style.animation = '';
-                        const newPage = document.getElementById(pageId);
-                        newPage.classList.add('active');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }, 500);
-                } else {
-                    document.getElementById(pageId).classList.add('active');
-                }
-            }
-
-            // MUSIC TOGGLE
-            const musicToggle = document.getElementById('musicToggle');
-            let musicOn = false;
-            let audioContext = null;
-            musicToggle.addEventListener('click', () => {
-                if (!musicOn) {
-                    if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = audioContext.createOscillator();
-                    const gain = audioContext.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = 528;
-                    gain.gain.value = 0.04;
-                    osc.connect(gain).connect(audioContext.destination);
-                    osc.start();
-                    setTimeout(() => osc.stop(), 400);
-                    musicToggle.textContent = '🎵🔊';
-                    musicOn = true;
-                } else {
-                    musicToggle.textContent = '🎵';
-                    musicOn = false;
-                }
-            });
-
-            // NAME INPUT
-            document.getElementById('confirmNameBtn').addEventListener('click', (e) => {
-                addRipple(e, e.target);
-                const name = document.getElementById('nameInput').value.trim();
-                if (!name) {
-                    document.getElementById('nameInput').style.animation = 'shake 0.5s ease';
-                    setTimeout(() => document.getElementById('nameInput').style.animation = '', 500);
-                    return;
-                }
-                currentSisterName = name;
-                document.getElementById('welcomeName').textContent = name;
-                showPage('pageWelcome');
-            });
-
-            // Add shake animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-8px); }
-                    75% { transform: translateX(8px); }
-                }
-            `;
-            document.head.appendChild(style);
-
-            // WELCOME TO ARCADE
-            document.getElementById('continueToArcadeBtn').addEventListener('click', () => {
-                updateArcade();
-                showPage('pageArcade');
-            });
-
-            // RESTART
-            document.getElementById('restartBtn').addEventListener('click', () => {
-                gameState.game1Completed = false;
-                gameState.game2Completed = false;
-                gameState.game3Completed = false;
-                currentSisterName = '';
-                document.getElementById('nameInput').value = '';
-                updateArcade();
-                showPage('pageName');
-            });
-
-            // ARCADE UPDATE
-            function updateArcade() {
-                const g1 = document.getElementById('game1Card');
-                const g2 = document.getElementById('game2Card');
-                const g3 = document.getElementById('game3Card');
-                
-                g1.classList.remove('locked');
-                g1.classList.add('unlocked');
-                
-                if (gameState.game1Completed) {
-                    g2.classList.remove('locked');
-                    g2.classList.add('unlocked');
-                    document.querySelector('#game2Card .game-start-btn').textContent = 'PLAY';
-                } else {
-                    g2.classList.add('locked');
-                    g2.classList.remove('unlocked');
-                }
-                
-                if (gameState.game2Completed) {
-                    g3.classList.remove('locked');
-                    g3.classList.add('unlocked');
-                    document.querySelector('#game3Card .game-start-btn').textContent = 'PLAY';
-                } else {
-                    g3.classList.add('locked');
-                    g3.classList.remove('unlocked');
-                }
-                
-                if (gameState.game1Completed && gameState.game2Completed && gameState.game3Completed) {
-                    document.getElementById('finalSurpriseBtn').style.display = 'block';
-                } else {
-                    document.getElementById('finalSurpriseBtn').style.display = 'none';
-                }
-            }
-
-            // GAME START
-            document.querySelectorAll('.game-start-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    addRipple(e, btn);
-                    const game = e.target.dataset.game;
-                    if (game === '1') startGame1();
-                    else if (game === '2' && gameState.game1Completed) startGame2();
-                    else if (game === '3' && gameState.game2Completed) startGame3();
-                    else if (game === '2' || game === '3') {
-                        const card = e.target.closest('.game-card');
-                        card.style.animation = 'shake 0.5s ease';
-                        setTimeout(() => card.style.animation = '', 500);
-                    }
-                });
-            });
-
-            document.getElementById('finalSurpriseBtn').addEventListener('click', () => {
-                showPage('finalScene1');
-            });
-
-            // GAME 1: SPECIAL DELIVERY
-            function startGame1() {
-                showPage('pageGame1');
-                const area = document.getElementById('game1Area');
-                area.innerHTML = '';
-                
-                let score = 0;
-                let timeLeft = 30;
-                let combo = 1;
-                let tapCount = 0;
-                
-                document.getElementById('score1').textContent = '0';
-                document.getElementById('time1').textContent = '30';
-                document.getElementById('combo1').textContent = '1x';
-                
-                const timer = setInterval(() => {
-                    timeLeft--;
-                    document.getElementById('time1').textContent = timeLeft;
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        endGame1(score);
-                    }
-                }, 1000);
-                
-                const items = ['🎁', '⭐', '🌸', '✨', '🎁', '⭐', '🌸', '✨'];
-                
-                function spawnItem() {
-                    if (timeLeft <= 0) return;
-                    const item = document.createElement('div');
-                    item.style.position = 'absolute';
-                    item.style.fontSize = '2rem';
-                    item.style.cursor = 'pointer';
-                    item.style.left = Math.random() * 80 + 5 + '%';
-                    item.style.top = Math.random() * 80 + 5 + '%';
-                    item.style.transition = 'all 0.3s ease';
-                    
-                    const isGift = Math.random() > 0.5;
-                    if (isGift) {
-                        item.textContent = '🎁';
-                        item.dataset.points = Math.random() > 0.2 ? '10' : '25';
-                        item.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.8)';
-                    } else {
-                        item.textContent = items[Math.floor(Math.random() * items.length)];
-                        item.dataset.points = '-5';
-                    }
-                    
-                    item.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        addRipple(e, item);
-                        tapCount++;
-                        if (tapCount >= 6) combo = 3;
-                        else if (tapCount >= 3) combo = 2;
-                        
-                        const points = parseInt(item.dataset.points) * combo;
-                        score += points;
-                        document.getElementById('score1').textContent = score;
-                        document.getElementById('combo1').textContent = combo + 'x';
-                        item.remove();
-                    });
-                    
-                    area.appendChild(item);
-                    setTimeout(() => { if (item.parentNode) item.remove(); }, 2500);
-                    setTimeout(spawnItem, Math.random() * 600 + 300);
-                }
-                spawnItem();
-            }
-            
-            function endGame1(score) {
-                gameState.game1Completed = true;
-                if (score > gameState.bestScores.game1) {
-                    gameState.bestScores.game1 = score;
-                    saveScores();
-                }
-                setTimeout(() => {
-                    showPage('pageSurprise1Delay');
-                    document.getElementById('surprise1Message').textContent = 
-                        `${currentSisterName}, you've unlocked your first surprise. 💗`;
-                    setTimeout(() => {
-                        document.getElementById('delayContinueBtn').style.display = 'block';
-                    }, 6000);
-                }, 500);
-            }
-            
-            document.getElementById('delayContinueBtn').addEventListener('click', () => {
-                showPage('pageSurprise1');
-            });
-            
-            document.getElementById('surprise1ContinueBtn').addEventListener('click', () => {
-                updateArcade();
-                showPage('pageArcade');
-            });
-
-            // GAME 2: MEMORY VAULT
-            function startGame2() {
-                showPage('pageGame2');
-                const grid = document.getElementById('memoryGrid');
-                grid.innerHTML = '';
-                
-                const symbols = ['⭐', '🌸', '🎀', '🎁'];
-                const cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
-                
-                let moves = 0;
-                let pairsFound = 0;
-                let firstCard = null;
-                let lock = false;
-                
-                document.getElementById('moves2').textContent = '0';
-                document.getElementById('pairs2').textContent = '0/4';
-                
-                cards.forEach((symbol) => {
-                    const card = document.createElement('div');
-                    card.className = 'memory-card';
-                    card.dataset.symbol = symbol;
-                    card.textContent = '❓';
-                    
-                    card.addEventListener('click', (e) => {
-                        if (lock || card.classList.contains('flipped')) return;
-                        addRipple(e, card);
-                        card.classList.add('flipped');
-                        card.textContent = symbol;
-                        
-                        if (!firstCard) {
-                            firstCard = card;
-                        } else {
-                            moves++;
-                            document.getElementById('moves2').textContent = moves;
-                            
-                            if (firstCard.dataset.symbol === card.dataset.symbol) {
-                                pairsFound++;
-                                document.getElementById('pairs2').textContent = pairsFound + '/4';
-                                firstCard = null;
-                                
-                                if (pairsFound === 4) {
-                                    gameState.game2Completed = true;
-                                    saveScores();
-                                    setTimeout(() => {
-                                        showPage('pageSurprise2');
-                                        document.getElementById('surprise2Message').textContent = 
-                                            `${currentSisterName}, you're officially too good at this.`;
-                                    }, 800);
-                                }
-                            } else {
-                                lock = true;
-                                setTimeout(() => {
-                                    firstCard.classList.remove('flipped');
-                                    firstCard.textContent = '❓';
-                                    card.classList.remove('flipped');
-                                    card.textContent = '❓';
-                                    firstCard = null;
-                                    lock = false;
-                                }, 700);
-                            }
-                        }
-                    });
-                    grid.appendChild(card);
-                });
-            }
-            
-            document.getElementById('surprise2ContinueBtn').addEventListener('click', () => {
-                updateArcade();
-                showPage('pageArcade');
-            });
-
-            // GAME 3: MAGIC REACTION
-            function startGame3() {
-                showPage('pageGame3');
-                const area = document.getElementById('game3Area');
-                area.innerHTML = '';
-                
-                let score = 0;
-                let timeLeft = 20;
-                let moveTimeout;
-                
-                document.getElementById('score3').textContent = '0';
-                document.getElementById('time3').textContent = '20';
-                
-                const timer = setInterval(() => {
-                    timeLeft--;
-                    document.getElementById('time3').textContent = timeLeft;
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        clearTimeout(moveTimeout);
-                        endGame3(score);
-                    }
-                }, 1000);
-                
-                function createOrb() {
-                    const orb = document.createElement('div');
-                    orb.className = 'orb';
-                    const type = Math.random();
-                    if (type < 0.1) {
-                        orb.classList.add('special');
-                        orb.textContent = '💎';
-                        orb.dataset.points = '10';
-                    } else if (type < 0.3) {
-                        orb.classList.add('golden');
-                        orb.textContent = '⭐';
-                        orb.dataset.points = '5';
-                    } else {
-                        orb.style.background = 'radial-gradient(circle, #ffffff, #e0d0ff)';
-                        orb.textContent = '✨';
-                        orb.dataset.points = '1';
-                    }
-                    
-                    orb.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        addRipple(e, orb);
-                        score += parseInt(orb.dataset.points);
-                        document.getElementById('score3').textContent = score;
-                        orb.remove();
-                        clearTimeout(moveTimeout);
-                        moveOrb();
-                    });
-                    
-                    return orb;
-                }
-                
-                function moveOrb() {
-                    const orb = createOrb();
-                    area.appendChild(orb);
-                    
-                    const maxX = area.clientWidth - 60;
-                    const maxY = area.clientHeight - 60;
-                    const x = Math.random() * maxX;
-                    const y = Math.random() * maxY;
-                    
-                    orb.style.transition = 'all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
-                    orb.style.left = x + 'px';
-                    orb.style.top = y + 'px';
-                    
-                    moveTimeout = setTimeout(() => {
-                        if (orb.parentNode) {
-                            orb.remove();
-                            moveOrb();
-                        }
-                    }, 1500);
-                }
-                
-                moveOrb();
-            }
-            
-            function endGame3(score) {
-                gameState.game3Completed = true;
-                if (score > gameState.bestScores.game3) {
-                    gameState.bestScores.game3 = score;
-                    saveScores();
-                }
-                setTimeout(() => {
-                    showPage('pageSurprise3');
-                }, 500);
-            }
-            
-            document.getElementById('surprise3ContinueBtn').addEventListener('click', () => {
-                showPage('finalScene1');
-            });
-
-            // FINAL SCENES
-            document.getElementById('finalScene1Btn').addEventListener('click', () => {
-                document.getElementById('scene2Name').textContent = currentSisterName;
-                showPage('finalScene2');
-            });
-
-            document.getElementById('finalScene2Btn').addEventListener('click', () => {
-                document.getElementById('scene3Name').textContent = currentSisterName;
-                showPage('finalScene3');
-            });
-
-            document.getElementById('finalScene3Btn').addEventListener('click', () => {
-                const shayariLines = [
-                    'Rishta humara thoda crazy hai,',
-                    'kabhi hasi, kabhi nok-jhok bhi hoti hai...',
-                    '',
-                    'Par in sab ke beech ek baat hamesha rahegi.',
-                    '',
-                    'Tu meri behen hai,',
-                    'aur ye rishta mere liye hamesha special rahega. 💗',
-                    '',
-                    'Happy Raksha Bandhan! 🪢'
-                ];
-                
-                const container = document.getElementById('shayariContainer');
-                container.innerHTML = '';
-                
-                shayariLines.forEach((line, index) => {
-                    const p = document.createElement('p');
-                    p.className = 'shayari-line';
-                    p.style.animationDelay = index + 's';
-                    p.textContent = line;
-                    if (line === '') p.style.marginBottom = '8px';
-                    container.appendChild(p);
-                });
-                
-                showPage('finalScene4');
-            });
-
-            document.getElementById('finalScene4Btn').addEventListener('click', () => {
-                showPage('finalScene5');
-            });
-
-            document.getElementById('finalScene5Btn').addEventListener('click', (e) => {
-                addRipple(e, e.target);
-                
-                for (let i = 0; i < 60; i++) {
-                    const p = new Particle();
-                    p.x = canvas.width / 2;
-                    p.y = canvas.height / 2;
-                    p.speedX = (Math.random() - 0.5) * 4;
-                    p.speedY = (Math.random() - 0.5) * 4;
-                    p.opacity = 1;
-                    p.size = Math.random() * 3 + 1;
-                    particles.push(p);
-                    setTimeout(() => particles.pop(), 2000);
-                }
-                
-                document.getElementById('finalReveal').innerHTML = `
-                    <h3 class="gradient-text" style="font-size: 1.8rem;">${currentSisterName} ✨</h3>
-                    <p style="font-family: var(--font-clean); color: var(--text-secondary);">You just made it to the end.</p>
-                    <p style="font-family: var(--font-clean); color: var(--text-primary); font-weight: bold;">Hope this little surprise made you smile. 💗</p>
-                `;
-                
-                setTimeout(() => {
-                    document.getElementById('scene6Name').textContent = currentSisterName;
-                    showPage('finalScene6');
-                }, 2000);
-            });
-
-            document.getElementById('finalScene6Btn').addEventListener('click', () => {
-                gameState.game1Completed = false;
-                gameState.game2Completed = false;
-                gameState.game3Completed = false;
-                currentSisterName = '';
-                document.getElementById('nameInput').value = '';
-                updateArcade();
-                showPage('pageName');
-            });
-
-            // INITIAL LOAD
-            updateArcade();
-        })();
-    </script>
+  <script src="script.js"></script>
 </body>
-    </html>
+              </html>
