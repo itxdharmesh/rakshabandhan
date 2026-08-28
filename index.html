@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>🌸 Sis Arcade - Raksha Bandhan 💗</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --pink-light: #ffd6e7;
@@ -13,12 +13,16 @@
             --white: #ffffff;
             --pink-medium: #ffc2dc;
             --lavender-deep: #d9c2ff;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            --glass-highlight: rgba(255, 255, 255, 0.3);
-            --text-primary: #2d1b3d;
-            --text-secondary: #5a3d6e;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --glass-highlight: rgba(255, 255, 255, 0.4);
+            --text-primary: #3d2440;
+            --text-secondary: #6b4d7a;
+            --font-display: 'Pacifico', cursive;
+            --font-body: 'Poppins', sans-serif;
+            --font-special: 'Dancing Script', cursive;
+            --font-clean: 'Quicksand', sans-serif;
         }
 
         * {
@@ -28,7 +32,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-body);
             background: #f5e6f0;
             min-height: 100vh;
             display: flex;
@@ -41,7 +45,7 @@
             padding: 0;
         }
 
-        /* Layered Background */
+        /* ANIMATED BACKGROUND - KEPT AND ENHANCED */
         .bg-layer {
             position: fixed;
             inset: 0;
@@ -50,9 +54,16 @@
         }
 
         .bg-gradient {
-            background: linear-gradient(135deg, #fce8f0 0%, #f0e6f5 25%, #e8f0f5 50%, #f5e6f0 75%, #fce8f0 100%);
+            background: linear-gradient(135deg, 
+                #fce8f0 0%, 
+                #f8e6f5 15%, 
+                #f0e6f8 30%, 
+                #e8f0f5 45%, 
+                #f5e6f0 60%, 
+                #fce8f0 75%, 
+                #f8e6f5 100%);
             background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
+            animation: gradientShift 25s ease infinite;
         }
 
         @keyframes gradientShift {
@@ -62,29 +73,50 @@
         }
 
         .bg-blobs {
-            filter: blur(80px);
-            opacity: 0.3;
+            filter: blur(90px);
+            opacity: 0.35;
         }
 
         .blob {
             position: absolute;
             border-radius: 50%;
-            animation: blobFloat 25s infinite ease-in-out;
+            animation: blobFloat 30s infinite ease-in-out;
         }
 
         @keyframes blobFloat {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(40px, -30px) scale(1.1); }
-            50% { transform: translate(-30px, 40px) scale(0.9); }
-            75% { transform: translate(20px, 20px) scale(1.05); }
+            25% { transform: translate(50px, -40px) scale(1.15); }
+            50% { transform: translate(-40px, 50px) scale(0.85); }
+            75% { transform: translate(30px, 30px) scale(1.08); }
         }
 
-        .blob-1 { width: 400px; height: 400px; background: #ffd6e7; top: -100px; left: -80px; }
-        .blob-2 { width: 350px; height: 350px; background: #d9c2ff; bottom: -80px; right: -60px; animation-delay: -8s; }
-        .blob-3 { width: 300px; height: 300px; background: #ffffff; top: 40%; left: 50%; animation-delay: -15s; }
+        .blob-1 { width: 500px; height: 500px; background: #ffd6e7; top: -150px; left: -100px; }
+        .blob-2 { width: 450px; height: 450px; background: #d9c2ff; bottom: -100px; right: -80px; animation-delay: -10s; }
+        .blob-3 { width: 380px; height: 380px; background: #ffffff; top: 40%; left: 45%; animation-delay: -20s; }
+        .blob-4 { width: 320px; height: 320px; background: #f8c8ff; top: -50px; right: 15%; animation-delay: -15s; }
+
+        .bg-light-spots {
+            filter: blur(120px);
+            opacity: 0.25;
+        }
+
+        .light-spot {
+            position: absolute;
+            border-radius: 50%;
+            background: #ffffff;
+            animation: spotGlow 15s infinite ease-in-out;
+        }
+
+        @keyframes spotGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .spot-1 { width: 200px; height: 200px; top: 10%; left: 20%; }
+        .spot-2 { width: 250px; height: 250px; bottom: 15%; right: 15%; animation-delay: -5s; }
 
         .bg-vignette {
-            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.08) 100%);
+            background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.06) 100%);
         }
 
         #particleCanvas {
@@ -129,12 +161,15 @@
 
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            padding: 28px 22px;
-            box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+            padding: 30px 24px;
+            box-shadow: 
+                var(--glass-shadow),
+                inset 0 1px 0 var(--glass-highlight),
+                0 0 40px rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -146,7 +181,10 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
+            background: linear-gradient(45deg, 
+                transparent 40%, 
+                rgba(255, 255, 255, 0.08) 50%, 
+                transparent 60%);
             animation: glassShine 8s infinite;
             pointer-events: none;
         }
@@ -157,17 +195,21 @@
         }
 
         .glass-btn {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.35);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 50px;
             padding: 14px 28px;
+            font-family: var(--font-clean);
             font-weight: 600;
             font-size: 1rem;
             color: var(--text-primary);
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.5);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                0 0 20px rgba(255, 255, 255, 0.4);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -181,19 +223,24 @@
 
         .glass-btn:hover {
             transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.6);
-            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7),
+                0 0 35px rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.45);
         }
 
         .glass-btn:active {
             transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
         }
 
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             transform: scale(0);
             animation: rippleExpand 0.5s ease-out;
             pointer-events: none;
@@ -204,18 +251,33 @@
         }
 
         .gradient-text {
-            background: linear-gradient(45deg, #ff69b4, #9370db, #ff1493, #dda0dd);
+            font-family: var(--font-display);
+            background: linear-gradient(45deg, #ff69b4, #9370db, #ff1493, #dda0dd, #ff69b4);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: gradientShift 4s ease infinite;
+            animation: gradientShift 5s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.4));
         }
 
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        .name-display {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff69b4, #ffffff, #9370db, #ff1493);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 6s ease infinite;
+            filter: drop-shadow(0 0 25px rgba(255, 105, 180, 0.5));
+            margin: 10px 0;
         }
 
         .animated-text {
@@ -235,12 +297,13 @@
             border: 2px solid rgba(255, 255, 255, 0.6);
             border-radius: 50px;
             padding: 14px 22px;
+            font-family: var(--font-clean);
             font-size: 1.1rem;
             width: 85%;
             text-align: center;
             color: var(--text-primary);
             outline: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             margin: 18px auto;
             display: block;
             transition: all 0.3s ease;
@@ -253,7 +316,7 @@
         }
 
         input::placeholder {
-            color: rgba(90, 61, 110, 0.5);
+            color: rgba(107, 77, 122, 0.5);
         }
 
         .game-container {
@@ -266,7 +329,7 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             margin: 15px 0;
             touch-action: manipulation;
         }
@@ -275,6 +338,7 @@
             .game-container { height: 280px; }
             .glass-btn { padding: 12px 22px; font-size: 0.9rem; min-width: 120px; }
             .glass-card { padding: 22px 16px; }
+            .name-display { font-size: 2rem; }
         }
 
         .memory-grid {
@@ -322,6 +386,7 @@
             font-size: 1.5rem;
             color: var(--text-primary);
             user-select: none;
+            background: radial-gradient(circle, #ffffff, #e0d0ff);
         }
 
         .orb.golden {
@@ -341,10 +406,10 @@
         }
 
         .game-card {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             border-radius: 18px;
             padding: 16px;
             margin: 12px 0;
@@ -378,6 +443,21 @@
             100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
         }
 
+        .game-icon-container {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
         .made-by {
             position: fixed;
             bottom: 10px;
@@ -390,9 +470,10 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 30px;
             padding: 6px 16px;
+            font-family: var(--font-clean);
             font-size: 0.75rem;
             color: var(--text-secondary);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
             letter-spacing: 0.3px;
             white-space: nowrap;
         }
@@ -411,7 +492,7 @@
             height: 45px;
             cursor: pointer;
             font-size: 1.3rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             color: var(--text-primary);
             transition: all 0.3s ease;
         }
@@ -423,6 +504,9 @@
         .shayari-line {
             opacity: 0;
             animation: textReveal 0.8s ease forwards;
+            font-family: var(--font-clean);
+            font-size: 1rem;
+            color: var(--text-primary);
         }
 
         .scene-container {
@@ -434,6 +518,24 @@
             text-align: center;
             padding: 20px 10px;
         }
+
+        .rakhi-svg-container {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .rakhi-svg {
+            width: 100%;
+            height: 100%;
+            animation: rakhiFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes rakhiFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
     </style>
 </head>
 <body>
@@ -442,6 +544,11 @@
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+    <div class="bg-layer bg-light-spots">
+        <div class="light-spot spot-1"></div>
+        <div class="light-spot spot-2"></div>
     </div>
     <div class="bg-layer bg-vignette"></div>
     <canvas id="particleCanvas"></canvas>
@@ -453,9 +560,9 @@
         <!-- PAGE 1: NAME INPUT -->
         <div class="page active" id="pageName">
             <div class="glass-card">
-                <h1 class="animated-text" style="font-size: 1.8rem; margin-bottom: 10px; color: var(--text-primary);">Heyyy! 💗</h1>
-                <p class="animated-text" style="font-size: 1.1rem; margin-bottom: 15px; color: var(--text-secondary); animation-delay: 0.3s;">Before we begin this little surprise...</p>
-                <p class="animated-text" style="font-size: 1rem; color: var(--text-secondary); animation-delay: 0.5s;">What's your name?</p>
+                <h1 class="animated-text" style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 10px; color: var(--text-primary);">Heyyy! 💗</h1>
+                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1.1rem; margin-bottom: 15px; color: var(--text-secondary); animation-delay: 0.3s;">Before we begin this little surprise...</p>
+                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1rem; color: var(--text-secondary); animation-delay: 0.5s;">What's your name?</p>
                 <input type="text" id="nameInput" placeholder="Enter your name ✨" autocomplete="off" class="animated-text" style="animation-delay: 0.7s;">
                 <button class="glass-btn animated-text" id="confirmNameBtn" style="animation-delay: 0.9s;">Confirm ✨</button>
             </div>
@@ -464,10 +571,10 @@
         <!-- PAGE 2: WELCOME -->
         <div class="page" id="pageWelcome">
             <div class="glass-card">
-                <p class="animated-text" style="font-size: 1rem; color: var(--text-secondary);">Okay...</p>
+                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1rem; color: var(--text-secondary);">Okay...</p>
                 <h1 class="animated-text gradient-text" style="font-size: 2rem; margin: 15px 0; animation-delay: 0.5s;">Happy Raksha Bandhan</h1>
-                <h2 class="animated-text" id="welcomeName" style="font-size: 2.5rem; margin: 15px 0; color: var(--text-primary); animation-delay: 1s;"></h2>
-                <p class="animated-text" style="font-size: 1rem; margin-bottom: 25px; color: var(--text-secondary); animation-delay: 1.5s;">To the most annoying, funniest and most special sister ever. 😂</p>
+                <h2 class="animated-text name-display" id="welcomeName" style="animation-delay: 1s;"></h2>
+                <p class="animated-text" style="font-family: var(--font-clean); font-size: 1rem; margin-bottom: 25px; color: var(--text-secondary); animation-delay: 1.5s;">To the most annoying, funniest and most special sister ever. 😂</p>
                 <button class="glass-btn animated-text" id="continueToArcadeBtn" style="animation-delay: 2s;">Show me what you made 👀</button>
             </div>
         </div>
@@ -475,27 +582,27 @@
         <!-- PAGE 3: ARCADE HUB -->
         <div class="page" id="pageArcade">
             <div class="glass-card" style="padding: 20px 16px;">
-                <h2 class="animated-text" style="font-size: 1.6rem; margin-bottom: 5px; color: var(--text-primary);">SIS ARCADE 🎮</h2>
-                <p class="animated-text" style="font-size: 0.9rem; margin-bottom: 18px; color: var(--text-secondary); animation-delay: 0.3s;">3 games. 3 little surprises. Let's see how good you are 👀</p>
+                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 5px; color: var(--text-primary);">SIS ARCADE 🎮</h2>
+                <p class="animated-text" style="font-family: var(--font-clean); font-size: 0.9rem; margin-bottom: 18px; color: var(--text-secondary); animation-delay: 0.3s;">3 games. 3 little surprises. Let's see how good you are 👀</p>
                 
                 <div class="game-card" id="game1Card">
-                    <div style="font-size: 2rem; margin-bottom: 5px;">📦</div>
-                    <h3 style="color: var(--text-primary); font-size: 1.1rem;">Special Delivery</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Catch the gifts, avoid the wrong items!</p>
+                    <div class="game-icon-container">📦</div>
+                    <h3 style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.1rem; font-weight: 700;">Special Delivery</h3>
+                    <p style="font-family: var(--font-clean); font-size: 0.8rem; color: var(--text-secondary);">Catch the gifts, avoid the wrong items!</p>
                     <button class="glass-btn game-start-btn" data-game="1" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">PLAY</button>
                 </div>
 
                 <div class="game-card locked" id="game2Card">
-                    <div style="font-size: 2rem; margin-bottom: 5px;">🧠</div>
-                    <h3 style="color: var(--text-primary); font-size: 1.1rem;">Memory Vault</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Match the pairs to unlock the vault!</p>
+                    <div class="game-icon-container">🧠</div>
+                    <h3 style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.1rem; font-weight: 700;">Memory Vault</h3>
+                    <p style="font-family: var(--font-clean); font-size: 0.8rem; color: var(--text-secondary);">Match the pairs to unlock the vault!</p>
                     <button class="glass-btn game-start-btn" data-game="2" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">🔒 LOCKED</button>
                 </div>
 
                 <div class="game-card locked" id="game3Card">
-                    <div style="font-size: 2rem; margin-bottom: 5px;">✨</div>
-                    <h3 style="color: var(--text-primary); font-size: 1.1rem;">Magic Reaction</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Tap the glowing orbs quickly!</p>
+                    <div class="game-icon-container">✨</div>
+                    <h3 style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.1rem; font-weight: 700;">Magic Reaction</h3>
+                    <p style="font-family: var(--font-clean); font-size: 0.8rem; color: var(--text-secondary);">Tap the glowing orbs quickly!</p>
                     <button class="glass-btn game-start-btn" data-game="3" style="margin-top: 10px; font-size: 0.85rem; padding: 10px 20px;">🔒 LOCKED</button>
                 </div>
 
@@ -507,8 +614,8 @@
         <!-- PAGE 4: GAME 1 -->
         <div class="page" id="pageGame1">
             <div class="glass-card">
-                <h2 class="animated-text" style="font-size: 1.3rem; color: var(--text-primary);">Special Delivery 📦</h2>
-                <p style="font-size: 0.85rem; color: var(--text-secondary);">Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
+                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-primary);">Special Delivery 📦</h2>
+                <p style="font-family: var(--font-clean); font-size: 0.85rem; color: var(--text-secondary);">Time: <span id="time1">30</span>s | Score: <span id="score1">0</span> | Combo: <span id="combo1">1x</span></p>
                 <div class="game-container" id="game1Area"></div>
             </div>
         </div>
@@ -516,10 +623,10 @@
         <!-- PAGE 5: SURPRISE 1 DELAY -->
         <div class="page" id="pageSurprise1Delay">
             <div class="glass-card">
-                <h2 class="animated-text" style="color: var(--text-primary);">Umm... 😭</h2>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">Thoda late ho gaya gift...</p>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 3s;">Delivery wale ko laga tha ye normal gift hai,<br>usse kya pata tha ki main poori website pack karke bhej raha hoon. 😂</p>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 5s;">Anyway... finally aa gaya. ✨</p>
+                <h2 class="animated-text" style="font-family: var(--font-display); color: var(--text-primary);">Umm... 😭</h2>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1.5s;">Thoda late ho gaya gift...</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 3s;">Delivery wale ko laga tha ye normal gift hai,<br>usse kya pata tha ki main poori website pack karke bhej raha hoon. 😂</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 5s;">Anyway... finally aa gaya. ✨</p>
                 <button class="glass-btn" id="delayContinueBtn" style="display: none; margin-top: 20px;">Continue →</button>
             </div>
         </div>
@@ -529,7 +636,7 @@
             <div class="glass-card">
                 <div class="animated-text" style="font-size: 3rem; margin-bottom: 10px;">📦</div>
                 <h2 class="gradient-text" style="font-size: 1.5rem;">SECRET #1</h2>
-                <p id="surprise1Message" style="font-size: 1.1rem; margin: 15px 0; color: var(--text-primary);"></p>
+                <p id="surprise1Message" style="font-family: var(--font-clean); font-size: 1.1rem; margin: 15px 0; color: var(--text-primary);"></p>
                 <button class="glass-btn" id="surprise1ContinueBtn">Continue →</button>
             </div>
         </div>
@@ -537,8 +644,8 @@
         <!-- PAGE 7: GAME 2 -->
         <div class="page" id="pageGame2">
             <div class="glass-card">
-                <h2 class="animated-text" style="font-size: 1.3rem; color: var(--text-primary);">Memory Vault 🧠</h2>
-                <p style="font-size: 0.85rem; color: var(--text-secondary);">Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span></p>
+                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-primary);">Memory Vault 🧠</h2>
+                <p style="font-family: var(--font-clean); font-size: 0.85rem; color: var(--text-secondary);">Moves: <span id="moves2">0</span> | Pairs: <span id="pairs2">0/4</span></p>
                 <div class="memory-grid" id="memoryGrid"></div>
             </div>
         </div>
@@ -546,12 +653,13 @@
         <!-- PAGE 8: SURPRISE 2 -->
         <div class="page" id="pageSurprise2">
             <div class="glass-card">
-                <p class="animated-text" style="color: var(--text-secondary);">Lagta hai apni behno ko gift dete hain...</p>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">tere bhai ne toh puri web hi dedicate kar di. 😂</p>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 3s;">Still... ek aur surprise baaki hai.</p>
-                <div class="animated-text" style="font-size: 2.5rem; margin: 15px 0; animation-delay: 4.5s;">🎁</div>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Log toh apni bahen ko gifts dete hain,</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); animation-delay: 1.5s;">mere bhai ne toh puri web dedicate kar di</p>
+                <p class="animated-text gradient-text" style="font-size: 1.2rem; animation-delay: 3s;">apni bahen ke liye. 💗</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 4.5s;">Ab ek aur surprise baaki hai... 👀</p>
+                <div class="animated-text" style="font-size: 2.5rem; margin: 15px 0; animation-delay: 6s;">🎁</div>
                 <h2 class="gradient-text" style="font-size: 1.3rem;">SECRET #2</h2>
-                <p id="surprise2Message" style="font-size: 1rem; margin: 10px 0; color: var(--text-primary);"></p>
+                <p id="surprise2Message" style="font-family: var(--font-clean); font-size: 1rem; margin: 10px 0; color: var(--text-primary);"></p>
                 <button class="glass-btn" id="surprise2ContinueBtn">Back to Arcade</button>
             </div>
         </div>
@@ -559,8 +667,8 @@
         <!-- PAGE 9: GAME 3 -->
         <div class="page" id="pageGame3">
             <div class="glass-card">
-                <h2 class="animated-text" style="font-size: 1.3rem; color: var(--text-primary);">Magic Reaction ✨</h2>
-                <p style="font-size: 0.85rem; color: var(--text-secondary);">Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
+                <h2 class="animated-text" style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-primary);">Magic Reaction ✨</h2>
+                <p style="font-family: var(--font-clean); font-size: 0.85rem; color: var(--text-secondary);">Score: <span id="score3">0</span> | Time: <span id="time3">20</span>s</p>
                 <div class="game-container" id="game3Area" style="position: relative; display: flex; align-items: center; justify-content: center;"></div>
             </div>
         </div>
@@ -568,10 +676,10 @@
         <!-- PAGE 10: SURPRISE 3 -->
         <div class="page" id="pageSurprise3">
             <div class="glass-card">
-                <p class="animated-text" style="color: var(--text-secondary);">Okay...</p>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1s;">You actually completed all three. 👀</p>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 2s;">So...</p>
-                <p class="animated-text" style="color: var(--text-primary); font-weight: bold; animation-delay: 3s;">Ready for the final surprise?</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Okay...</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1s;">You actually completed all three. 👀</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 2s;">So...</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); font-weight: bold; animation-delay: 3s;">Ready for the final surprise?</p>
                 <button class="glass-btn" id="surprise3ContinueBtn" style="margin-top: 20px;">OPEN IT ✨</button>
             </div>
         </div>
@@ -579,8 +687,8 @@
         <!-- FINAL SCENES -->
         <div class="page" id="finalScene1">
             <div class="scene-container glass-card">
-                <p class="animated-text" style="color: var(--text-secondary);">Wait...</p>
-                <p class="animated-text" style="color: var(--text-primary); font-size: 1.2rem; animation-delay: 1s;">I made something just for you.</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Wait...</p>
+                <p class="animated-text" style="font-family: var(--font-display); color: var(--text-primary); font-size: 1.2rem; animation-delay: 1s;">I made something just for you.</p>
                 <button class="glass-btn" id="finalScene1Btn" style="margin-top: 20px;">Continue</button>
             </div>
         </div>
@@ -588,31 +696,44 @@
         <div class="page" id="finalScene2">
             <div class="scene-container glass-card">
                 <div class="animated-text" style="font-size: 3rem; margin-bottom: 15px;">💌</div>
-                <p class="animated-text" style="color: var(--text-primary); font-size: 1.2rem;">FOR <span id="scene2Name" class="gradient-text"></span> 💗</p>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">This little website was made to make you smile.</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); font-size: 1.2rem;">FOR <span id="scene2Name" class="gradient-text"></span> 💗</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1.5s;">This little website was made to make you smile.</p>
                 <button class="glass-btn" id="finalScene2Btn" style="margin-top: 20px;">Next ✨</button>
             </div>
         </div>
 
         <div class="page" id="finalScene3">
             <div class="scene-container glass-card">
-                <div class="animated-text" style="font-size: 3rem; margin-bottom: 15px;">🪢</div>
+                <div class="rakhi-svg-container">
+                    <svg class="rakhi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="30" fill="#ff69b4" stroke="#ffd700" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="20" fill="#ff1493"/>
+                        <circle cx="50" cy="50" r="10" fill="#ffd700"/>
+                        <circle cx="50" cy="50" r="5" fill="#ffffff"/>
+                        <circle cx="20" cy="50" r="4" fill="#ffd700"/>
+                        <circle cx="80" cy="50" r="4" fill="#ffd700"/>
+                        <circle cx="50" cy="20" r="4" fill="#ffd700"/>
+                        <circle cx="50" cy="80" r="4" fill="#ffd700"/>
+                        <path d="M20 50 Q10 50 0 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                        <path d="M80 50 Q90 50 100 60" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
                 <h2 class="animated-text gradient-text" style="font-size: 1.5rem;">Happy Raksha Bandhan, <span id="scene3Name"></span></h2>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1.5s;">Because some bonds deserve their own little celebration.</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1.5s;">Because some bonds deserve their own little celebration.</p>
                 <button class="glass-btn" id="finalScene3Btn" style="margin-top: 20px;">There's more →</button>
             </div>
         </div>
 
         <div class="page" id="finalScene4">
             <div class="scene-container glass-card">
-                <div id="shayariContainer" style="margin: 15px 0; line-height: 1.8; color: var(--text-primary); font-size: 0.95rem;"></div>
+                <div id="shayariContainer" style="margin: 15px 0; line-height: 1.8; color: var(--text-primary); font-family: var(--font-clean); font-size: 0.95rem;"></div>
                 <button class="glass-btn" id="finalScene4Btn" style="margin-top: 20px;">One Last Thing 👀</button>
             </div>
         </div>
 
         <div class="page" id="finalScene5">
             <div class="scene-container glass-card">
-                <p class="animated-text" style="color: var(--text-secondary);">Okay... last one.</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary);">Okay... last one.</p>
                 <button class="glass-btn" id="finalScene5Btn" style="margin-top: 20px;">OPEN 💗</button>
                 <div id="finalReveal" style="margin-top: 20px;"></div>
             </div>
@@ -621,9 +742,9 @@
         <div class="page" id="finalScene6">
             <div class="scene-container glass-card">
                 <h2 class="animated-text gradient-text" style="font-size: 1.5rem;">Happy Raksha Bandhan 💗</h2>
-                <h3 class="animated-text" id="scene6Name" style="font-size: 2rem; margin: 15px 0; color: var(--text-primary); animation-delay: 0.5s;"></h3>
-                <p class="animated-text" style="color: var(--text-secondary); animation-delay: 1s;">Stay happy.<br>Keep smiling.<br>And keep annoying your brother. 😂</p>
-                <p class="animated-text" style="color: var(--text-primary); font-weight: bold; margin-top: 20px; animation-delay: 2s;">Made with ❤️ by Dhannu</p>
+                <h3 class="animated-text name-display" id="scene6Name" style="animation-delay: 0.5s;"></h3>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-secondary); animation-delay: 1s;">Stay happy.<br>Keep smiling.<br>And keep annoying your brother. 😂</p>
+                <p class="animated-text" style="font-family: var(--font-clean); color: var(--text-primary); font-weight: bold; margin-top: 20px; animation-delay: 2s;">Made with ❤️ by Dhannu</p>
                 <button class="glass-btn" id="finalScene6Btn" style="margin-top: 20px; animation-delay: 2.5s;">Restart 🔄</button>
             </div>
         </div>
@@ -631,7 +752,6 @@
 
     <script>
         (function() {
-            // SESSION STATE (no permanent sister name)
             let currentSisterName = '';
             let gameState = {
                 game1Completed: false,
@@ -648,7 +768,7 @@
             const canvas = document.getElementById('particleCanvas');
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const particleCount = 30;
+            const particleCount = 35;
 
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
@@ -1100,7 +1220,6 @@
                     orb.style.left = x + 'px';
                     orb.style.top = y + 'px';
                     
-                    // Remove old orb after 1.5 seconds if not clicked
                     moveTimeout = setTimeout(() => {
                         if (orb.parentNode) {
                             orb.remove();
@@ -1173,7 +1292,6 @@
             document.getElementById('finalScene5Btn').addEventListener('click', (e) => {
                 addRipple(e, e.target);
                 
-                // Particle explosion
                 for (let i = 0; i < 60; i++) {
                     const p = new Particle();
                     p.x = canvas.width / 2;
@@ -1188,8 +1306,8 @@
                 
                 document.getElementById('finalReveal').innerHTML = `
                     <h3 class="gradient-text" style="font-size: 1.8rem;">${currentSisterName} ✨</h3>
-                    <p style="color: var(--text-secondary);">You just made it to the end.</p>
-                    <p style="color: var(--text-primary); font-weight: bold;">Hope this little surprise made you smile. 💗</p>
+                    <p style="font-family: var(--font-clean); color: var(--text-secondary);">You just made it to the end.</p>
+                    <p style="font-family: var(--font-clean); color: var(--text-primary); font-weight: bold;">Hope this little surprise made you smile. 💗</p>
                 `;
                 
                 setTimeout(() => {
@@ -1213,4 +1331,4 @@
         })();
     </script>
 </body>
-            </html>
+    </html>
